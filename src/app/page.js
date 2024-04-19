@@ -1,9 +1,30 @@
-'use client'
+'use client';
 
-import { useEffect } from "react"
-import { useLiff } from "./_components/liff-provider"
+import { useState, useEffect } from 'react';
+import { useLiff } from './components/liff-provider';
 
-export default function HomePage() {
+export default function Home() {
   const { liffObject, liffError } = useLiff();
-  return <div>Home Page</div>
+  const [profile, setProfile] = useState(null);
+
+  async function getProfile() {
+    const profile = await liffObject.getProfile();
+    setProfile(profile);
+  }
+
+  useEffect(() => {
+    if (liffObject) getProfile();
+  }, [liffObject]);
+
+  if (!liffObject || !profile) return <div>loading</div>;
+  return (
+    <main className="flex items-center gap-2">
+      <span>Hi, {profile.displayName}</span>
+      <img
+        className="inline-block h-8 w-8 rounded-full"
+        src={profile.pictureUrl}
+        alt="pictureUrl"
+      />
+    </main>
+  );
 }
