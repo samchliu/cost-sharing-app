@@ -16,7 +16,7 @@ export default function Home() {
     if (liffObject) getProfile();
   }, [liffObject]);
 
-  if (!liffObject || !profile) return <div>loading</div>;
+  if (!liffObject || !profile) return <div>loading...Ruby Test</div>;
   return (
     <main className="flex items-center gap-2">
       <span>Hi, {profile.displayName}</span>
