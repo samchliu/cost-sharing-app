@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
-import LiffProvider from './components/liff-provider';
+import LiffProvider from './_components/liff-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -4,13 +4,20 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import liff from '@line/liff';
 
 const LiffContext = createContext();
+const LIFF_STATUS = {
+  SIGNIN: 'signin',
+  INITED: 'inited',
+};
 
 export default function LiffProvider({ children }) {
   const [liffObject, setLiffObject] = useState(null);
   const [liffError, setLiffError] = useState(null);
+  const [liffStatus, setLiffStatus] = useState(LIFF_STATUS.SIGNIN);
 
   // Execute liff.init() when the app is initialized
   useEffect(() => {
+    console.log(liffStatus)
+    if (liffStatus === LIFF_STATUS.INITED) return;
     console.log('start liff.init()...');
     liff
       .init({
@@ -19,10 +26,11 @@ export default function LiffProvider({ children }) {
       })
       .then(async () => {
         console.log('liff.init() done');
-        if (!liff.isLoggedIn()) {
-          liff.login();
-        }
+        // if (!liff.isLoggedIn()) {
+        //   liff.login();
+        // }
         setLiffObject(liff);
+        setLiffStatus(LIFF_STATUS.INITED);
       })
       .catch((error) => {
         console.log(`liff.init() failed: ${error}`);
@@ -35,11 +43,7 @@ export default function LiffProvider({ children }) {
       });
   }, []);
 
-  return (
-    <LiffContext.Provider value={{ liffObject, liffError }}>
-      {children}
-    </LiffContext.Provider>
-  );
+  return <LiffContext.Provider value={{ liffObject, liffError }}>{children}</LiffContext.Provider>;
 }
 
 export function useLiff() {
