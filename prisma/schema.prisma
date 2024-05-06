@@ -9,45 +9,61 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  name         String
-  email        String         @unique
-  image        String
-  createdAt    DateTime       @default(now())
-  Group        Group[]
-  GroupMembers GroupMembers[]
+  id            String         @id @default(uuid())
+  name          String
+  groups        Group[]
+  groupUsers    GroupUser[]
+  expends       Expend[]
+  advancePayers AdvancePayer[]
+  payers        Payer[]
 }
 
 model Group {
-  id           Int            @id @default(autoincrement())
-  name         String
-  onwer        User           @relation(fields: [onwerId], references: [id])
-  onwerId      Int
-  GroupMembers GroupMembers[]
-  Expend       Expend[]
+  id         String      @id @default(uuid())
+  name       String
+  createBy   User        @relation(fields: [createById], references: [id])
+  createById String
+  groupUsers GroupUser[]
+  expends    Expend[]
 }
 
-model GroupMembers {
-  id           Int      @id @default(autoincrement())
-  group        Group    @relation(fields: [groupId], references: [id])
-  groupId      Int
-  user         User     @relation(fields: [userId], references: [id])
-  userId       Int
-  nickName     String
-  advancePayer Expend[] @relation("AdvancePayer")
-  payer        Expend[] @relation("Payer")
+model GroupUser {
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+
+  @@id([groupId, userId])
 }
 
 model Expend {
-  id           Int            @id @default(autoincrement())
-  name         String
-  amount       Float
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  group        Group          @relation(fields: [groupId], references: [id])
-  groupId      Int
-  advancePayer GroupMembers[] @relation("AdvancePayer")
-  payer        GroupMembers[] @relation("Payer")
-  description  String
-  category     String
+  id            Int            @id @default(autoincrement())
+  name          String
+  amount        Float
+  group         Group          @relation(fields: [groupId], references: [id])
+  groupId       String
+  createBy      User           @relation(fields: [createById], references: [id])
+  createById    String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  advancePayers AdvancePayer[]
+  payers        Payer[]
+}
+
+model AdvancePayer {
+  expand   Expend @relation(fields: [expendId], references: [id])
+  expendId Int
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  @@id([expendId, userId])
+}
+
+model Payer {
+  expand   Expend @relation(fields: [expendId], references: [id])
+  expendId Int
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  @@id([expendId, userId])
 }
