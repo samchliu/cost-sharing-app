@@ -2,6 +2,7 @@
 
 import { createContext, useState, useEffect, useContext } from 'react';
 import liff from '@line/liff';
+import { useRouter } from 'next/navigation';
 
 const LiffContext = createContext();
 const LIFF_STATUS = {
@@ -13,10 +14,10 @@ export default function LiffProvider({ children }) {
   const [liffObject, setLiffObject] = useState(null);
   const [liffError, setLiffError] = useState(null);
   const [liffStatus, setLiffStatus] = useState(LIFF_STATUS.SIGNIN);
+  const router = useRouter();
 
   // Execute liff.init() when the app is initialized
   useEffect(() => {
-    console.log(liffStatus)
     if (liffStatus === LIFF_STATUS.INITED) return;
     console.log('start liff.init()...');
     liff
@@ -25,10 +26,11 @@ export default function LiffProvider({ children }) {
         withLoginOnExternalBrowser: true,
       })
       .then(async () => {
-        console.log('liff.init() done');
-        // if (!liff.isLoggedIn()) {
-        //   liff.login();
-        // }
+        if (!liff.isLoggedIn()) {
+          await liff.login();
+        } else {
+          router.push('/dashboard');
+        }
         setLiffObject(liff);
         setLiffStatus(LIFF_STATUS.INITED);
       })
