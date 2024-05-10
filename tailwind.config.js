@@ -20,6 +20,12 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors: {
+        dark: "#000",
+        light: "#fff",
+        primary: "#FAFC2C",
+        primaryDark: "#000",
+      },
     },
     screens: {
       '3xl': { max: '2200px' },
