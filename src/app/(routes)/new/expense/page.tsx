@@ -1,7 +1,9 @@
+import React from 'react';
+
 export default function Page() {
   return (
     <>
-      <p>Expense Page</p>
+      <p>Add an Expense Page</p>
     </>
   );
 }
