@@ -6,25 +6,41 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        inter: ['inter', 'sans-serif'],
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
       },
+    },
+    borderRadius: {
+      none: '0',
+      sm: '0.125rem',
+      md: '0.375rem',
+      lg: '15px',
+      full: '9999px',
+      large: '12px',
+    },
+    extend: {
       colors: {
-        dark: '#5F5D5E',
-        light: '#FFFFFF',
-        primary: '#FAFC2C',
-        primaryDark: '#1C1A1B',
+        primary: {
+          100: '#FBFBF8',
+          200: '#F3F4E5',
+          300: '#EBFF79',
+        },
+        grey: {
+          100: '#ffffff',
+          200: '#d3d2d8',
+          300: '#5f5d5e',
+          400: '#1c1a1b',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      colors: {
-        dark: "#000",
-        light: "#fff",
-        primary: "#FAFC2C",
-        primaryDark: "#000",
       },
     },
     screens: {
@@ -48,6 +64,13 @@ module.exports = {
 
       xs: { max: '479px' },
       // => @media (max-width: 479px) { ... }
+    },
+    keyframes: {
+      shimmer: {
+        '100%': {
+          transform: 'translateX(100%)',
+        },
+      },
     },
   },
   plugins: [],
