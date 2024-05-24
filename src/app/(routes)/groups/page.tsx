@@ -1,13 +1,13 @@
 'use client';
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { useLiff } from '@/app/_components/liff-provider';
-import Image from 'next/image';
+
 import GroupButton from '@/app/ui/groups/GroupButton';
+import AddGroupButton from '@/app/ui/groups/AddGroupButton';
 import { groups } from '@/app/_components/dummyData';
-import addGroupIcon from '../../../../public/icons/addGroup.svg';
 
 export default function Page() {
- const data = groups;
+  const [data, setData] = useState(groups);
 
  return (
    <div className="flex flex-col">
@@ -18,12 +18,7 @@ export default function Page() {
        {data ? data.map((group) => <GroupButton key={group.groupId} group={group} />) : null}
      </div>
      <div className="h-24"></div>
-     <div className="fixed bottom-0 left-[50%] z-[2] flex h-24 w-full translate-x-[-50%] items-center justify-center bg-primary-100">
-       <button className="flex w-[92%] items-center justify-center rounded-[10px] bg-primary-200 p-[13px] active:bg-grey-200">
-         <Image src={addGroupIcon} alt="add group icon" />
-         <span className="pl-2">新增群組</span>
-       </button>
-     </div>
+     <AddGroupButton data={data} setData={setData} />
    </div>
  );
 }
