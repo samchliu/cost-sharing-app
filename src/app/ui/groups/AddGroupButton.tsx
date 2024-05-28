@@ -1,8 +1,6 @@
 'use client';
 import { useState } from 'react';
-
-import Image from 'next/image';
-import addGroupIcon from '../../../../public/icons/addGroup.svg';
+import { AddGroupIcon } from '@/app/ui/shareComponents/Icons';
 
 export default function AddGroupButton({ data, setData }: { data: any; setData: any }) {
   const [fakeId, setFakeId] = useState(1);
@@ -14,7 +12,7 @@ export default function AddGroupButton({ data, setData }: { data: any; setData: 
       groupId: `try${fakeGroupId}`,
       groupType: 'travel',
       name: `trytrytry ${fakeGroupId}`,
-      membersIds: ['u1', 'u2', 'u3', 'u4'],
+      membersIds: [],
       url: `https://shareGrouptry${fakeGroupId}`,
     };
 
@@ -24,11 +22,14 @@ export default function AddGroupButton({ data, setData }: { data: any; setData: 
   };
 
   return (
- <div onClick={handleAddGroup} className="fixed bottom-0 left-[50%] z-[2] flex h-24 w-full translate-x-[-50%] items-center justify-center bg-primary-100">
-       <button className="flex w-[92%] items-center justify-center rounded-[10px] bg-primary-200 p-[13px] active:bg-grey-200">
-         <Image src={addGroupIcon} alt="add group icon" />
-         <span className="pl-2">新增群組</span>
-       </button>
-     </div>
+    <div
+      onClick={handleAddGroup}
+      className="bg-primary-blue fixed top-16 z-[2] flex w-full items-start px-6 pb-3 pt-2 text-base text-grey-100"
+    >
+      <button className="flex items-center justify-center rounded-[10px] px-2 active:bg-grey-100">
+        <AddGroupIcon />
+        <span className="pl-2">新增群組</span>
+      </button>
+    </div>
   );
 }

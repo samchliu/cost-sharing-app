@@ -4,21 +4,21 @@ import { useEffect, useState } from 'react';
 
 import GroupButton from '@/app/ui/groups/GroupButton';
 import AddGroupButton from '@/app/ui/groups/AddGroupButton';
-import { groups } from '@/app/_components/dummyData';
+import { groups } from '@/app/_components/frontendData/dummyData';
 
 export default function Page() {
   const [data, setData] = useState(groups);
 
  return (
-   <div className="flex flex-col">
-     <h1 className="fixed left-[50%] z-[2] mt-0 w-full translate-x-[-50%] bg-primary-100 py-7 text-center text-3xl font-normal">
-       Chill 後算賬
+   <div className="bg-primary-blue flex flex-col">
+     <h1 className="bg-primary-blue fixed left-[50%] z-[2] w-full translate-x-[-50%] py-5 text-center text-2xl font-bold text-grey-100">
+       群組列表
      </h1>
-     <div className="mt-20">
-       {data ? data.map((group) => <GroupButton key={group.groupId} group={group} />) : null}
-     </div>
-     <div className="h-24"></div>
      <AddGroupButton data={data} setData={setData} />
+     <div className="mt-24">
+       {data ? data.map((group, idx) => <GroupButton key={idx} group={group} />) : null}
+     </div>
+     <div className="mb-16"></div>
    </div>
  );
 }

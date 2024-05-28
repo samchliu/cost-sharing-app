@@ -1,5 +1,5 @@
 'use client';
-import { groups } from '@/app/_components/dummyData';
+import { groups } from '@/app/_components/frontendData/dummyData';
 import { useParams } from 'next/navigation';
 
 export default function Page() {

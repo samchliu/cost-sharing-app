@@ -24,10 +24,11 @@ export default function ShareButton({ groupId, name }: { groupId: string; name: 
 
   return (
     <>
-      <div className="relative z-[1]" onClick={(e) => handlesShareLink(e)}>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-300">
-          <ArrowUpTrayIcon className="h-5 w-5 stroke-[2px] text-grey-300" />
-        </div>
+      <div
+        onClick={(e) => handlesShareLink(e)}
+        className="bg-primary-orange relative z-[1] flex h-8 w-8 items-center justify-center rounded-full"
+      >
+        <ArrowUpTrayIcon className="h-5 w-5 stroke-[2px] text-grey-300" />
       </div>
       <SuccessAlert
         text="分享連結視窗"

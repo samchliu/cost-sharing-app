@@ -25,10 +25,11 @@ export default function CopyLinkButton({ groupId, name }: { groupId: string; nam
 
   return (
     <>
-      <div className="relative z-[1]" onClick={(e) => handleCopyLink(e)}>
-        <div className="bg-primary-300 flex h-10 w-10 items-center justify-center rounded-full">
-          <LinkIcon className="text-grey-300 h-5 w-5 cursor-pointer stroke-[2px]" />
-        </div>
+      <div
+        onClick={(e) => handleCopyLink(e)}
+        className="bg-primary-orange relative z-[1] flex h-8 w-8 items-center justify-center rounded-full"
+      >
+        <LinkIcon className="h-5 w-5 cursor-pointer stroke-[2px] text-grey-300" />
       </div>
       <SuccessAlert
         text="連結已複製"
