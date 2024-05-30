@@ -1,16 +1,4 @@
-// {
-// groupId,
-// groupType,
-// name,
-// membersIds,
-// url,
-//   }: {
-// groupId: string;
 // groupType: 'travel' | 'health' | 'games' | 'other';
-// name: string;
-// membersIds: string[];
-// url: string;
-//   }
 
 //groups
 const groups = [
@@ -99,16 +87,6 @@ const groups = [
     url: 'https://shareGroup12',
   },
 ];
-
-const group = {
-  groupId: 'g1',
-  groupType: 'travel',
-  name: 'group 1',
-  membersIds: ['u1', 'u2', 'u3', 'u4'],
-  url: 'https://shareGroup1',
-};
-
-const exampleGroup = ['name', 'group_type', 'country_code', 'users'];
 
 //expenses
 const expenses = [
@@ -356,69 +334,7 @@ const expenses = [
   },
 ];
 
-// expenseType:
-// | 'food'
-// | 'drink'
-// | 'transport'
-// | 'stay'
-// | 'shopping'
-// | 'entertainment'
-// | 'other';
-
-// {
-//     groupId,
-//     expenseId,
-//     expenseType,
-//     cost,
-//     date,
-//     event,
-//     payerId,
-//     sharersIds,
-//     note
-// }: {
-//     groupId: string;
-//     expenseId: string;
-//     expenseType: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
-//     cost: string;
-//     date: string;
-//     event: string;
-//     payerId: string;
-//     sharersIds: string[];
-//     note: string;
-// }
-
-const expense = {
-  groupId: 'g1',
-  expenseId: 'e1',
-  expenseType: 'food',
-  cost: 210,
-  date: '2024/5/28',
-  event: '燒鳥肌肉串',
-  payerId: 'u1',
-  sharersIds: ['u1', 'u2'],
-  note: '',
-};
-
-// const exampleExpense = {
-//     description,
-//     group_id,
-//     payment: false,
-//     cost: amount,
-//     date,
-//     users: [
-//         {
-//             user_id: from,
-//             paid_share: amount,
-//         },
-//         {
-//             user_id: to,
-//             owed_share: amount,
-//         },
-//     ],
-// }
-
-//member
-const membersIds = ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'];
+// expenseType: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
 
 //Person Info
 const usersInfo = [
@@ -475,16 +391,16 @@ const usersInfo = [
   },
 ];
 
-const exampleUser = [
-  'first_name',
-  'last_name',
-  'email',
-  'password',
-  'locale',
-  'date_format',
-  'default_currency',
-  'default_group_id',
-  'notification_settings',
-];
+// const exampleUser = [
+//   'first_name',
+//   'last_name',
+//   'email',
+//   'password',
+//   'locale',
+//   'date_format',
+//   'default_currency',
+//   'default_group_id',
+//   'notification_settings',
+// ];
 
 export { groups, expenses, usersInfo };
