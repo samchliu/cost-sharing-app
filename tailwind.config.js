@@ -25,6 +25,10 @@ module.exports = {
       large: '12px',
     },
     extend: {
+      fontSize: {
+        sm: '0.875rem',
+        base: '1rem',
+      },
       colors: {
         primary: {
           100: '#FBFBF8',
@@ -37,10 +41,12 @@ module.exports = {
           pink: '#FE2FB4',
         },
         grey: {
-          100: '#ffffff',
+          100: '#EDEDED',
           200: '#d3d2d8',
-          300: '#5f5d5e',
-          400: '#1c1a1b',
+          300: '#6C6C6C',
+          400: '#5f5d5e',
+          500: '#4A4A4A',
+          600: '#1c1a1b',
         },
       },
       backgroundImage: {

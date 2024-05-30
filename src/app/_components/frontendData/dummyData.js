@@ -16,30 +16,30 @@
 const groups = [
   {
     groupId: 'g1',
-    groupType: 'travel',
-    name: 'group Travel',
-    membersIds: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9', 'u10'],
+    groupType: 'other',
+    name: '5月聚餐',
+    membersIds: ['u1', 'u2', 'u3', 'u4'],
     url: 'https://shareGroup1',
   },
   {
     groupId: 'g2',
-    groupType: 'health',
-    name: 'group Health',
-    membersIds: ['u1', 'u3', 'u4'],
+    groupType: 'travel',
+    name: '2024 Japan',
+    membersIds: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
     url: 'https://shareGroup2',
   },
   {
     groupId: 'g3',
-    groupType: 'other',
-    name: 'group Other',
-    membersIds: ['u2', 'u3', 'u6', 'u7', '10'],
+    groupType: 'health',
+    name: '新年新希望',
+    membersIds: ['u1', 'u2', 'u3'],
     url: 'https://shareGroup3',
   },
   {
     groupId: 'g4',
     groupType: 'games',
     name: 'group Games',
-    membersIds: ['u1', 'u2', 'u4', 'u8'],
+    membersIds: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7', 'u8', 'u9', '10'],
     url: 'https://shareGroup4',
   },
   {
@@ -121,6 +121,7 @@ const expenses = [
     event: '燒鳥肌肉串',
     payerId: 'u1',
     sharersIds: ['u1', 'u2'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -131,6 +132,7 @@ const expenses = [
     event: '手工醃蘿波',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -141,6 +143,7 @@ const expenses = [
     event: '豆腐沙拉',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -151,6 +154,7 @@ const expenses = [
     event: '炭烤玉米筍',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -161,6 +165,7 @@ const expenses = [
     event: '節瓜',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -171,6 +176,7 @@ const expenses = [
     event: '山藥',
     payerId: 'u1',
     sharersIds: ['u1', 'u2', 'u3'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -181,6 +187,7 @@ const expenses = [
     event: '杏苞菇',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -191,6 +198,7 @@ const expenses = [
     event: '娃娃菜',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -201,6 +209,7 @@ const expenses = [
     event: '茄子',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -211,6 +220,7 @@ const expenses = [
     event: '炸豆腐',
     payerId: 'u1',
     sharersIds: ['u2', 'u3', 'u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -221,6 +231,7 @@ const expenses = [
     event: '青蔥豚煎餃',
     payerId: 'u1',
     sharersIds: ['u1'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -231,6 +242,7 @@ const expenses = [
     event: '韭菜豚煎餃',
     payerId: 'u1',
     sharersIds: ['u2'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -241,6 +253,7 @@ const expenses = [
     event: '綜合煎餃',
     payerId: 'u1',
     sharersIds: ['u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -251,6 +264,7 @@ const expenses = [
     event: '葡萄沙瓦',
     payerId: 'u1',
     sharersIds: ['u2', 'u3'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -261,6 +275,7 @@ const expenses = [
     event: '荔枝沙瓦',
     payerId: 'u1',
     sharersIds: ['u4'],
+    note: '',
   },
   {
     groupId: 'g1',
@@ -271,8 +286,84 @@ const expenses = [
     event: '可爾必思',
     payerId: 'u1',
     sharersIds: ['u1'],
+    note: '',
+  },
+  {
+    groupId: 'g2',
+    expenseId: 'e17',
+    expenseType: 'transport',
+    cost: 180000,
+    date: '2024/5/28',
+    event: 'plane ticket',
+    payerId: 'u1',
+    sharersIds: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
+    note: '',
+  },
+  {
+    groupId: 'g2',
+    expenseId: 'e18',
+    expenseType: 'stay',
+    cost: 60000,
+    date: '2024/5/28',
+    event: 'hotel',
+    payerId: 'u2',
+    sharersIds: ['u1', 'u2', 'u3', 'u4', 'u5', 'u6'],
+    note: '',
+  },
+  {
+    groupId: 'g2',
+    expenseId: 'e19',
+    expenseType: 'other',
+    cost: 15000,
+    date: '2024/5/29',
+    event: 'disney land',
+    payerId: 'u3',
+    sharersIds: ['u1', 'u3', 'u4', 'u6'],
+    note: '',
+  },
+  {
+    groupId: 'g3',
+    expenseId: 'e20',
+    expenseType: 'food',
+    cost: 3000,
+    date: '2024/5/30',
+    event: '晚餐',
+    payerId: 'u2',
+    sharersIds: ['u1', 'u2', 'u3'],
+    note: '大家都覺得不好吃的那間',
+  },
+  {
+    groupId: 'g3',
+    expenseId: 'e21',
+    expenseType: 'food',
+    cost: 2400,
+    date: '2024/5/30',
+    event: '午餐',
+    payerId: 'u1',
+    sharersIds: ['u1', 'u2', 'u3'],
+    note: '其實還可以的那間',
+  },
+  {
+    groupId: 'g3',
+    expenseId: 'e22',
+    expenseType: 'transport',
+    cost: 450,
+    date: '2024/5/30',
+    event: '計程車',
+    payerId: 'u2',
+    sharersIds: ['u1', 'u2', 'u3'],
+    note: '司機大哥很好笑那台',
   },
 ];
+
+// expenseType:
+// | 'food'
+// | 'drink'
+// | 'transport'
+// | 'stay'
+// | 'shopping'
+// | 'entertainment'
+// | 'other';
 
 // {
 //     groupId,
@@ -282,7 +373,8 @@ const expenses = [
 //     date,
 //     event,
 //     payerId,
-//     sharersIds
+//     sharersIds,
+//     note
 // }: {
 //     groupId: string;
 //     expenseId: string;
@@ -292,6 +384,7 @@ const expenses = [
 //     event: string;
 //     payerId: string;
 //     sharersIds: string[];
+//     note: string;
 // }
 
 const expense = {
@@ -303,6 +396,7 @@ const expense = {
   event: '燒鳥肌肉串',
   payerId: 'u1',
   sharersIds: ['u1', 'u2'],
+  note: '',
 };
 
 // const exampleExpense = {

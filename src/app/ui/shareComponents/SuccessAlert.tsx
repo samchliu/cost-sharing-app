@@ -8,11 +8,13 @@ export default function SuccessAlert({
   name,
   isShow,
   setIsShow,
+  inGroupPage,
 }: {
   text: string;
   name: string;
   isShow: boolean;
   setIsShow: Function;
+  inGroupPage: boolean;
 }) {
   const router = useRouter();
   const handleClick = (e: any) => {
@@ -35,7 +37,12 @@ export default function SuccessAlert({
         )}
       >
         <div className="flex w-64 rounded-lg shadow-lg">
-          <div className="bg-primary-orange flex items-center rounded-l-lg px-6 py-4">
+          <div
+            className={clsx('flex items-center rounded-l-lg px-6 py-4', {
+              'bg-primary-lightPink': inGroupPage,
+              'bg-primary-orange': !inGroupPage,
+            })}
+          >
             <button onClick={(e) => handleClick(e)}>
               <CheckIcon />
             </button>

@@ -1,5 +1,5 @@
 import '@/app/ui/globals.css';
-import { kumbhSans } from '@/app/ui/fonts';
+import { inter, kumbhSans } from '@/app/ui/fonts';
 // import LiffProvider from './_components/liff-provider';
 
 export const metadata = {
@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-TW">
       {/* <LiffProvider> */}
-      <body className={`${kumbhSans.className} min-h-screen w-full bg-primary-100 antialiased`}>
+      <body className={`${inter.className} min-h-screen w-full bg-primary-100 antialiased`}>
         {children}
       </body>
       {/* </LiffProvider> */}
