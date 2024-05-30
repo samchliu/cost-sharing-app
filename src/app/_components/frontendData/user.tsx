@@ -1,6 +1,6 @@
 import { usersInfo } from '@/app/_components/frontendData/dummyData';
 
-let loginUserId = 'u3';
+let loginUserId = 'u1';
 
 const user = (id: any) =>
   usersInfo.filter((user) => {
