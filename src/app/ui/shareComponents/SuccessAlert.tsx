@@ -1,7 +1,10 @@
 'use client';
-import clsx from 'clsx';
+//import from next
 import { useRouter } from 'next/navigation';
+//import ui
 import { CheckIcon, CloseIcon } from '@/app/ui/shareComponents/Icons';
+//import other
+import clsx from 'clsx';
 
 export default function SuccessAlert({
   text,

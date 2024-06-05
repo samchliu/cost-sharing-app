@@ -1,26 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { loginUserId } from '@/app/_components/frontendData/user';
+//import ui
 import { AddGroupIcon } from '@/app/ui/shareComponents/Icons';
 
-export default function AddGroupButton({ data, setData }: { data: any; setData: any }) {
-  const [fakeId, setFakeId] = useState(1);
-
-   const handleAddGroup = async () => {
-     let fakeGroupId = fakeId;
-     setFakeId(fakeGroupId + 1);
-     const newGroup = {
-       groupId: `try${fakeGroupId}`,
-       groupType: 'travel',
-       name: `trytrytry ${fakeGroupId}`,
-       membersIds: [`${loginUserId}`],
-       url: `https://shareGrouptry${fakeGroupId}`,
-     };
-
-     setData([...data, newGroup]);
-     data.push(newGroup);
-     console.log(data);
-   };
+export default function AddGroupButton() {
+  const handleAddGroup = async () => {
+    console.log('group added');
+  };
 
   return (
     <div

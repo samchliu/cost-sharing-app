@@ -1,7 +1,3 @@
 export default function Page() {
-  return (
-    <>
-      <p>Edit an Expense Page</p>
-    </>
-  );
+  return <p>Edit Expense Page</p>;
 }

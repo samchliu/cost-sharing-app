@@ -1,22 +1,24 @@
 'use client';
+//import from next & react
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+//import ui
 import { LinkIcon } from '@heroicons/react/24/outline';
 import SuccessAlert from '@/app/ui/shareComponents/SuccessAlert';
 
 export default function CopyLinkButton({
-  groupId,
+  id,
   name,
   inGroupPage,
 }: {
-  groupId: string;
+  id: string;
   name: string;
   inGroupPage: boolean;
 }) {
   const [isShow, setIsShow] = useState(false);
   const router = useRouter();
   const base = 'https://cost-sharing-app.vercel.app/group/';
-  const links = base + groupId;
+  const links = base + id;
 
   const handleCopyLink = (e: any) => {
     e.preventDefault();

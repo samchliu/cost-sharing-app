@@ -7,21 +7,20 @@ function filterExpense(groupId: any, expenses: any) {
 
   //every one's debt save in to new object
   const debts = currentGroupExpenses.reduce(calculateDebt, {});
-  function calculateDebt(acc: any, spend: any) {
-    if (!(spend.payerId in acc)) {
-      acc[spend.payerId] = {};
+  function calculateDebt(acc: any, expense: any) {
+    if (!(expense.payerId in acc)) {
+      acc[expense.payerId] = {};
     }
-    acc[spend.payerId][spend.event] = spend.cost;
+    acc[expense.payerId][expense.name] = expense.amount;
 
-    const shareCost = spend.cost / spend.sharersIds.length;
-    spend.sharersIds.forEach((sharerId: any) => {
-      if (sharerId === spend.payerId) {
-        acc[sharerId][spend.event] -= shareCost;
-      } else if (sharerId in acc) {
-        acc[sharerId][spend.event] = -shareCost;
+    expense.sharers.forEach((sharer: any) => {
+      if (sharer.id === expense.payerId) {
+        acc[sharer.id][expense.name] -= sharer.amount;
+      } else if (sharer.id in acc) {
+        acc[sharer.id][expense.name] = -sharer.amount;
       } else {
-        acc[sharerId] = {};
-        acc[sharerId][spend.event] = -shareCost;
+        acc[sharer.id] = {};
+        acc[sharer.id][expense.name] = -sharer.amount;
       }
     });
     return acc;
@@ -56,8 +55,7 @@ function filterExpense(groupId: any, expenses: any) {
   for (let expense in expensesWithDebts) {
     if (!userDebts) break;
 
-    expensesWithDebts[expense].expenseDebt =
-      userDebts[expensesWithDebts[expense].event]?.toFixed(2);
+    expensesWithDebts[expense].expenseDebt = userDebts[expensesWithDebts[expense].name]?.toFixed(2);
   }
 
   return { debts, totalDebts, expensesWithDebts };

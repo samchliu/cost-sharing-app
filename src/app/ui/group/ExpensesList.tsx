@@ -1,68 +1,74 @@
-import { Fragment } from 'react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { filterExpense } from '@/app/_components/frontendData/totalDebts';
-import { loginUserId, user } from '@/app/_components/frontendData/user';
-import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
+//import from next & react
 import Link from 'next/link';
+import { Fragment } from 'react';
+//import data
+import { filterExpense } from '@/app/_components/frontendData/totalDebts';
+import { loginUserId } from '@/app/_components/frontendData/user';
+import { useUser, useExpenses } from '@/app/_components/frontendData/Providers';
+//import ui
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
 
-export default function ExpensesList({
-  groupId,
-  expensesData,
-}: {
-  groupId: any;
-  expensesData: any;
-}) {
+export default function ExpensesList({ groupId }: { groupId: any }) {
+  const expensesData = useExpenses();
+
   let { expensesWithDebts } = filterExpense(groupId, expensesData);
   let expenses = expensesWithDebts;
 
   return (
-    <div>
-      {expenses.map((expense: any) => (
-        <Fragment key={expense.expenseId}>
-          {expense.groupId === groupId &&
-          (expense.sharersIds.includes(loginUserId) || expense.payerId.includes(loginUserId)) ? (
-            <ExpenseButton expense={expense} />
-          ) : null}
-        </Fragment>
-      ))}
-    </div>
+    <>
+      <div>
+        {expenses.map((expense: any) => (
+          <Fragment key={expense.id}>
+            {expense.groupId === groupId &&
+            (expense.sharers.some((sharer: any) => sharer.id === loginUserId) ||
+              expense.payerId.includes(loginUserId)) ? (
+              <ExpenseButton expense={expense} />
+            ) : null}
+          </Fragment>
+        ))}
+      </div>
+    </>
   );
 }
 
 function ExpenseButton({ expense }: { expense: any }) {
   const {
-    expenseId,
-    expenseType,
-    cost,
-    event,
+    id,
+    category,
+    amount,
+    name,
     payerId,
     expenseDebt,
   }: {
-    expenseId: string;
-    expenseType: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
-    cost: string;
-    event: string;
+    id: string;
+    category: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
+    amount: string;
+    name: string;
     payerId: string;
     expenseDebt: any;
   } = expense;
-  const Icon = expenseIconMap[expenseType];
+
+  const payerData = useUser(payerId);
+
+  if (!expense) return;
+  if (!expenseDebt) return;
+
+  const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
 
   return (
-    <Link
-      href={`/expense/${expenseId}`}
-      className="m-4 flex justify-between rounded-lg bg-white p-4"
-    >
+    <Link href={`/expense/${id}`} className="m-4 flex justify-between rounded-lg bg-white p-4">
       <div className="flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-orange">
           {Icon ? <Icon /> : null}
         </div>
         <div className="leading-[20px]">
-          <p className="font-semibold">{event}</p>
-          <p className="font-base text-grey-500 text-sm">
-            <span>{loginUserId === payerId ? '你' : user(payerId)?.displayName}</span>
+          <p className="font-semibold">{name}</p>
+          <p className="font-base text-sm text-grey-500">
+            <span>{loginUserId === payerId ? '你' : payerData?.displayName}</span>
             付了
-            <span>${nf.format(Number(cost))}</span>
+            <span>${nf.format(Number(amount))}</span>
           </p>
         </div>
       </div>

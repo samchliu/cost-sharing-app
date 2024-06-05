@@ -1,16 +1,18 @@
 'use client';
+//import from next
+import Link from 'next/link';
+//import ui
+import { groupIconMap } from '@/app/ui/shareComponents/Icons';
 import CopyLinkButton from '@/app/ui/shareComponents/CopyLinkButton';
 import ShareButton from '@/app/ui/shareComponents/ShareButton';
-import Link from 'next/link';
-import { groupIconMap } from '@/app/ui/shareComponents/Icons';
 
 export default function GroupButton({ groupData }: { groupData: any }) {
   const {
-    groupId,
+    id,
     groupType,
     name,
   }: {
-    groupId: string;
+    id: string;
     groupType: 'travel' | 'health' | 'games' | 'other';
     name: string;
   } = groupData;
@@ -19,7 +21,7 @@ export default function GroupButton({ groupData }: { groupData: any }) {
 
   return (
     <Link
-      href={`/group/${groupId}`}
+      href={`/group/${id}`}
       className="mx-6 my-4 flex justify-between rounded-[20px] bg-white py-3 pl-3 pr-2"
     >
       <div className="z-0 flex items-center">
@@ -29,8 +31,8 @@ export default function GroupButton({ groupData }: { groupData: any }) {
         <p className="pl-2 font-medium">{name}</p>
       </div>
       <div className="flex items-center gap-2">
-        <ShareButton groupId={groupId} name={name} inGroupPage={false} />
-        <CopyLinkButton groupId={groupId} name={name} inGroupPage={false} />
+        <ShareButton id={id} name={name} inGroupPage={false} />
+        <CopyLinkButton id={id} name={name} inGroupPage={false} />
       </div>
     </Link>
   );
