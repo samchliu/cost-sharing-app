@@ -6,25 +6,52 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
+    borderRadius: {
+      none: '0',
+      sm: '0.125rem',
+      md: '0.375rem',
+      lg: '15px',
+      full: '9999px',
+      large: '12px',
+    },
     extend: {
-      fontFamily: {
-        inter: ['inter', 'sans-serif'],
+      fontSize: {
+        sm: '0.875rem',
+        base: '1rem',
       },
       colors: {
-        dark: '#5F5D5E',
-        light: '#FFFFFF',
-        primary: '#FAFC2C',
-        primaryDark: '#1C1A1B',
+        primary: {
+          100: '#FBFBF8',
+          200: '#F3F4E5',
+          300: '#EBFF79',
+          blue: '#3555F4',
+          green: '#7EFB15',
+          orange: '#F9C813',
+          lightPink: '#F9EBDB',
+          pink: '#FE2FB4',
+        },
+        grey: {
+          100: '#EDEDED',
+          200: '#d3d2d8',
+          300: '#6C6C6C',
+          400: '#5f5d5e',
+          500: '#4A4A4A',
+          600: '#1c1a1b',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      colors: {
-        dark: "#000",
-        light: "#fff",
-        primary: "#FAFC2C",
-        primaryDark: "#000",
       },
     },
     screens: {
@@ -48,6 +75,13 @@ module.exports = {
 
       xs: { max: '479px' },
       // => @media (max-width: 479px) { ... }
+    },
+    keyframes: {
+      shimmer: {
+        '100%': {
+          transform: 'translateX(100%)',
+        },
+      },
     },
   },
   plugins: [],

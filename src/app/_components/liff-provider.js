@@ -29,7 +29,8 @@ export default function LiffProvider({ children }) {
         if (!liff.isLoggedIn()) {
           await liff.login();
         } else {
-          router.push('/dashboard');
+          // router.push('/dashboard');
+          router.push('/groups');
         }
         setLiffObject(liff);
         setLiffStatus(LIFF_STATUS.INITED);
