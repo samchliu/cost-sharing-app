@@ -9,22 +9,25 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  name          String
-  groups        Group[]
-  groupUsers    GroupUser[]
-  expends       Expend[]
-  advancePayers AdvancePayer[]
-  payers        Payer[]
+  id              String           @id @default(cuid())
+  name            String
+  picture         String
+  groupCreators   Group[]
+  groupUsers      GroupUser[]
+  expenseCreators Expense[]        @relation("ExpenseCreator")
+  expensePayers   Expense[]        @relation("ExpensePayer")
+  expenseSharers  Sharer[]
+  expenseHistorys ExpenseHistory[]
 }
 
 model Group {
-  id         String      @id @default(uuid())
+  id         String      @id @default(cuid())
   name       String
+  picture    String
   createBy   User        @relation(fields: [createById], references: [id])
   createById String
   groupUsers GroupUser[]
-  expends    Expend[]
+  expenses   Expense[]
 }
 
 model GroupUser {
@@ -36,34 +39,37 @@ model GroupUser {
   @@id([groupId, userId])
 }
 
-model Expend {
-  id            Int            @id @default(autoincrement())
-  name          String
-  amount        Float
-  group         Group          @relation(fields: [groupId], references: [id])
-  groupId       String
-  createBy      User           @relation(fields: [createById], references: [id])
-  createById    String
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  advancePayers AdvancePayer[]
-  payers        Payer[]
+model Expense {
+  id              Int              @id @default(autoincrement())
+  name            String
+  amount          Float
+  date            DateTime
+  note            String
+  group           Group            @relation(fields: [groupId], references: [id])
+  groupId         String
+  createBy        User             @relation("ExpenseCreator", fields: [createById], references: [id])
+  createById      String
+  payer           User             @relation("ExpensePayer", fields: [payerId], references: [id])
+  payerId         String
+  sharers         Sharer[]
+  expenseHistorys ExpenseHistory[]
 }
 
-model AdvancePayer {
-  expand   Expend @relation(fields: [expendId], references: [id])
-  expendId Int
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
+model Sharer {
+  expense   Expense @relation(fields: [expenseId], references: [id])
+  expenseId Int
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
 
-  @@id([expendId, userId])
+  @@id([expenseId, userId])
 }
 
-model Payer {
-  expand   Expend @relation(fields: [expendId], references: [id])
-  expendId Int
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
+model ExpenseHistory {
+  expense   Expense  @relation(fields: [expenseId], references: [id])
+  expenseId Int
+  editBy    User     @relation(fields: [editById], references: [id])
+  editById  String
+  createAt  DateTime @default(now())
 
-  @@id([expendId, userId])
+  @@id([expenseId, editById])
 }
