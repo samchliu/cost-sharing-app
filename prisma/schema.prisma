@@ -10,6 +10,7 @@ datasource db {
 
 model User {
   id              String           @id @default(cuid())
+  lineId          String?
   name            String
   picture         String
   groupCreators   Group[]
