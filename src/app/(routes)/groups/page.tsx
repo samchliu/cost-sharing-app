@@ -12,7 +12,7 @@ import AddGroupButton from '@/app/ui/groups/AddGroupButton';
 
 export default async function Page() {
   const data = await getGroups();
-
+//test
   return (
     <div className="flex min-h-screen flex-col bg-primary-blue">
       <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-primary-blue py-5 text-center text-2xl font-bold text-grey-100">
