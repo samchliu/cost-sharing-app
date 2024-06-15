@@ -2,7 +2,7 @@ import { filterExpense } from '@/app/_components/frontendData/totalDebts';
 import { expenses } from '@/app/_components/frontendData/dummyData';
 
 function splitExpense(groupId: any) {
-  let { totalDebts } = filterExpense(groupId, expenses);
+  let { totalDebts } = filterExpense(expenses);
 
   //split debt initial
   let newTotalDebts: any = { ...totalDebts };

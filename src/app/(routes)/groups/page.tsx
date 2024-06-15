@@ -1,18 +1,18 @@
-// 'use client';
+'use client';
 //import next & react
 // import { Fragment, useEffect, useState } from 'react';
 // import { useLiff } from '@/app/_components/liff-provider';
 
 //import data
 import { loginUserId } from '@/app/_components/frontendData/user';
-import { getGroups } from '@/app/_components/frontendData/API';
+import { useUser } from '@/app/_components/frontendData/Providers';
 //import ui
 import GroupButton from '@/app/ui/groups/GroupButton';
 import AddGroupButton from '@/app/ui/groups/AddGroupButton';
 
-export default async function Page() {
-  const data = await getGroups();
-//test
+export default function Page() {
+  const data = useUser(loginUserId);
+
   return (
     <div className="flex min-h-screen flex-col bg-primary-blue">
       <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-primary-blue py-5 text-center text-2xl font-bold text-grey-100">
@@ -21,11 +21,7 @@ export default async function Page() {
       <AddGroupButton />
       <div className="mt-24">
         {data
-          ? data.map((group: any) => (
-              <div key={group.id}>
-                {group.membersIds.includes(loginUserId) ? <GroupButton groupData={group} /> : null}
-              </div>
-            ))
+          ? data.groups.map((group: any) => <GroupButton key={group.id} groupData={group} />)
           : null}
       </div>
       <div className="mb-16"></div>

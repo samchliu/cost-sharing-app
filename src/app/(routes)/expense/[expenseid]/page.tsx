@@ -2,8 +2,8 @@
 //import from next
 import { useParams } from 'next/navigation';
 //import data
-import { useExpense } from '@/app/_components/frontendData/Providers';
 import { loginUserId } from '@/app/_components/frontendData/user';
+import { useExpenses } from '@/app/_components/frontendData/Providers';
 //import ui
 import { TopExpenseBar } from '@/app/ui/shareComponents/TopBars';
 import {
@@ -15,7 +15,13 @@ import DeleteExpenseButton from '@/app/ui/expense/DeleteExpenseButton';
 
 export default function Page() {
   const params = useParams<{ expenseid: string }>();
-  const expense = useExpense(params.expenseid);
+
+  // all users info this loginUser can fetch
+  // all expenses this loginUser have
+  // the expense for this page
+  let users = useExpenses(loginUserId).users;
+  let expenses = useExpenses(loginUserId).expenses;
+  let expense = expenses.find((expense: any) => expense.id === params.expenseid);
 
   return (
     <div className="flex flex-col items-center">
@@ -24,8 +30,8 @@ export default function Page() {
       (expense.sharers?.some((sharer: any) => sharer.id === loginUserId) ||
         expense.payerId?.includes(loginUserId)) ? (
         <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
-          <ExpenseDetailOne expenseData={expense} />
-          <ExpenseDetailTwo expenseData={expense} />
+          <ExpenseDetailOne expenseData={expense} users={users} />
+          <ExpenseDetailTwo expenseData={expense} users={users} />
           <ExpenseDetailThree expenseData={expense} />
           <DeleteExpenseButton expenseData={expense} />
         </div>

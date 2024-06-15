@@ -3,12 +3,11 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/user';
-import { useUser } from '@/app/_components/frontendData/Providers';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
 import SharerExpenseDetail from '@/app/ui/expense/SharerExpenseDetail';
 
-export function ExpenseDetailOne({ expenseData }: { expenseData: any }) {
+export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; users: any }) {
   const {
     category,
     amount,
@@ -31,8 +30,9 @@ export function ExpenseDetailOne({ expenseData }: { expenseData: any }) {
     sharers: string[];
   } = expenseData;
 
-  const createByUser = useUser(createBy);
-  const updateByUser = useUser(updateBy);
+  let createByUser = users.filter((user: any) => user.id === createBy)[0];
+  let updateByUser = users.filter((user: any) => user.id === updateBy)[0];
+
   const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
 
@@ -49,10 +49,10 @@ export function ExpenseDetailOne({ expenseData }: { expenseData: any }) {
               <div className="text-xl leading-8">{name}</div>
               <div className="text-xs text-grey-300">
                 <div className="leading-3">
-                  {createAt} {createByUser?.displayName}新增
+                  {createAt} {createByUser?.name}新增
                 </div>
                 <div className="leading-6">
-                  {updateAt} {updateByUser?.displayName}最後更新
+                  {updateAt} {updateByUser?.name}最後更新
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@ export function ExpenseDetailOne({ expenseData }: { expenseData: any }) {
   );
 }
 
-export function ExpenseDetailTwo({ expenseData }: { expenseData: any }) {
+export function ExpenseDetailTwo({ expenseData, users }: { expenseData: any; users: any }) {
   const {
     amount,
     payerId,
@@ -77,7 +77,7 @@ export function ExpenseDetailTwo({ expenseData }: { expenseData: any }) {
     sharers: string[];
   } = expenseData;
 
-  const payerData = useUser(payerId);
+  let payerData = users.filter((user: any) => user.id === payerId)[0];
   let nf = new Intl.NumberFormat('en-US');
 
   return (
@@ -89,7 +89,7 @@ export function ExpenseDetailTwo({ expenseData }: { expenseData: any }) {
             {payerData ? (
               <Image
                 className="z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-grey-200"
-                src={payerData.pictureUrl}
+                src={payerData.picture}
                 width={64}
                 height={64}
                 alt="sharer image"
@@ -97,7 +97,7 @@ export function ExpenseDetailTwo({ expenseData }: { expenseData: any }) {
             ) : null}
             <div className="flex grow items-center justify-between">
               <div className="text-base">
-                {loginUserId === payerId ? '你' : payerData?.displayName}
+                {loginUserId === payerId ? '你' : payerData?.name}
                 先付了
               </div>
               <div>${nf.format(amount)}</div>
@@ -109,7 +109,7 @@ export function ExpenseDetailTwo({ expenseData }: { expenseData: any }) {
               <Fragment key={idx}>
                 {sharer.id !== payerId ? (
                   <>
-                    <SharerExpenseDetail expenseData={expenseData} sharer={sharer} />
+                    <SharerExpenseDetail expenseData={expenseData} sharer={sharer} users={users} />
                   </>
                 ) : null}
               </Fragment>
