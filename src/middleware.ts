@@ -10,9 +10,8 @@ export async function middleware(request: NextRequest) {
   try {
     const parsed = await decrypt(token);
     parsed.expires = new Date(Date.now() + 900 * 1000);
-    // request.nextUrl.searchParams.set('userId', parsed.user);
     const response = NextResponse.next();
-    response.headers.set('user-id', parsed.user);
+    response.headers.set('client-id', parsed.clientId);
     response.cookies.set({
       name: 'token',
       value: await encrypt(parsed),
@@ -27,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/user/(.*)', '/api/group', '/api/groupUser'],
+  matcher: ['/api/((?!auth).*)'],
 };
