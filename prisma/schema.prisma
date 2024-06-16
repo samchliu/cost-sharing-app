@@ -53,6 +53,8 @@ model Expense {
   payer     User      @relation("ExpensePayer", fields: [payerId], references: [id])
   payerId   String
   sharers   Sharer[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   history   History[]
 }
 
@@ -61,6 +63,7 @@ model Sharer {
   expenseId Int
   user      User    @relation(fields: [userId], references: [id])
   userId    String
+  amount    Float
 
   @@id([expenseId, userId])
 }
