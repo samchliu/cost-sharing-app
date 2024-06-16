@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       where: { id: { in: groupUsers.map((groupUser) => groupUser.groupId) } },
     });
 
-    const token = await encrypt({ user: user.id });
+    const token = await encrypt({ clientId: user.id });
     cookies().set({
       name: 'token',
       value: token,
