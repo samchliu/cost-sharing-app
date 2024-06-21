@@ -16,7 +16,7 @@ import {
 
 
 export default function Page() {
-  const [phase, setPhase] = useState('1');
+  const [phase, setPhase] = useState('3');
   const params = useParams<{ expenseid: string }>();
   const user = useUser(loginUserId);
 
