@@ -26,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/((?!auth).*)'],
+  matcher: '/api/((?!auth|pages).*)',
 };
