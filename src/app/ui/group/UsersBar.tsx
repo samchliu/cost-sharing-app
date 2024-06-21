@@ -1,5 +1,6 @@
 //import from next
 import Image from 'next/image';
+import Link from 'next/link';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/user';
 
@@ -24,10 +25,14 @@ export default function UsersBar({ groupData }: { groupData: any }) {
                   <UserBarImage user={user} key={user.id} />
                 ))}
               </ul>
-              <div className="flex gap-[2px] rounded-full bg-grey-100 py-1 pl-3 pr-2 text-sm text-grey-400">
+              <Link
+                href={`/group/${groupData.id}/edit`}
+                className="bg-neutrals-30 flex gap-[2px] rounded-full px-3 py-1 text-sm text-grey-500"
+                scroll={false}
+              >
                 <p className="">{groupData.users.length}</p>
                 <span className="relative bottom-[1px]">&gt;</span>
-              </div>
+              </Link>
             </div>
           ) : (
             <NoneUsersBar text="$0" />

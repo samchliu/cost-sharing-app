@@ -42,12 +42,12 @@ export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; use
       (payerId === loginUserId || sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
         <div className="flex w-full justify-between pl-2 pr-3">
           <div className="flex gap-5">
-            <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-primary-orange">
-              <div className="scale-125">{Icon ? <Icon /> : null}</div>
+            <div className="bg-highlight-60 z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white">
+              <div className="scale-[1.7]">{Icon ? <Icon /> : null}</div>
             </div>
             <div className="flex flex-col justify-between">
               <div className="text-xl leading-8">{name}</div>
-              <div className="text-xs text-grey-300">
+              <div className="text-xs text-grey-500">
                 <div className="leading-3">
                   {createAt} {createByUser?.name}新增
                 </div>
@@ -88,7 +88,7 @@ export function ExpenseDetailTwo({ expenseData, users }: { expenseData: any; use
           <div className="flex gap-4">
             {payerData ? (
               <Image
-                className="z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-grey-200"
+                className="bg-neutrals-30 z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full"
                 src={payerData.picture}
                 width={64}
                 height={64}

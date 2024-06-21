@@ -24,6 +24,19 @@ async function getUser(id: any) {
   return data;
 }
 
+//get expense
+// async function getExpense(id: any) {
+//     const res = await fetch(`http://localhost:3000/expense/${id}`, {
+//         cache: "no-store",
+//     });
+
+//     if (!res.ok) throw Error;
+
+//     const data = await res.json();
+
+//     return data;
+// }
+
 //add group
 async function addGroup(payload: any) {
   const { id, users, expense } = payload;

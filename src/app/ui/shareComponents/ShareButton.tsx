@@ -37,14 +37,14 @@ export default function ShareButton({
       {inGroupPage ? (
         <div
           onClick={(e) => handlesShareLink(e)}
-          className="mr-1 flex items-center justify-center rounded-full bg-primary-lightPink p-2"
+          className="bg-neutrals-20 mr-1 flex items-center justify-center rounded-full p-2"
         >
           <ArrowUpTrayIcon className="h-5 w-5" />
         </div>
       ) : (
         <div
           onClick={(e) => handlesShareLink(e)}
-          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-primary-orange"
+          className="bg-highlight-60 relative z-[1] flex h-8 w-8 items-center justify-center rounded-full"
         >
           <ArrowUpTrayIcon className="h-5 w-5 stroke-[2px] text-grey-400" />
         </div>

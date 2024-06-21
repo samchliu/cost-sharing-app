@@ -38,14 +38,14 @@ export default function CopyLinkButton({
       {inGroupPage ? (
         <div
           onClick={(e) => handleCopyLink(e)}
-          className="flex items-center justify-center rounded-full bg-primary-lightPink p-2"
+          className="bg-neutrals-20 flex items-center justify-center rounded-full p-2"
         >
           <LinkIcon className="h-5 w-5 cursor-pointer" />
         </div>
       ) : (
         <div
           onClick={(e) => handleCopyLink(e)}
-          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-primary-orange"
+          className="bg-highlight-60 relative z-[1] flex h-8 w-8 items-center justify-center rounded-full"
         >
           <LinkIcon className="h-5 w-5 cursor-pointer stroke-[2px] text-grey-400" />
         </div>

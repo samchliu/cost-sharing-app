@@ -14,8 +14,8 @@ export default function Page() {
   const data = useUser(loginUserId);
 
   return (
-    <div className="flex min-h-screen flex-col bg-primary-blue">
-      <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-primary-blue py-5 text-center text-2xl font-bold text-grey-100">
+    <div className="bg-highlight-50 flex min-h-screen flex-col">
+      <h1 className="bg-highlight-50 fixed left-[50%] z-[2] w-full translate-x-[-50%] py-5 text-center text-2xl font-bold text-white">
         群組列表
       </h1>
       <AddGroupButton />

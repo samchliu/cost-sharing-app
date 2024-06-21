@@ -11,26 +11,41 @@ import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
 export default function ExpensesList({ groupData }: { groupData: any }) {
   let { expensesWithDebts } = filterExpense(groupData.expense);
   let users = groupData.users;
-  let groupId = groupData.id;
   let expenses = expensesWithDebts;
 
-  return (
-    <>
-      <div>
-        {expenses.map((expense: any) => (
+  // Step 1: Group expenses by date
+  const groupedExpenses = expenses.reduce((acc: any, expense: any) => {
+    const date = expense.date;
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(expense);
+    return acc;
+  }, {});
+
+  // Step 2: Render expenses grouped by date
+  const renderExpensesByDate = () => {
+    return Object.keys(groupedExpenses).map((date, index) => (
+      <div key={index}>
+        {groupedExpenses[date].find((expense: any) => expense.expenseDebt !== undefined) ? (
+          <p className="mx-8 mb-3 text-sm text-grey-500">{date}</p>
+        ) : null}
+        {groupedExpenses[date].map((expense: any) => (
           <Fragment key={expense.id}>
             {expense.sharers.some((sharer: any) => sharer.id === loginUserId) ||
             expense.payerId.includes(loginUserId) ? (
-              <ExpenseButton users={users} expense={expense} groupId={groupId} />
+              <ExpenseButton users={users} expense={expense} />
             ) : null}
           </Fragment>
         ))}
       </div>
-    </>
-  );
+    ));
+  };
+
+  return <>{renderExpensesByDate()}</>;
 }
 
-function ExpenseButton({ users, expense, groupId }: { users: any; expense: any; groupId: any }) {
+function ExpenseButton({ users, expense }: { users: any; expense: any }) {
   const {
     id,
     category,
@@ -55,10 +70,10 @@ function ExpenseButton({ users, expense, groupId }: { users: any; expense: any; 
   return (
     <Link
       href={`/expense/${id}`}
-      className="m-4 flex justify-between rounded-lg bg-white p-4"
+      className="mx-4 mb-4 flex justify-between rounded-lg bg-white p-4"
     >
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-orange">
+        <div className="bg-highlight-60 flex h-11 w-11 items-center justify-center rounded-full">
           {Icon ? <Icon /> : null}
         </div>
         <div className="leading-[20px]">
@@ -73,9 +88,9 @@ function ExpenseButton({ users, expense, groupId }: { users: any; expense: any; 
 
       <div className="flex items-center gap-2">
         {expenseDebt.includes('-') ? (
-          <p className="text-primary-pink">-${nf.format(Math.abs(expenseDebt))}</p>
+          <p className="text-highlight-30">-${nf.format(Math.abs(expenseDebt))}</p>
         ) : (
-          <p className="text-primary-blue">+${nf.format(expenseDebt)}</p>
+          <p className="text-highlight-50">+${nf.format(expenseDebt)}</p>
         )}
         <ChevronRightIcon className="h-3 w-3" />
       </div>
