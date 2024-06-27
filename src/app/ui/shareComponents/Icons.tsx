@@ -15,33 +15,34 @@ import addUserIcon from '../../../../public/icons/addUser.svg';
 import trashcanIcon from '../../../../public/icons/trashcan.svg';
 import dollarIcon from '../../../../public/icons/dollar.svg';
 import notePencilIcon from '../../../../public/icons/notePencil.svg';
+import backspaceIcon from '../../../../public/icons/backspace.svg';
 
 function FoodIcon() {
-  return <Image src={foodIcon} alt="" />;
+  return <Image className="w-4" src={foodIcon} alt="" />;
 }
 
 function DrinkIcon() {
-  return <Image src={drinkIcon} alt="" />;
+  return <Image className="w-5" src={drinkIcon} alt="" />;
 }
 
 function TransportIcon() {
-  return <Image src={transportIcon} alt="" />;
+  return <Image className="w-5" src={transportIcon} alt="" />;
 }
 
 function StayIcon() {
-  return <Image src={stayIcon} alt="" />;
+  return <Image className="w-5" src={stayIcon} alt="" />;
 }
 
 function ShoppingIcon() {
-  return <Image src={shoppingIcon} alt="" />;
+  return <Image className="w-5" src={shoppingIcon} alt="" />;
 }
 
 function EntertainmentIcon() {
-  return <Image src={entertainmentIcon} alt="" />;
+  return <Image className="w-5" src={entertainmentIcon} alt="" />;
 }
 
 function OtherIcon() {
-  return <Image src={otherIcon} alt="" />;
+  return <Image className="w-5" src={otherIcon} alt="" />;
 }
 
 function CheckIcon() {
@@ -66,6 +67,23 @@ function DollarIcon() {
 
 function NotePencilIcon() {
   return <Image src={notePencilIcon} alt="" />;
+}
+
+function BackspaceIcon() {
+  return <Image src={backspaceIcon} alt="" />;
+}
+
+function NextstepIcon({ currentColor }: { currentColor: any }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+      <path
+        stroke={currentColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m1 7 3-3-3-3m4.2 6 3-3-3-3"
+      />
+    </svg>
+  );
 }
 
 function CloseIcon() {
@@ -99,4 +117,6 @@ export {
   TrashcanIcon,
   DollarIcon,
   NotePencilIcon,
+  NextstepIcon,
+  BackspaceIcon,
 };

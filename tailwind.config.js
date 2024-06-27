@@ -52,6 +52,7 @@ module.exports = {
           // 400: '#5f5d5e',
           500: '#4a4a4a', //
           // 600: '#1c1a1b',
+          'keyBoard': '#d1d3d9',
         },
         highlight: {
           60: '#EBFF79',
