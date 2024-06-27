@@ -30,19 +30,19 @@ export async function POST(request: NextRequest) {
         name: validatedBody.name,
         picture: validatedBody.picture,
         creator: { connect: { id: clientId } },
+        groupUsers: {
+          create: validatedBody.users.map((user) => ({
+            user: {
+              create: {
+                name: user.name,
+                picture: user.picture,
+              },
+            },
+          })),
+        },
       },
     });
-    const users = await prisma.user.createManyAndReturn({
-      data: validatedBody.users.map((user) => ({ name: user.name, picture: user.picture })),
-    });
-    const groupUserIds = [clientId, ...users.map((user) => user.id)];
-    await prisma.groupUser.createMany({
-      data: groupUserIds.map((groupUserId) => ({
-        userId: groupUserId,
-        groupId: group.id,
-      })),
-    });
-
+    
     return NextResponse.json(group);
   } catch (error) {
     console.error(error);
