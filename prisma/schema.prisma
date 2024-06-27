@@ -69,11 +69,13 @@ model Sharer {
 }
 
 model History {
+  id        Int      @id @default(autoincrement())
   expense   Expense  @relation(fields: [expenseId], references: [id])
   expenseId Int
   editor    User     @relation(fields: [editorId], references: [id])
   editorId  String
   editedAt  DateTime @default(now())
 
-  @@id([expenseId, editorId])
+  @@index([expenseId])
+  @@index([editorId])
 }
