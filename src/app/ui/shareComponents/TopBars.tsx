@@ -3,7 +3,7 @@ import Link from 'next/link';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/user';
 //import ui
-import { HomeIcon, Cog8ToothIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, EditIcon, EditTwoIcon } from '@/app/ui/shareComponents/Icons';
 import clsx from 'clsx';
 
 export function TopGroupBar({ groupData, groupName }: { groupData: any; groupName: string }) {
@@ -20,7 +20,7 @@ export function TopGroupBar({ groupData, groupName }: { groupData: any; groupNam
       <div className="h-6 w-6">
         {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
           <Link href={`/group/${groupData.id}/edit`} className="h-6 w-6" scroll={false}>
-            <Cog8ToothIcon />
+            <EditIcon />
           </Link>
         ) : (
           ''
@@ -77,7 +77,7 @@ export function TopExpenseBar({ expenseData, group }: { expenseData: any; group:
             className="h-6 w-6"
             scroll={false}
           >
-            <PencilSquareIcon />
+            <EditTwoIcon />
           </Link>
         ) : (
           ''

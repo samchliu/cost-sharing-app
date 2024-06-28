@@ -5,8 +5,7 @@ import { Fragment } from 'react';
 import { filterExpense } from '@/app/_components/frontendData/totalDebts';
 import { loginUserId } from '@/app/_components/frontendData/user';
 //import ui
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
+import { GreaterThanIcon, expenseIconMap } from '@/app/ui/shareComponents/Icons';
 
 export default function ExpensesList({ groupData }: { groupData: any }) {
   let { expensesWithDebts } = filterExpense(groupData.expense);
@@ -25,21 +24,33 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
 
   // Step 2: Render expenses grouped by date
   const renderExpensesByDate = () => {
-    return Object.keys(groupedExpenses).map((date, index) => (
-      <div key={index}>
-        {groupedExpenses[date].find((expense: any) => expense.expenseDebt !== undefined) ? (
-          <p className="mx-8 mb-3 text-sm text-grey-500">{date}</p>
-        ) : null}
-        {groupedExpenses[date].map((expense: any) => (
-          <Fragment key={expense.id}>
-            {expense.sharers.some((sharer: any) => sharer.id === loginUserId) ||
-            expense.payerId.includes(loginUserId) ? (
-              <ExpenseButton users={users} expense={expense} />
-            ) : null}
-          </Fragment>
-        ))}
-      </div>
-    ));
+    return Object.keys(groupedExpenses).map((date, index) => {
+      const dateObj = new Date();
+      const year = String(dateObj.getUTCFullYear());
+      let dateArray = date.split('/');
+      let formateDate;
+      if (dateArray[0] === year) {
+        formateDate = `${dateArray[1]}月${dateArray[2]}日`;
+      } else {
+        formateDate = `${dateArray[0]}年${dateArray[1]}月${dateArray[2]}日`;
+      }
+
+      return (
+        <div key={index}>
+          {groupedExpenses[date].find((expense: any) => expense.expenseDebt !== undefined) ? (
+            <p className="mx-8 mb-3 text-sm text-grey-500">{formateDate}</p>
+          ) : null}
+          {groupedExpenses[date].map((expense: any) => (
+            <Fragment key={expense.id}>
+              {expense.sharers.some((sharer: any) => sharer.id === loginUserId) ||
+              expense.payerId.includes(loginUserId) ? (
+                <ExpenseButton users={users} expense={expense} />
+              ) : null}
+            </Fragment>
+          ))}
+        </div>
+      );
+    });
   };
 
   return <>{renderExpensesByDate()}</>;
@@ -70,14 +81,18 @@ function ExpenseButton({ users, expense }: { users: any; expense: any }) {
   return (
     <Link
       href={`/expense/${id}`}
-      className="mx-4 mb-4 flex justify-between rounded-lg bg-white p-4"
+      className="mx-4 mb-4 flex justify-between rounded-lg bg-white py-3 pl-4 pr-3"
     >
       <div className="flex items-center gap-3">
-        <div className="bg-highlight-60 flex h-11 w-11 items-center justify-center rounded-full">
-          {Icon ? <Icon /> : null}
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-highlight-60">
+          {Icon ? (
+            <div className="scale-[1.2]">
+              <Icon />{' '}
+            </div>
+          ) : null}
         </div>
         <div className="leading-[20px]">
-          <p className="font-semibold">{name}</p>
+          <p className="font-normal">{name}</p>
           <p className="font-base text-sm text-grey-500">
             <span>{loginUserId === payerId ? '你' : payerData?.name}</span>
             付了
@@ -88,11 +103,11 @@ function ExpenseButton({ users, expense }: { users: any; expense: any }) {
 
       <div className="flex items-center gap-2">
         {expenseDebt.includes('-') ? (
-          <p className="text-highlight-30">-${nf.format(Math.abs(expenseDebt))}</p>
+          <p className="text-[15px] text-highlight-30">-${nf.format(Math.abs(expenseDebt))}</p>
         ) : (
-          <p className="text-highlight-50">+${nf.format(expenseDebt)}</p>
+          <p className="text-[15px] text-highlight-50">+${nf.format(expenseDebt)}</p>
         )}
-        <ChevronRightIcon className="h-3 w-3" />
+        <GreaterThanIcon />
       </div>
     </Link>
   );

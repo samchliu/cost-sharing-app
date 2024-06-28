@@ -19,7 +19,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
       {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
         <>
           {groupData.users.length ? (
-            <div className="mt-16 flex items-center justify-center gap-4 border-b-[2px] pb-5 pt-8">
+            <div className="border-b-grey-userBar mt-16 flex items-center justify-center gap-4 border-b-[1px] pb-5 pt-8">
               <ul className="flex items-center justify-center gap-2">
                 {frontUsers.map((user: any) => (
                   <UserBarImage user={user} key={user.id} />
@@ -27,11 +27,11 @@ export default function UsersBar({ groupData }: { groupData: any }) {
               </ul>
               <Link
                 href={`/group/${groupData.id}/edit`}
-                className="bg-neutrals-30 flex gap-[2px] rounded-full px-3 py-1 text-sm text-grey-500"
+                className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500"
                 scroll={false}
               >
                 <p className="">{groupData.users.length}</p>
-                <span className="relative bottom-[1px]">&gt;</span>
+                <span className="relative bottom-[1px] ml-[1px]">&gt;</span>
               </Link>
             </div>
           ) : (
@@ -47,7 +47,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
 
 function NoneUsersBar({ text }: { text: string }) {
   return (
-    <div className="mt-16 flex items-center justify-center gap-4 border-b-[2px] pb-5 pt-8">
+    <div className="border-b-grey-userBar mt-16 flex items-center justify-center gap-4 border-b-[1px] pb-5 pt-8">
       {text}
     </div>
   );

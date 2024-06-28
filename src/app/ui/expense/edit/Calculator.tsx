@@ -1,5 +1,7 @@
 'use client';
+//import react
 import { useContext, useEffect, useRef } from 'react';
+//import data
 import { CalcContext, CalcProvider } from '@/app/_components/frontendData/CalcProvider';
 
 import clsx from 'clsx';
@@ -154,7 +156,7 @@ const Calculator = ({
         <CalculatorButton value={'2'} onClick={() => buttonClick('2')} />
         <CalculatorButton value={'3'} onClick={() => buttonClick('3')} />
         <CalculatorButton value={'÷'} onClick={() => buttonClick('/')} />
-        <CalculatorButton value={'x'} onClick={() => buttonClick('*')} />
+        <CalculatorButton value={'×'} onClick={() => buttonClick('*')} />
       </div>
       <div className="flex items-center justify-center">
         <CalculatorButton value={'4'} onClick={() => buttonClick('4')} />
@@ -196,11 +198,11 @@ const Calculator = ({
 const CalculatorButton = ({ value, onClick }: { value: any; onClick: any }) => {
   const isNum = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'AC'].includes(value);
 
-  const isCalculator = ['÷', 'x', '-', '+', '='].includes(value);
+  const isCalculator = ['÷', '×', '-', '+', '='].includes(value);
   return (
     <button
       type="button"
-      className={clsx('m-[5px] flex h-14 w-14 items-center justify-center rounded-lg', {
+      className={clsx('m-[5px] flex h-14 w-14 items-center justify-center rounded-lg font-medium', {
         'bg-highlight-40': isCalculator,
         'bg-neutrals-20': isNum || value === '<-',
       })}

@@ -23,19 +23,19 @@ export default function GroupButton({ groupData }: { groupData: any }) {
   return (
     <Link
       href={`/group/${id}`}
-      className="mx-6 my-4 flex justify-between rounded-[20px] bg-white py-3 pl-3 pr-2"
+      className="mx-6 my-4 flex justify-between rounded-[20px] bg-white py-2 pl-3 pr-2"
     >
       <div className="z-0 flex items-center">
         {Icon ? (
           <Image
             src={Icon}
-            className="bg-highlight-60 flex h-12 w-12 items-center justify-center rounded-full"
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-highlight-60"
             width={200}
             height={200}
             alt={picture}
           />
         ) : null}
-        <p className="pl-3 font-medium">{name}</p>
+        <p className="pl-3 font-normal">{name}</p>
       </div>
       <div className="flex items-center gap-2">
         <ShareButton id={id} name={name} inGroupPage={false} />

@@ -14,8 +14,15 @@ import addGroupIcon from '../../../../public/icons/addGroup.svg';
 import addUserIcon from '../../../../public/icons/addUser.svg';
 import trashcanIcon from '../../../../public/icons/trashcan.svg';
 import dollarIcon from '../../../../public/icons/dollar.svg';
+import dollarTwoIcon from '../../../../public/icons/dollarTwo.svg';
 import notePencilIcon from '../../../../public/icons/notePencil.svg';
 import backspaceIcon from '../../../../public/icons/backspace.svg';
+import shareLinkIcon from '../../../../public/icons/shareLink.svg';
+import copyLinkIcon from '../../../../public/icons/copyLink.svg';
+import homeIcon from '../../../../public/icons/home.svg';
+import editIcon from '../../../../public/icons/edit.svg';
+import editTwoIcon from '../../../../public/icons/editTwo.svg';
+import greaterThanIcon from '../../../../public/icons/greaterThan.svg';
 
 function FoodIcon() {
   return <Image className="w-4" src={foodIcon} alt="" />;
@@ -65,12 +72,40 @@ function DollarIcon() {
   return <Image src={dollarIcon} alt="" />;
 }
 
+function DollarTwoIcon() {
+  return <Image src={dollarTwoIcon} alt="" />;
+}
+
 function NotePencilIcon() {
   return <Image src={notePencilIcon} alt="" />;
 }
 
 function BackspaceIcon() {
   return <Image src={backspaceIcon} alt="" />;
+}
+
+function ShareLinkIcon() {
+  return <Image src={shareLinkIcon} alt="" />;
+}
+
+function CopyLinkIcon() {
+  return <Image src={copyLinkIcon} alt="" />;
+}
+
+function HomeIcon() {
+  return <Image src={homeIcon} alt="" />;
+}
+
+function EditIcon() {
+  return <Image src={editIcon} alt="" />;
+}
+
+function EditTwoIcon() {
+  return <Image src={editTwoIcon} alt="" />;
+}
+
+function GreaterThanIcon() {
+  return <Image src={greaterThanIcon} alt="" />;
 }
 
 function NextstepIcon({ currentColor }: { currentColor: any }) {
@@ -116,7 +151,14 @@ export {
   AddUserIcon,
   TrashcanIcon,
   DollarIcon,
+  DollarTwoIcon,
   NotePencilIcon,
   NextstepIcon,
   BackspaceIcon,
+  ShareLinkIcon,
+  CopyLinkIcon,
+  HomeIcon,
+  EditIcon,
+  EditTwoIcon,
+  GreaterThanIcon,
 };

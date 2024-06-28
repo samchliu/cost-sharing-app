@@ -1,5 +1,5 @@
 import '@/app/ui/globals.css';
-import { inter, kumbhSans } from '@/app/ui/fonts';
+import { inter, notoSansJP, notoSansTC } from '@/app/ui/fonts';
 import { Providers } from '@/app/_components/frontendData/Providers';
 // import LiffProvider from './_components/liff-provider';
 
@@ -13,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-TW">
       {/* <LiffProvider> */}
       <Providers>
-        <body className={`${inter.className} min-h-screen w-full bg-primary-100 antialiased`}>
+        <body
+          className={`${inter.variable} ${notoSansJP.variable} ${notoSansTC.variable} min-h-screen w-full bg-primary-100 font-sans antialiased`}
+        >
           {children}
         </body>
       </Providers>
