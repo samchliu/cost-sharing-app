@@ -20,7 +20,7 @@ export default function DeleteExpenseButton({ expenseData }: { expenseData: any 
       (payerId === loginUserId || sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
         <div
           onClick={handleDelete}
-          className="mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-grey-100"
+          className="bg-neutrals-30 text-neutrals-60 mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full"
         >
           刪除費用
         </div>

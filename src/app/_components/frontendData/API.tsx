@@ -1,135 +1,94 @@
-//get groups
-async function getGroups() {
-    const res = await fetch("http://localhost:3000/groups/", {
-        cache: "no-store",
-    });
-
-    if (!res.ok) throw Error;
-
-    const data = await res.json();
-
-    return data;
-}
-
+//new group API
 async function getGroup(id: any) {
-    const res = await fetch(`http://localhost:3000/groups/${id}`, {
-        cache: "no-store",
-    });
+  const res = await fetch(`http://localhost:3000/group/${id}`, {
+    cache: 'no-store',
+  });
 
-    if (!res.ok) throw Error;
+  if (!res.ok) throw Error;
 
-    const data = await res.json();
+  const data = await res.json();
 
-    return data;
+  return data;
 }
 
-//get expenses
-async function getExpenses() {
-    const res = await fetch("http://localhost:3000/expenses", {
-        cache: "no-store",
-    });
+//new user API
+async function getUser(id: any) {
+  const res = await fetch(`http://localhost:3000/user/${id}`, {
+    cache: 'no-store',
+  });
 
-    if (!res.ok) throw Error;
+  if (!res.ok) throw Error;
 
-    const data = await res.json();
+  const data = await res.json();
 
-    return data;
+  return data;
 }
 
-async function getExpense(id: any) {
-    const res = await fetch(`http://localhost:3000/expenses/${id}`, {
-        cache: "no-store",
-    });
+//get expense
+// async function getExpense(id: any) {
+//     const res = await fetch(`http://localhost:3000/expense/${id}`, {
+//         cache: "no-store",
+//     });
 
-    if (!res.ok) throw Error;
+//     if (!res.ok) throw Error;
 
-    const data = await res.json();
+//     const data = await res.json();
 
-    return data;
-}
-
-//get userInfos
-async function getUserInfos() {
-    const res = await fetch("http://localhost:3000/usersInfo", {
-        cache: "no-store",
-    });
-
-    if (!res.ok) throw Error;
-
-    const data = await res.json();
-
-    return data;
-}
-async function getUserInfo(id: any) {
-    const res = await fetch(`http://localhost:3000/usersInfo/${id}`, {
-        cache: "no-store",
-    });
-
-    if (!res.ok) throw Error;
-
-    const data = await res.json();
-
-    return data;
-}
+//     return data;
+// }
 
 //add group
-// async function addGroup(payload: any) {
-//     const { id, groupType, name, membersIds } = payload
-//     let url = `http://localhost:3000/groups/`
+async function addGroup(payload: any) {
+  const { id, users, expense } = payload;
+  let url = `http://localhost:3000/group/`;
 
-//     let body = {
-//         "id": id,
-//         "groupType": groupType,
-//         "name": name,
-//         "membersIds": membersIds
-//     }
+  let body = {
+    id: id,
+    users: users,
+    expense: expense,
+  };
 
-//     const res = await fetch(url, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(body),
-//         cache: "no-store",
-//     })
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
 
-//     if (!res.ok) throw Error;
+  if (!res.ok) throw Error;
+}
 
-// }
+// delete group
+async function deleteGroup(id: any) {
+  let url = `http://localhost:3000/group/${id}`;
 
-//delete group
-// async function deleteGroup(id: any) {
-//     let url = `http://localhost:3000/groups/${id}`
+  const res = await fetch(url, { method: 'DELETE' });
 
-//     const res = await fetch(url, { method: 'DELETE' })
+  if (!res.ok) throw Error;
+}
 
-//     if (!res.ok) throw Error;
+// change group
+async function changeGroup(payload: any) {
+  const { id, users } = payload;
+  let url = `http://localhost:3000/group/${id}`;
 
-// }
+  let body = {
+    ...payload,
+    users: users,
+  };
 
-//change group
-// async function changeGroup(payload: any) {
-//     const { id, groupType, name, membersIds } = payload
-//     let url = `http://localhost:3000/groups/${id}`
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
 
-//     let body = {
-//         "id": id,
-//         "groupType": groupType,
-//         "name": name,
-//         "membersIds": membersIds
-//     }
+  if (!res.ok) throw Error;
+}
 
-//     const res = await fetch(url, {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(body),
-//         cache: "no-store",
-//     })
-
-//     if (!res.ok) throw Error;
-
-// }
-
-export { getGroups, getGroup, getExpenses, getExpense, getUserInfos, getUserInfo }
+export { getGroup, getUser };

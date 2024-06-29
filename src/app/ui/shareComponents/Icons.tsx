@@ -11,51 +11,118 @@ import otherIcon from '../../../../public/icons/other.svg';
 import checkIcon from '../../../../public/icons/check.svg';
 import closeIcon from '../../../../public/icons/close.svg';
 import addGroupIcon from '../../../../public/icons/addGroup.svg';
-import {
-  GlobeAsiaAustraliaIcon,
-  HeartIcon,
-  PuzzlePieceIcon,
-  RocketLaunchIcon,
-} from '@heroicons/react/24/outline';
+import addUserIcon from '../../../../public/icons/addUser.svg';
+import trashcanIcon from '../../../../public/icons/trashcan.svg';
+import dollarIcon from '../../../../public/icons/dollar.svg';
+import dollarTwoIcon from '../../../../public/icons/dollarTwo.svg';
+import notePencilIcon from '../../../../public/icons/notePencil.svg';
+import backspaceIcon from '../../../../public/icons/backspace.svg';
+import shareLinkIcon from '../../../../public/icons/shareLink.svg';
+import copyLinkIcon from '../../../../public/icons/copyLink.svg';
+import homeIcon from '../../../../public/icons/home.svg';
+import editIcon from '../../../../public/icons/edit.svg';
+import editTwoIcon from '../../../../public/icons/editTwo.svg';
+import greaterThanIcon from '../../../../public/icons/greaterThan.svg';
 
 function FoodIcon() {
-  return <Image src={foodIcon} alt="" />;
+  return <Image className="w-4" src={foodIcon} alt="" />;
 }
 
 function DrinkIcon() {
-  return <Image src={drinkIcon} alt="" />;
+  return <Image className="w-5" src={drinkIcon} alt="" />;
 }
 
 function TransportIcon() {
-  return <Image src={transportIcon} alt="" />;
+  return <Image className="w-5" src={transportIcon} alt="" />;
 }
 
 function StayIcon() {
-  return <Image src={stayIcon} alt="" />;
+  return <Image className="w-5" src={stayIcon} alt="" />;
 }
 
 function ShoppingIcon() {
-  return <Image src={shoppingIcon} alt="" />;
+  return <Image className="w-5" src={shoppingIcon} alt="" />;
 }
 
 function EntertainmentIcon() {
-  return <Image src={entertainmentIcon} alt="" />;
+  return <Image className="w-5" src={entertainmentIcon} alt="" />;
 }
 
 function OtherIcon() {
-  return <Image src={otherIcon} alt="" />;
+  return <Image className="w-5" src={otherIcon} alt="" />;
 }
 
 function CheckIcon() {
   return <Image src={checkIcon} alt="" />;
 }
 
-function CloseIcon() {
-  return <Image src={closeIcon} alt="" />;
-}
-
 function AddGroupIcon() {
   return <Image src={addGroupIcon} alt="" />;
+}
+
+function AddUserIcon() {
+  return <Image src={addUserIcon} alt="" />;
+}
+
+function TrashcanIcon() {
+  return <Image src={trashcanIcon} alt="" />;
+}
+
+function DollarIcon() {
+  return <Image src={dollarIcon} alt="" />;
+}
+
+function DollarTwoIcon() {
+  return <Image src={dollarTwoIcon} alt="" />;
+}
+
+function NotePencilIcon() {
+  return <Image src={notePencilIcon} alt="" />;
+}
+
+function BackspaceIcon() {
+  return <Image src={backspaceIcon} alt="" />;
+}
+
+function ShareLinkIcon() {
+  return <Image src={shareLinkIcon} alt="" />;
+}
+
+function CopyLinkIcon() {
+  return <Image src={copyLinkIcon} alt="" />;
+}
+
+function HomeIcon() {
+  return <Image src={homeIcon} alt="" />;
+}
+
+function EditIcon() {
+  return <Image src={editIcon} alt="" />;
+}
+
+function EditTwoIcon() {
+  return <Image src={editTwoIcon} alt="" />;
+}
+
+function GreaterThanIcon() {
+  return <Image src={greaterThanIcon} alt="" />;
+}
+
+function NextstepIcon({ currentColor }: { currentColor: any }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
+      <path
+        stroke={currentColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m1 7 3-3-3-3m4.2 6 3-3-3-3"
+      />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return <Image src={closeIcon} alt="" />;
 }
 
 const expenseIconMap = {
@@ -69,10 +136,29 @@ const expenseIconMap = {
 };
 
 const groupIconMap = {
-  travel: GlobeAsiaAustraliaIcon,
-  health: HeartIcon,
-  games: PuzzlePieceIcon,
-  other: RocketLaunchIcon,
+  travel: 'https://cdn2.thecatapi.com/images/av8.jpg',
+  health: 'https://cdn2.thecatapi.com/images/8mu.jpg',
+  games: 'https://images.dog.ceo/breeds/terrier-wheaten/n02098105_2472.jpg',
+  other: 'https://cdn2.thecatapi.com/images/ckq.jpg',
 };
 
-export { expenseIconMap, groupIconMap, CheckIcon, CloseIcon, AddGroupIcon };
+export {
+  expenseIconMap,
+  groupIconMap,
+  CheckIcon,
+  CloseIcon,
+  AddGroupIcon,
+  AddUserIcon,
+  TrashcanIcon,
+  DollarIcon,
+  DollarTwoIcon,
+  NotePencilIcon,
+  NextstepIcon,
+  BackspaceIcon,
+  ShareLinkIcon,
+  CopyLinkIcon,
+  HomeIcon,
+  EditIcon,
+  EditTwoIcon,
+  GreaterThanIcon,
+};

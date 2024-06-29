@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 //import ui
-import { LinkIcon } from '@heroicons/react/24/outline';
+import { CopyLinkIcon } from '@/app/ui/shareComponents/Icons';
 import SuccessAlert from '@/app/ui/shareComponents/SuccessAlert';
 
 export default function CopyLinkButton({
@@ -38,16 +38,16 @@ export default function CopyLinkButton({
       {inGroupPage ? (
         <div
           onClick={(e) => handleCopyLink(e)}
-          className="flex items-center justify-center rounded-full bg-primary-lightPink p-2"
+          className="flex scale-[1.17] items-center justify-center rounded-full bg-neutrals-20 p-2"
         >
-          <LinkIcon className="h-5 w-5 cursor-pointer" />
+          <CopyLinkIcon />
         </div>
       ) : (
         <div
           onClick={(e) => handleCopyLink(e)}
-          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-primary-orange"
+          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-highlight-60"
         >
-          <LinkIcon className="h-5 w-5 cursor-pointer stroke-[2px] text-grey-400" />
+          <CopyLinkIcon />
         </div>
       )}
       <SuccessAlert

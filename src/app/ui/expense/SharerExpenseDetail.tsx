@@ -2,20 +2,21 @@
 import Image from 'next/image';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/user';
-import { useUser } from '@/app/_components/frontendData/Providers';
 
 export default function SharerExpenseDetail({
   expenseData,
   sharer,
+  users,
 }: {
   expenseData: any;
   sharer: any;
+  users: any;
 }) {
   const { payerId }: { payerId: string } = expenseData;
   const { id, amount } = sharer;
 
-  const payerData = useUser(payerId);
-  const sharerData = useUser(id);
+  let payerData = users.filter((user: any) => user.id === payerId)[0];
+  let sharerData = users.filter((user: any) => user.id === id)[0];
 
   let nf = new Intl.NumberFormat('en-US');
   let shareAmount: any = Number(amount).toFixed(2);
@@ -30,16 +31,16 @@ export default function SharerExpenseDetail({
           {sharerData ? (
             <Image
               className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-grey-200"
-              src={sharerData.pictureUrl}
+              src={sharerData.picture}
               width={32}
               height={32}
               alt="sharer image"
             />
           ) : null}
           <div className="ml-3">
-            {id === loginUserId ? '你' : sharerData?.displayName}
+            {id === loginUserId ? '你' : sharerData?.name}
             &nbsp;要給&nbsp;
-            {payerId === loginUserId ? '你' : payerData?.displayName}
+            {payerId === loginUserId ? '你' : payerData?.name}
           </div>
         </div>
         <div>${nf.format(shareAmount)}</div>

@@ -42,8 +42,8 @@ export default function SuccessAlert({
         <div className="flex w-64 rounded-lg shadow-lg">
           <div
             className={clsx('flex items-center rounded-l-lg px-6 py-4', {
-              'bg-primary-lightPink': inGroupPage,
-              'bg-primary-orange': !inGroupPage,
+              'bg-neutrals-20': inGroupPage,
+              'bg-highlight-60': !inGroupPage,
             })}
           >
             <button onClick={(e) => handleClick(e)}>
