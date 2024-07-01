@@ -59,3 +59,19 @@ export async function PUT(
     return NextResponse.error();
   }
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { groupId: string; userId: string } }
+) {
+  try {
+    const { count } = await prisma.groupUser.deleteMany({
+      where: { groupId: params.groupId, userId: params.userId },
+    });
+    if (count === 0) return new NextResponse('User does not exist', { status: 404 });
+    return new NextResponse(undefined, { status: 204 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.error();
+  }
+}
