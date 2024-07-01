@@ -4,8 +4,7 @@ import { encrypt, decrypt } from './lib/jwt';
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
   if (!token) {
-    return new NextResponse('Unauthorized', { status: 401 });
-    // return NextResponse.redirect(new URL('/api/pages/login', request.url));
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   try {
     const parsed = await decrypt(token);
@@ -21,7 +20,7 @@ export async function middleware(request: NextRequest) {
     return response;
   } catch (error) {
     console.log(error);
-    return new NextResponse('Unauthorized', { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 }
 

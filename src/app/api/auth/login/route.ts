@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     validatedBody = LoginSchema.parse(body);
   } catch (error) {
     console.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
   }
 
   const { accessToken } = validatedBody;
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     }
     if (client_id !== clientId || expires_in < 0) throw new Error();
   } catch {
-    return new NextResponse('Unauthorized', { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
     const getUserProfileResponseBody = await getUserProfileResponse.json();
     const userProfile = UserProfileSchema.parse(getUserProfileResponseBody);
 
-    // TODO: fix id token expire issue, https://zenn.dev/arahabica/articles/274bb147a91d8a
     const user = await prisma.user.upsert({
       where: { lineId: userProfile.userId },
       update: {},
@@ -61,12 +60,6 @@ export async function POST(request: NextRequest) {
         name: userProfile.displayName,
         picture: userProfile.pictureUrl,
       },
-    });
-    const groupUsers = await prisma.groupUser.findMany({
-      where: { userId: user.id },
-    });
-    const groups = await prisma.group.findMany({
-      where: { id: { in: groupUsers.map((groupUser) => groupUser.groupId) } },
     });
 
     const token = await encrypt({ clientId: user.id });
@@ -77,7 +70,7 @@ export async function POST(request: NextRequest) {
       // httpOnly: true,
       path: '/',
     });
-    return NextResponse.json({ ...user, groups });
+    return NextResponse.json({ message: 'Login Success' });
   } catch (error) {
     console.error(error);
     return NextResponse.error();
