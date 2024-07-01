@@ -17,7 +17,6 @@ const RequestSchema = z.object({
 });
 
 export async function POST(request: NextRequest, { params }: { params: { groupId: string } }) {
-  const clientId = request.headers.get('client-id')!;
   let validatedBody;
   try {
     const body = await request.json();
@@ -29,9 +28,18 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
 
   const group = await prisma.group.findUnique({ where: { id: params.groupId } });
   if (!group) return new NextResponse('Group does not exist', { status: 404 });
-  // TODO: Should we first check whether payerId and sharerIds are valid?
+
+  const userIds = [
+    ...new Set([validatedBody.payerId, ...validatedBody.sharers.map((sharer) => sharer.id)]),
+  ];
+  const users = await prisma.groupUser.findMany({
+    where: { userId: { in: userIds } },
+  });
+  if (users.length !== userIds.length)
+    return new NextResponse('The user does not exist in the group', { status: 404 });
 
   try {
+    const clientId = request.headers.get('client-id')!;
     const expense = await prisma.expense.create({
       data: {
         name: validatedBody.name,
@@ -56,19 +64,12 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
         },
       },
       include: {
-        payer: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
         sharers: {
           select: {
             amount: true,
             user: {
               select: {
                 id: true,
-                name: true,
               },
             },
           },
@@ -76,19 +77,17 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
         historys: {
           select: {
             editedAt: true,
-            editor: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
+            editorId: true,
           },
         },
       },
     });
 
-    // TODO: return sharers and historys fields too
-    return NextResponse.json(expense);
+    const responseBody: any = {
+      ...expense,
+      sharers: expense.sharers.map((sharer) => ({ id: sharer.user.id, amount: sharer.amount })),
+    };
+    return NextResponse.json(responseBody);
   } catch (error) {
     console.error(error);
     return NextResponse.error();
