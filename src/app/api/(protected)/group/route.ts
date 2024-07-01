@@ -14,7 +14,6 @@ const RequestSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const clientId = request.headers.get('client-id')!;
   let validatedBody;
   try {
     const body = await request.json();
@@ -25,25 +24,45 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const clientId = request.headers.get('client-id')!;
+    const users = await prisma.user.createManyAndReturn({
+      data: validatedBody.users.map((user) => ({
+        name: user.name,
+        picture: user.picture,
+      })),
+    });
+    const userIds = [clientId, ...users.map((user) => user.id)];
+
     const group = await prisma.group.create({
       data: {
         name: validatedBody.name,
         picture: validatedBody.picture,
         creator: { connect: { id: clientId } },
         groupUsers: {
-          create: validatedBody.users.map((user) => ({
+          create: userIds.map((userId) => ({
             user: {
-              create: {
-                name: user.name,
-                picture: user.picture,
-              },
+              connect: { id: userId },
             },
           })),
         },
       },
+      include: {
+        groupUsers: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                picture: true,
+              },
+            },
+          },
+        },
+      },
     });
-    
-    return NextResponse.json(group);
+    const responseBody: any = { ...group, users: group.groupUsers.map((item) => item.user) };
+    delete responseBody.groupUsers;
+    return NextResponse.json(responseBody);
   } catch (error) {
     console.error(error);
     return NextResponse.error();
