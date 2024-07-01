@@ -43,6 +43,7 @@ export async function GET(
 
 const RequestSchema = z.object({
   name: z.string(),
+  category: z.string(),
   amount: z.number(),
   date: z.string().datetime(),
   note: z.string(),
@@ -95,6 +96,7 @@ export async function PUT(
       where: { id: Number(params.expenseId), group: { id: params.groupId } },
       data: {
         name: validatedBody.name,
+        category: validatedBody.category,
         amount: validatedBody.amount,
         date: validatedBody.date,
         note: validatedBody.note,

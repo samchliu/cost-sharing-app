@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 const RequestSchema = z.object({
   name: z.string(),
+  category: z.string(),
   amount: z.number(),
   date: z.string().datetime(),
   note: z.string(),
@@ -43,6 +44,7 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
     const expense = await prisma.expense.create({
       data: {
         name: validatedBody.name,
+        category: validatedBody.category,
         amount: validatedBody.amount,
         date: validatedBody.date,
         note: validatedBody.note,

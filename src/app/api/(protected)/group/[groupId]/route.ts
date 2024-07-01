@@ -21,6 +21,7 @@ export async function GET(request: NextRequest, { params }: { params: { groupId:
           select: {
             id: true,
             name: true,
+            category: true,
             amount: true,
             date: true,
             note: true,
