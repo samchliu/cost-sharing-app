@@ -23,11 +23,11 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
     validatedBody = RequestSchema.parse(body);
   } catch (error) {
     console.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
   }
 
   const group = await prisma.group.findUnique({ where: { id: params.groupId } });
-  if (!group) return new NextResponse('Group does not exist', { status: 404 });
+  if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
   const userIds = [
     ...new Set([validatedBody.payerId, ...validatedBody.sharers.map((sharer) => sharer.id)]),
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
     where: { userId: { in: userIds } },
   });
   if (users.length !== userIds.length)
-    return new NextResponse('The user does not exist in the group', { status: 404 });
+    return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
   try {
     const clientId = request.headers.get('client-id')!;

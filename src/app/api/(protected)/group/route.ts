@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     validatedBody = RequestSchema.parse(body);
   } catch (error) {
     console.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
   }
 
   try {

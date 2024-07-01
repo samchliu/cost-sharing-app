@@ -29,7 +29,7 @@ export async function GET(request: NextRequest, { params }: { params: { groupId:
         },
       },
     });
-    if (!group) return new NextResponse('Group does not exist', { status: 404 });
+    if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
     const responseBody: any = { ...group, users: group.groupUsers.map((item) => item.user) };
     delete responseBody.groupUsers;
@@ -43,10 +43,10 @@ export async function GET(request: NextRequest, { params }: { params: { groupId:
 export async function DELETE(request: NextRequest, { params }: { params: { groupId: string } }) {
   try {
     const group = await prisma.group.findUnique({ where: { id: params.groupId } });
-    if (!group) return new NextResponse('Group does not exist', { status: 404 });
+    if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
     await prisma.group.delete({ where: { id: params.groupId } });
-    return new NextResponse(undefined, { status: 204 });
+    return NextResponse.json(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.error();

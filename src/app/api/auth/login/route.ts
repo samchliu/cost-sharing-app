@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     validatedBody = LoginSchema.parse(body);
   } catch (error) {
     console.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
   }
 
   const { accessToken } = validatedBody;
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     }
     if (client_id !== clientId || expires_in < 0) throw new Error();
   } catch {
-    return new NextResponse('Unauthorized', { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       // httpOnly: true,
       path: '/',
     });
-    return new NextResponse('Login Success', { status: 200 });
+    return NextResponse.json({ message: 'Login Success' });
   } catch (error) {
     console.error(error);
     return NextResponse.error();

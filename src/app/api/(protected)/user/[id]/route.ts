@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         },
       },
     });
-    if (!user) return new NextResponse('No such user exists', { status: 404 });
+    if (!user) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
     const responseBody: any = { ...user, groups: user.groupUsers.map((item) => item.group) };
     delete responseBody.groupUsers;
     return NextResponse.json(responseBody);

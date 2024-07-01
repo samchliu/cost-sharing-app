@@ -28,7 +28,7 @@ export async function GET(
         },
       },
     });
-    if (!expense) return new NextResponse('Expense does not exist', { status: 404 });
+    if (!expense) return NextResponse.json({ error: 'Expense Not Found' }, { status: 404 });
 
     const responseBody: any = {
       ...expense,
@@ -65,16 +65,16 @@ export async function PUT(
     validatedBody = RequestSchema.parse(body);
   } catch (error) {
     console.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
   }
 
   const group = await prisma.group.findUnique({ where: { id: params.groupId } });
-  if (!group) return new NextResponse('Group does not exist', { status: 404 });
+  if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
   const expense = await prisma.expense.findUnique({
     where: { id: Number(params.expenseId), group: { id: params.groupId } },
   });
-  if (!expense) return new NextResponse('Expense does not exist', { status: 404 });
+  if (!expense) return NextResponse.json({ error: 'Expense Not Found' }, { status: 404 });
 
   const userIds = [
     ...new Set([validatedBody.payerId, ...validatedBody.sharers.map((sharer) => sharer.id)]),
@@ -83,7 +83,7 @@ export async function PUT(
     where: { userId: { in: userIds } },
   });
   if (users.length !== userIds.length)
-    return new NextResponse('The user does not exist in the group', { status: 404 });
+    return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
   try {
     const clientId = request.headers.get('client-id')!;
@@ -149,8 +149,8 @@ export async function DELETE(
     const { count } = await prisma.expense.deleteMany({
       where: { id: Number(params.expenseId), group: { id: params.groupId } },
     });
-    if (count === 0) return new NextResponse('Expense does not exist', { status: 404 });
-    return new NextResponse(undefined, { status: 204 });
+    if (count === 0) return NextResponse.json({ error: 'Expense Not Found' }, { status: 404 });
+    return NextResponse.json(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.error();

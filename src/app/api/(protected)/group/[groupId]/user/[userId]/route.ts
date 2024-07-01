@@ -7,7 +7,7 @@ export async function PUT(
 ) {
   try {
     const groupUser = await prisma.groupUser.findUnique({ where: { groupId_userId: params } });
-    if (!groupUser) return new NextResponse('User does not exist', { status: 404 });
+    if (!groupUser) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
     const clientId = request.headers.get('client-id')!;
     await prisma.groupUser.updateMany({
@@ -50,7 +50,7 @@ export async function PUT(
         },
       },
     });
-    if (!user) return new NextResponse('No such user exists', { status: 404 });
+    if (!user) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
     const responseBody: any = { ...user, groups: user.groupUsers.map((item) => item.group) };
     delete responseBody.groupUsers;
     return NextResponse.json(responseBody);
@@ -68,8 +68,8 @@ export async function DELETE(
     const { count } = await prisma.groupUser.deleteMany({
       where: { groupId: params.groupId, userId: params.userId },
     });
-    if (count === 0) return new NextResponse('User does not exist', { status: 404 });
-    return new NextResponse(undefined, { status: 204 });
+    if (count === 0) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+    return NextResponse.json(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.error();
