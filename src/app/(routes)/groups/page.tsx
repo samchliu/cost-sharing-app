@@ -4,8 +4,8 @@
 // import { useLiff } from '@/app/_components/liff-provider';
 
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
-import { useUser } from '@/app/_components/frontendData/Providers';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useUser } from '@/app/_components/frontendData/fetchData/Providers';
 //import ui
 import GroupButton from '@/app/ui/groups/GroupButton';
 import AddGroupButton from '@/app/ui/groups/AddGroupButton';

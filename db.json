@@ -2,6 +2,7 @@
     "user": [
         {
             "id": "u1",
+            "lineId": "linIdu1",
             "name": "a",
             "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
             "groups": [
@@ -28,7 +29,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -54,6 +55,7 @@
         },
         {
             "id": "u2",
+            "lineId": "linIdu2",
             "name": "b",
             "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
             "groups": [
@@ -80,7 +82,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -106,6 +108,7 @@
         },
         {
             "id": "u3",
+            "lineId": "linIdu3",
             "name": "c",
             "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
             "groups": [
@@ -132,7 +135,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -163,6 +166,7 @@
         },
         {
             "id": "u4",
+            "lineId": "linIdu4",
             "name": "d",
             "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
             "groups": [
@@ -179,7 +183,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -205,6 +209,7 @@
         },
         {
             "id": "u5",
+            "lineId": "linIdu5",
             "name": "e",
             "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
             "groups": [
@@ -216,7 +221,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -237,6 +242,7 @@
         },
         {
             "id": "u6",
+            "lineId": "linIdu6",
             "name": "f",
             "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
             "groups": [
@@ -248,7 +254,7 @@
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g6",
@@ -274,13 +280,14 @@
         },
         {
             "id": "u7",
+            "lineId": "linIdu7",
             "name": "g",
             "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
             "groups": [
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g9",
@@ -296,13 +303,14 @@
         },
         {
             "id": "u8",
+            "lineId": "linIdu8",
             "name": "h",
             "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg",
             "groups": [
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g8",
@@ -318,13 +326,14 @@
         },
         {
             "id": "u9",
+            "lineId": "linIdu9",
             "name": "i",
             "picture": "https://cdn2.thecatapi.com/images/bo5.jpg",
             "groups": [
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g9",
@@ -340,13 +349,14 @@
         },
         {
             "id": "u10",
+            "lineId": "linIdu10",
             "name": "j",
             "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg",
             "groups": [
                 {
                     "id": "g5",
                     "name": "新年新希望123",
-                    "picture": "health"
+                    "picture": "travel"
                 },
                 {
                     "id": "g9",
@@ -364,34 +374,15 @@
     "group": [
         {
             "id": "g1",
-            "users": [
-                {
-                    "id": "u1",
-                    "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
-                },
-                {
-                    "id": "u2",
-                    "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
-                },
-                {
-                    "id": "u3",
-                    "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
-                },
-                {
-                    "id": "u4",
-                    "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
-                }
-            ],
-            "expense": [
+            "name": "5月聚餐",
+            "picture": "other",
+            "creatorId": "u1",
+            "expenses": [
                 {
                     "id": "e1",
                     "name": "燒鳥肌肉串",
                     "amount": 210,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -404,17 +395,13 @@
                             "amount": 105
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e2",
                     "name": "手工醃蘿波",
                     "amount": 50,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -431,17 +418,13 @@
                             "amount": 16.666666666666668
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e3",
                     "name": "豆腐沙拉",
                     "amount": 150,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -458,17 +441,13 @@
                             "amount": 50
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e4",
                     "name": "炭烤玉米筍",
                     "amount": 180,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -485,17 +464,13 @@
                             "amount": 60
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e5",
                     "name": "節瓜",
                     "amount": 120,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -512,17 +487,13 @@
                             "amount": 40
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e6",
                     "name": "山藥",
                     "amount": 180,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -539,17 +510,13 @@
                             "amount": 60
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e7",
                     "name": "杏苞菇",
                     "amount": 120,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -566,17 +533,13 @@
                             "amount": 40
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e8",
                     "name": "娃娃菜",
                     "amount": 140,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -593,17 +556,13 @@
                             "amount": 46.666666666666664
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e9",
                     "name": "茄子",
                     "amount": 140,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -620,17 +579,13 @@
                             "amount": 46.666666666666664
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e10",
                     "name": "炸豆腐",
                     "amount": 150,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -647,17 +602,13 @@
                             "amount": 50
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e11",
                     "name": "青蔥豚煎餃",
                     "amount": 100,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -666,17 +617,13 @@
                             "amount": 100
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e12",
                     "name": "韭菜豚煎餃",
                     "amount": 100,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -685,17 +632,13 @@
                             "amount": 100
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e13",
                     "name": "綜合煎餃",
                     "amount": 120,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -704,17 +647,13 @@
                             "amount": 100
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e14",
                     "name": "葡萄沙瓦",
                     "amount": 340,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "drink",
                     "payerId": "u1",
                     "sharers": [
@@ -727,17 +666,13 @@
                             "amount": 170
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e15",
                     "name": "荔枝沙瓦",
                     "amount": 180,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "drink",
                     "payerId": "u1",
                     "sharers": [
@@ -746,17 +681,13 @@
                             "amount": 180
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e16",
                     "name": "可爾必思",
                     "amount": 80,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "drink",
                     "payerId": "u1",
                     "sharers": [
@@ -765,16 +696,9 @@
                             "amount": 80
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 }
-            ]
-        },
-        {
-            "id": "g2",
+            ],
             "users": [
                 {
                     "id": "u1",
@@ -795,24 +719,20 @@
                     "id": "u4",
                     "name": "d",
                     "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
-                },
-                {
-                    "id": "u5",
-                    "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
-                },
-                {
-                    "id": "u6",
-                    "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
                 }
-            ],
-            "expense": [
+            ]
+        },
+        {
+            "id": "g2",
+            "name": "2024 Japan",
+            "picture": "travel",
+            "creatorId": "u1",
+            "expenses": [
                 {
                     "id": "e17",
                     "name": "plane ticket",
                     "amount": 180000,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "transport",
                     "payerId": "u1",
                     "sharers": [
@@ -841,17 +761,13 @@
                             "amount": 30000
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e18",
                     "name": "hotel",
                     "amount": 60000,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "stay",
                     "payerId": "u2",
                     "sharers": [
@@ -880,17 +796,13 @@
                             "amount": 10000
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 },
                 {
                     "id": "e19",
                     "name": "disney land",
                     "amount": 15000,
-                    "date": "2024/5/28",
+                    "date": "2024-05-28T00:00:00.000Z",
                     "category": "other",
                     "payerId": "u3",
                     "sharers": [
@@ -911,16 +823,9 @@
                             "amount": 3750
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/5/28",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/28"
+                    "note": ""
                 }
-            ]
-        },
-        {
-            "id": "g3",
+            ],
             "users": [
                 {
                     "id": "u1",
@@ -936,14 +841,35 @@
                     "id": "u3",
                     "name": "c",
                     "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                },
+                {
+                    "id": "u4",
+                    "name": "d",
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                },
+                {
+                    "id": "u5",
+                    "name": "e",
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                },
+                {
+                    "id": "u6",
+                    "name": "f",
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
                 }
-            ],
-            "expense": [
+            ]
+        },
+        {
+            "id": "g3",
+            "name": "fruits and drinks",
+            "picture": "other",
+            "creatorId": "u1",
+            "expenses": [
                 {
                     "id": "e23",
                     "name": "fruits",
                     "amount": 180,
-                    "date": "2024/6/3",
+                    "date": "2023-06-03T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -960,17 +886,13 @@
                             "amount": "90"
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/6/3",
-                    "updateBy": "u1",
-                    "updateAt": "2024/6/3"
+                    "note": ""
                 },
                 {
                     "id": "e24",
                     "name": "drinks",
                     "amount": 120,
-                    "date": "2024/6/3",
+                    "date": "2024-06-04T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u3",
                     "sharers": [
@@ -980,23 +902,16 @@
                         },
                         {
                             "id": "u2",
-                            "amount": "50"
+                            "amount": 50
                         },
                         {
                             "id": "u3",
-                            "amount": "40"
+                            "amount": 40
                         }
                     ],
-                    "note": "",
-                    "createBy": "u1",
-                    "createAt": "2024/6/3",
-                    "updateBy": "u1",
-                    "updateAt": "2024/6/3"
+                    "note": ""
                 }
-            ]
-        },
-        {
-            "id": "g4",
+            ],
             "users": [
                 {
                     "id": "u1",
@@ -1013,13 +928,19 @@
                     "name": "c",
                     "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
                 }
-            ],
-            "expense": [
+            ]
+        },
+        {
+            "id": "g4",
+            "name": "新年新希望",
+            "picture": "health",
+            "creatorId": "u1",
+            "expenses": [
                 {
                     "id": "e20",
                     "name": "晚餐",
                     "amount": 3000,
-                    "date": "2024/5/30",
+                    "date": "2024-05-30T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u2",
                     "sharers": [
@@ -1036,17 +957,13 @@
                             "amount": 1000
                         }
                     ],
-                    "note": "大家都覺得不好吃的那間",
-                    "createBy": "u1",
-                    "createAt": "2024/5/30",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/30"
+                    "note": "大家都覺得不好吃的那間"
                 },
                 {
                     "id": "e21",
                     "name": "午餐",
                     "amount": 2400,
-                    "date": "2024/5/30",
+                    "date": "2024-05-30T00:00:00.000Z",
                     "category": "food",
                     "payerId": "u1",
                     "sharers": [
@@ -1063,17 +980,13 @@
                             "amount": 800
                         }
                     ],
-                    "note": "其實還可以的那間",
-                    "createBy": "u1",
-                    "createAt": "2024/5/30",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/30"
+                    "note": "其實還可以的那間"
                 },
                 {
                     "id": "e22",
                     "name": "計程車",
                     "amount": 450,
-                    "date": "2024/5/30",
+                    "date": "2024-05-30T00:00:00.000Z",
                     "category": "transport",
                     "payerId": "u2",
                     "sharers": [
@@ -1090,16 +1003,33 @@
                             "amount": 150
                         }
                     ],
-                    "note": "司機大哥很好笑那台",
-                    "createBy": "u1",
-                    "createAt": "2024/5/30",
-                    "updateBy": "u1",
-                    "updateAt": "2024/5/30"
+                    "note": "司機大哥很好笑那台"
+                }
+            ],
+            "users": [
+                {
+                    "id": "u1",
+                    "name": "a",
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                },
+                {
+                    "id": "u2",
+                    "name": "b",
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                },
+                {
+                    "id": "u3",
+                    "name": "c",
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
                 }
             ]
         },
         {
             "id": "g5",
+            "name": "新年新希望123",
+            "picture": "travel",
+            "creatorId": "u1",
+            "expenses": [],
             "users": [
                 {
                     "id": "u1",
@@ -1151,11 +1081,14 @@
                     "name": "j",
                     "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g6",
+            "name": "新年新希望456",
+            "picture": "health",
+            "creatorId": "u1",
+            "expenses": [],
             "users": [
                 {
                     "id": "u1",
@@ -1187,11 +1120,14 @@
                     "name": "f",
                     "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g7",
+            "name": "group Other 2",
+            "picture": "other",
+            "creatorId": "u1",
+            "expenses": [],
             "users": [
                 {
                     "id": "u1",
@@ -1208,11 +1144,14 @@
                     "name": "f",
                     "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g8",
+            "name": "group Games 2",
+            "picture": "games",
+            "creatorId": "u3",
+            "expenses": [],
             "users": [
                 {
                     "id": "u3",
@@ -1234,11 +1173,14 @@
                     "name": "h",
                     "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g9",
+            "name": "group Travel 3",
+            "picture": "travel",
+            "creatorId": "u1",
+            "expenses": [],
             "users": [
                 {
                     "id": "u1",
@@ -1270,11 +1212,14 @@
                     "name": "j",
                     "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g10",
+            "name": "group Health 3",
+            "picture": "health",
+            "creatorId": "u2",
+            "expenses": [],
             "users": [
                 {
                     "id": "u2",
@@ -1291,11 +1236,14 @@
                     "name": "d",
                     "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g11",
+            "name": "group Other 3",
+            "picture": "other",
+            "creatorId": "u1",
+            "expenses": [],
             "users": [
                 {
                     "id": "u1",
@@ -1332,11 +1280,14 @@
                     "name": "j",
                     "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
                 }
-            ],
-            "expense": []
+            ]
         },
         {
             "id": "g12",
+            "name": "group Games 3",
+            "picture": "games",
+            "creatorId": "u2",
+            "expenses": [],
             "users": [
                 {
                     "id": "u2",
@@ -1353,8 +1304,781 @@
                     "name": "f",
                     "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
                 }
+            ]
+        }
+    ],
+    "expense": [
+        {
+            "id": "e1",
+            "groupId": "g1",
+            "name": "燒鳥肌肉串",
+            "amount": 210,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 105
+                },
+                {
+                    "id": "u2",
+                    "amount": 105
+                }
             ],
-            "expense": []
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e2",
+            "groupId": "g1",
+            "name": "手工醃蘿波",
+            "amount": 50,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 16.666666666666668
+                },
+                {
+                    "id": "u3",
+                    "amount": 16.666666666666668
+                },
+                {
+                    "id": "u4",
+                    "amount": 16.666666666666668
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e3",
+            "groupId": "g1",
+            "name": "豆腐沙拉",
+            "amount": 150,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 50
+                },
+                {
+                    "id": "u3",
+                    "amount": 50
+                },
+                {
+                    "id": "u4",
+                    "amount": 50
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e4",
+            "groupId": "g1",
+            "name": "炭烤玉米筍",
+            "amount": 180,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 60
+                },
+                {
+                    "id": "u3",
+                    "amount": 60
+                },
+                {
+                    "id": "u4",
+                    "amount": 60
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e5",
+            "groupId": "g1",
+            "name": "節瓜",
+            "amount": 120,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 40
+                },
+                {
+                    "id": "u3",
+                    "amount": 40
+                },
+                {
+                    "id": "u4",
+                    "amount": 40
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e6",
+            "groupId": "g1",
+            "name": "山藥",
+            "amount": 180,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 60
+                },
+                {
+                    "id": "u2",
+                    "amount": 60
+                },
+                {
+                    "id": "u3",
+                    "amount": 60
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e7",
+            "groupId": "g1",
+            "name": "杏苞菇",
+            "amount": 120,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 40
+                },
+                {
+                    "id": "u3",
+                    "amount": 40
+                },
+                {
+                    "id": "u4",
+                    "amount": 40
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e8",
+            "groupId": "g1",
+            "name": "娃娃菜",
+            "amount": 140,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 46.666666666666664
+                },
+                {
+                    "id": "u3",
+                    "amount": 46.666666666666664
+                },
+                {
+                    "id": "u4",
+                    "amount": 46.666666666666664
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e9",
+            "groupId": "g1",
+            "name": "茄子",
+            "amount": 140,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 46.666666666666664
+                },
+                {
+                    "id": "u3",
+                    "amount": 46.666666666666664
+                },
+                {
+                    "id": "u4",
+                    "amount": 46.666666666666664
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e10",
+            "groupId": "g1",
+            "name": "炸豆腐",
+            "amount": 150,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 50
+                },
+                {
+                    "id": "u3",
+                    "amount": 50
+                },
+                {
+                    "id": "u4",
+                    "amount": 50
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e11",
+            "groupId": "g1",
+            "name": "青蔥豚煎餃",
+            "amount": 100,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 100
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e12",
+            "groupId": "g1",
+            "name": "韭菜豚煎餃",
+            "amount": 100,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 100
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e13",
+            "groupId": "g1",
+            "name": "綜合煎餃",
+            "amount": 120,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u4",
+                    "amount": 100
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e14",
+            "groupId": "g1",
+            "name": "葡萄沙瓦",
+            "amount": 340,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "drink",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u2",
+                    "amount": 170
+                },
+                {
+                    "id": "u3",
+                    "amount": 170
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e15",
+            "groupId": "g1",
+            "name": "荔枝沙瓦",
+            "amount": 180,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "drink",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u4",
+                    "amount": 180
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e16",
+            "groupId": "g1",
+            "name": "可爾必思",
+            "amount": 80,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "drink",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 80
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e17",
+            "groupId": "g2",
+            "name": "plane ticket",
+            "amount": 180000,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "transport",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 30000
+                },
+                {
+                    "id": "u2",
+                    "amount": 30000
+                },
+                {
+                    "id": "u3",
+                    "amount": 30000
+                },
+                {
+                    "id": "u4",
+                    "amount": 30000
+                },
+                {
+                    "id": "u5",
+                    "amount": 30000
+                },
+                {
+                    "id": "u6",
+                    "amount": 30000
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e18",
+            "groupId": "g2",
+            "name": "hotel",
+            "amount": 60000,
+            "date": "2024-05-28T17:18:15.063Z",
+            "category": "stay",
+            "creatorId": "u1",
+            "payerId": "u2",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 10000
+                },
+                {
+                    "id": "u2",
+                    "amount": 10000
+                },
+                {
+                    "id": "u3",
+                    "amount": 10000
+                },
+                {
+                    "id": "u4",
+                    "amount": 10000
+                },
+                {
+                    "id": "u5",
+                    "amount": 10000
+                },
+                {
+                    "id": "u6",
+                    "amount": 10000
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-28T17:18:15.063Z",
+            "updateAt": "2024-05-28T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-28T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e19",
+            "groupId": "g2",
+            "name": "disney land",
+            "amount": 15000,
+            "date": "2024-05-29T17:18:15.063Z",
+            "category": "other",
+            "creatorId": "u1",
+            "payerId": "u3",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 3750
+                },
+                {
+                    "id": "u3",
+                    "amount": 3750
+                },
+                {
+                    "id": "u4",
+                    "amount": 3750
+                },
+                {
+                    "id": "u6",
+                    "amount": 3750
+                }
+            ],
+            "note": "",
+            "createAt": "2024-05-29T17:18:15.063Z",
+            "updateAt": "2024-05-29T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-29T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e20",
+            "groupId": "g4",
+            "name": "晚餐",
+            "amount": 3000,
+            "date": "2024-05-30T17:18:15.063Z",
+            "category": "food",
+            "payerId": "u2",
+            "creatorId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 1000
+                },
+                {
+                    "id": "u2",
+                    "amount": 1000
+                },
+                {
+                    "id": "u3",
+                    "amount": 1000
+                }
+            ],
+            "note": "大家都覺得不好吃的那間",
+            "createAt": "2024-05-30T17:18:15.063Z",
+            "updateAt": "2024-05-30T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-30T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e21",
+            "groupId": "g4",
+            "name": "午餐",
+            "amount": 2400,
+            "date": "2024-05-30T17:18:15.063Z",
+            "category": "food",
+            "payerId": "u1",
+            "creatorId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 800
+                },
+                {
+                    "id": "u2",
+                    "amount": 800
+                },
+                {
+                    "id": "u3",
+                    "amount": 800
+                }
+            ],
+            "note": "其實還可以的那間",
+            "createAt": "2024-05-30T17:18:15.063Z",
+            "updateAt": "2024-05-30T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-30T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e22",
+            "groupId": "g4",
+            "name": "計程車",
+            "amount": 450,
+            "date": "2024-05-30T17:18:15.063Z",
+            "category": "transport",
+            "payerId": "u2",
+            "creatorId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 150
+                },
+                {
+                    "id": "u2",
+                    "amount": 150
+                },
+                {
+                    "id": "u3",
+                    "amount": 150
+                }
+            ],
+            "note": "司機大哥很好笑那台",
+            "createAt": "2024-05-30T17:18:15.063Z",
+            "updateAt": "2024-05-30T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-05-30T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e23",
+            "groupId": "g3",
+            "name": "fruits",
+            "amount": 180,
+            "date": "2023-06-03T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 20
+                },
+                {
+                    "id": "u2",
+                    "amount": "70"
+                },
+                {
+                    "id": "u3",
+                    "amount": "90"
+                }
+            ],
+            "note": "",
+            "createAt": "2023-06-03T17:18:15.063Z",
+            "updateAt": "2023-06-03T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2023-06-03T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e24",
+            "groupId": "g3",
+            "name": "drinks",
+            "amount": 120,
+            "date": "2024-06-04T17:18:15.063Z",
+            "category": "food",
+            "creatorId": "u1",
+            "payerId": "u3",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 30
+                },
+                {
+                    "id": "u2",
+                    "amount": 50
+                },
+                {
+                    "id": "u3",
+                    "amount": 40
+                }
+            ],
+            "note": "",
+            "createAt": "2024-06-04T17:18:15.063Z",
+            "updateAt": "2024-06-04T17:18:15.063Z",
+            "historys": [
+                {
+                    "editedAt": "2024-06-04T17:18:15.063Z",
+                    "editorId": "u1"
+                }
+            ]
         }
     ]
 }

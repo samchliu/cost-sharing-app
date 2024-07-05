@@ -1,7 +1,7 @@
 //import from next
 import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 //import ui
 import { HomeIcon, EditIcon, EditTwoIcon } from '@/app/ui/shareComponents/Icons';
 import clsx from 'clsx';
@@ -73,7 +73,7 @@ export function TopExpenseBar({ expenseData, group }: { expenseData: any; group:
         (expenseData.payerId === loginUserId ||
           expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
           <Link
-            href={`/expense/${expenseData.id}/edit`}
+            href={`/group/${groupId}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
             scroll={false}
           >
@@ -88,10 +88,12 @@ export function TopExpenseBar({ expenseData, group }: { expenseData: any; group:
 }
 
 export function TopExpenseSettingBar({
+  group,
   expenseData,
   phase,
   setPhase,
 }: {
+  group: any;
   expenseData: any;
   phase: number;
   setPhase: any;
@@ -125,7 +127,7 @@ export function TopExpenseSettingBar({
         {expenseData &&
         (expenseData.payerId === loginUserId ||
           expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
-          <Link href={`/expense/${expenseData.id}`} scroll={false}>
+          <Link href={`/group/${group.id}/expense/${expenseData.id}`} scroll={false}>
             <p className="text-sm">取消</p>
           </Link>
         ) : (

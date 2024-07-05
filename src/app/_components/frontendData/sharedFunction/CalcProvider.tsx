@@ -79,12 +79,18 @@ export const CalcProvider = ({ children }: { children: React.ReactNode }) => {
         // Determine whether there are non-zero digits after the decimal point
         const hasDecimal = result % 1 !== 0;
 
-        // Set the displayed content
+        function hasTwoZeroesAfterDecimal(num: any) {
+          let fixedNumStr = num.toFixed(2);
+          let parts = fixedNumStr.split('.');
+
+          return parts[1] === '00';
+        }
+
         setDisplay(
-          hasDecimal
+          hasDecimal && !hasTwoZeroesAfterDecimal(result)
             ? result.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
-                maximumFractionDigits: 8,
+                maximumFractionDigits: 2,
                 useGrouping: false,
               })
             : result.toLocaleString('en-US', {

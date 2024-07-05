@@ -1,4 +1,4 @@
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 
 function filterExpense(expenses: any) {
   let newExpenses = expenses.map((expense: any) => ({ ...expense }));

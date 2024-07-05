@@ -2,19 +2,19 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { dateToFormate } from '@/app/_components/frontendData/sharedFunction/formateDate';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
-import SharerExpenseDetail from '@/app/ui/expense/SharerExpenseDetail';
+import SharerExpenseDetail from '@/app/ui/group/expense/SharerExpenseDetail';
 
 export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; users: any }) {
   const {
     category,
     amount,
     name,
-    createBy,
+    creatorId,
     createAt,
-    updateBy,
     updateAt,
     payerId,
     sharers,
@@ -22,16 +22,14 @@ export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; use
     category: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
     amount: any;
     name: string;
-    createBy: string;
+    creatorId: string;
     createAt: string;
-    updateBy: string;
     updateAt: string;
     payerId: string;
     sharers: string[];
   } = expenseData;
 
-  let createByUser = users.filter((user: any) => user.id === createBy)[0];
-  let updateByUser = users.filter((user: any) => user.id === updateBy)[0];
+  let creatorIdUser = users.filter((user: any) => user.id === creatorId)[0];
 
   const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
@@ -42,18 +40,16 @@ export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; use
       (payerId === loginUserId || sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
         <div className="flex w-full justify-between pl-2 pr-3">
           <div className="flex gap-5">
-            <div className="bg-highlight-60 z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white">
+            <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
               <div className="scale-[1.7]">{Icon ? <Icon /> : null}</div>
             </div>
             <div className="flex flex-col justify-between">
               <div className="text-xl leading-8">{name}</div>
               <div className="text-xs text-grey-500">
                 <div className="leading-3">
-                  {createAt} {createByUser?.name}新增
+                  {dateToFormate(createAt, true)} {creatorIdUser?.name}新增
                 </div>
-                <div className="leading-6">
-                  {updateAt} {updateByUser?.name}最後更新
-                </div>
+                <div className="leading-6">{dateToFormate(updateAt, true)} 最後更新</div>
               </div>
             </div>
           </div>
@@ -88,7 +84,7 @@ export function ExpenseDetailTwo({ expenseData, users }: { expenseData: any; use
           <div className="flex gap-4">
             {payerData ? (
               <Image
-                className="bg-neutrals-30 z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full"
+                className="z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-neutrals-30"
                 src={payerData.picture}
                 width={64}
                 height={64}

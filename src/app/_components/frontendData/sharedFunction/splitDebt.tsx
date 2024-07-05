@@ -1,4 +1,4 @@
-import { filterExpense } from '@/app/_components/frontendData/totalDebts';
+import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
 import { expenses } from '@/app/_components/frontendData/dummyData';
 
 function splitExpense(groupId: any) {

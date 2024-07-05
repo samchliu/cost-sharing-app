@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 
 export default function UsersBar({ groupData }: { groupData: any }) {
   if (!groupData) return;
@@ -19,7 +19,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
       {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
         <>
           {groupData.users.length ? (
-            <div className="border-b-grey-userBar mt-16 flex items-center justify-center gap-4 border-b-[1px] pb-5 pt-8">
+            <div className="mt-16 flex items-center justify-center gap-4 border-b-[1px] border-b-grey-userBar pb-5 pt-8">
               <ul className="flex items-center justify-center gap-2">
                 {frontUsers.map((user: any) => (
                   <UserBarImage user={user} key={user.id} />
@@ -47,7 +47,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
 
 function NoneUsersBar({ text }: { text: string }) {
   return (
-    <div className="border-b-grey-userBar mt-16 flex items-center justify-center gap-4 border-b-[1px] pb-5 pt-8">
+    <div className="mt-16 flex items-center justify-center gap-4 border-b-[1px] border-b-grey-userBar pb-5 pt-8">
       {text}
     </div>
   );

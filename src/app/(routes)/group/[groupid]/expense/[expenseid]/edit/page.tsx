@@ -1,0 +1,73 @@
+'use client';
+//import from next & react
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+//import data
+import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+//import ui
+import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
+import { GroupInfoBar, NextStepButton } from '@/app/ui/group/expense/edit/ExpenseSettingDetails';
+import { ExpenseSettingStepOne } from '@/app/ui/group/expense/edit/ExpenseSettingStepOne';
+import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/edit/ExpenseSettingStepTwo';
+import { ExpenseSettingStepThree } from '@/app/ui/group/expense/edit/ExpenseSettingStepThree';
+import SharerAmountInput from '@/app/ui/group/expense/edit/SharerAmountInput';
+
+export default function Page() {
+  const params = useParams<{ groupid: string; expenseid: string }>();
+  const [phase, setPhase] = useState(1);
+  const [isNotEqual, setIsNotEqual] = useState(false);
+
+  const group = useGroup(params.groupid);
+  const expense: any = useExpense(params.groupid, params.expenseid);
+
+  const [currentExpense, setCurrentExpense] = useState(expense);
+
+  if (!group) return;
+
+  return (
+    <form method="post" action={`/group/${params.groupid}/expense/${params.expenseid}`}>
+      <div className="relative flex flex-col">
+        <TopExpenseSettingBar
+          group={group}
+          expenseData={expense}
+          phase={phase}
+          setPhase={setPhase}
+        />
+        <GroupInfoBar expenseData={currentExpense} group={group} />
+        <section>
+          <ExpenseSettingStepOne
+            expenseData={currentExpense}
+            setCurrentExpense={setCurrentExpense}
+            phase={phase}
+          />
+          <ExpenseSettingStepTwo
+            expenseData={currentExpense}
+            setCurrentExpense={setCurrentExpense}
+            group={group}
+            phase={phase}
+          />
+          <ExpenseSettingStepThree
+            expenseData={currentExpense}
+            setCurrentExpense={setCurrentExpense}
+            group={group}
+            phase={phase}
+            setIsNotEqual={setIsNotEqual}
+          />
+        </section>
+        <section>
+          <NextStepButton
+            expenseData={currentExpense}
+            setCurrentExpense={setCurrentExpense}
+            group={group}
+            phase={phase}
+            setPhase={setPhase}
+            isNotEqual={isNotEqual}
+            setIsNotEqual={setIsNotEqual}
+          />
+        </section>
+        <div className="h-[420px]"></div>
+      </div>
+    </form>
+  );
+}
