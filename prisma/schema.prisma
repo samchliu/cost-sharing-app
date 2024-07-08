@@ -43,6 +43,7 @@ model GroupUser {
 model Expense {
   id        Int       @id @default(autoincrement())
   name      String
+  category  String
   amount    Float
   date      DateTime  @db.Date
   note      String
