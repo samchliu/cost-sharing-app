@@ -58,6 +58,7 @@ export async function POST(request: NextRequest) {
             },
           },
         },
+        expenses: true,
       },
     });
     const responseBody: any = { ...group, users: group.groupUsers.map((item) => item.user) };
