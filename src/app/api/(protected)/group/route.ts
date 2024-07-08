@@ -49,19 +49,20 @@ export async function POST(request: NextRequest) {
       include: {
         groupUsers: {
           select: {
-            user: {
-              select: {
-                id: true,
-                name: true,
-                picture: true,
-              },
-            },
+            user: true,
           },
         },
         expenses: true,
       },
     });
-    const responseBody: any = { ...group, users: group.groupUsers.map((item) => item.user) };
+    const responseBody: any = {
+      ...group,
+      users: group.groupUsers.map((item) => {
+        const user: any = { ...item.user, adoptable: !Boolean(item.user.lineId) };
+        delete user.lineId;
+        return user;
+      }),
+    };
     delete responseBody.groupUsers;
     return NextResponse.json(responseBody);
   } catch (error) {

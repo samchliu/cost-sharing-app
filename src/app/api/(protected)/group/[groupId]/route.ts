@@ -8,13 +8,7 @@ export async function GET(request: NextRequest, { params }: { params: { groupId:
       include: {
         groupUsers: {
           select: {
-            user: {
-              select: {
-                id: true,
-                name: true,
-                picture: true,
-              },
-            },
+            user: true,
           },
         },
         expenses: {
@@ -43,7 +37,11 @@ export async function GET(request: NextRequest, { params }: { params: { groupId:
     if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
     const responseBody: any = { ...group };
-    responseBody.users = group.groupUsers.map((item) => item.user);
+    responseBody.users = group.groupUsers.map((item) => {
+      const user: any = { ...item.user, adoptable: !Boolean(item.user.lineId) };
+      delete user.lineId;
+      return user;
+    });
     delete responseBody.groupUsers;
     responseBody.expenses = group.expenses.map((expense) => ({
       ...expense,
