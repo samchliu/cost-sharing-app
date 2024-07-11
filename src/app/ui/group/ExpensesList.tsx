@@ -4,9 +4,10 @@ import { Fragment } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
-import { dateToFormate } from '@/app/_components/frontendData/sharedFunction/formateDate';
 //import ui
 import { GreaterThanIcon, expenseIconMap } from '@/app/ui/shareComponents/Icons';
+//import other
+import { format } from 'date-fns';
 
 export default function ExpensesList({ groupData }: { groupData: any }) {
   let { expensesWithDebts } = filterExpense(groupData.expenses);
@@ -27,10 +28,16 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
   // Step 2: Render expenses grouped by date
   const renderExpensesByDate = () => {
     return Object.keys(groupedExpenses).map((date, index) => {
+      let formateDate: any = new Date(date);
+      formateDate = format(
+        formateDate,
+        (formateDate.getFullYear() === new Date().getFullYear() ? '' : 'yyyy年') + 'MM月dd日'
+      );
+
       return (
         <div key={index}>
           {groupedExpenses[date].find((expense: any) => expense.expenseDebt !== undefined) ? (
-            <p className="mx-8 mb-3 text-sm text-grey-500">{dateToFormate(date, false)}</p>
+            <p className="mx-8 mb-3 text-sm text-grey-500">{formateDate}</p>
           ) : null}
           {groupedExpenses[date].map((expense: any) => (
             <Fragment key={expense.id}>
@@ -77,11 +84,7 @@ function ExpenseButton({ users, expense, groupId }: { users: any; expense: any; 
     >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-highlight-60">
-          {Icon ? (
-            <div className="scale-[1.2]">
-              <Icon />{' '}
-            </div>
-          ) : null}
+          {Icon ? <Icon strokeWidth={1} /> : null}
         </div>
         <div className="leading-[20px]">
           <p className="font-normal">{name}</p>

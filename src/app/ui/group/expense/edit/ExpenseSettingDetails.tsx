@@ -17,7 +17,22 @@ export function GroupInfoBar({ expenseData, group }: { expenseData: any; group: 
     picture,
     name,
   }: {
-    picture: 'travel' | 'health' | 'games' | 'other';
+    picture:
+      | 'groupIcon01'
+      | 'groupIcon02'
+      | 'groupIcon03'
+      | 'groupIcon04'
+      | 'groupIcon05'
+      | 'groupIcon06'
+      | 'groupIcon07'
+      | 'groupIcon08'
+      | 'groupIcon09'
+      | 'groupIcon10'
+      | 'groupIcon11'
+      | 'groupIcon12'
+      | 'groupIcon13'
+      | 'groupIcon14'
+      | 'groupIcon15';
     name: string;
   } = groupData;
 
@@ -61,8 +76,7 @@ export function NextStepButton({
   setIsNotEqual: any;
   setCurrentExpense: any;
 }) {
-  const { display, setDisplay, updateDisplay, onFocusDisplay, onBlurDisplay, equalClick } =
-    useContext<any>(CalcContext);
+  const { display } = useContext<any>(CalcContext);
 
   const CheckAmountIsNotEqual = () => {
     let addedAmount = 0;
@@ -84,7 +98,6 @@ export function NextStepButton({
     e.preventDefault();
     setPhase(phase + 1);
     console.log(`phase ${phase} of expense ${expenseId}`);
-    console.log(display + ': display shown');
 
     setCurrentExpense({ ...expenseData, amount: display });
     console.log(expenseData);

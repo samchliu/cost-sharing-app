@@ -3,10 +3,11 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
-import { dateToFormate } from '@/app/_components/frontendData/sharedFunction/formateDate';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
 import SharerExpenseDetail from '@/app/ui/group/expense/SharerExpenseDetail';
+//import other
+import { format } from 'date-fns';
 
 export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; users: any }) {
   const {
@@ -41,15 +42,15 @@ export function ExpenseDetailOne({ expenseData, users }: { expenseData: any; use
         <div className="flex w-full justify-between pl-2 pr-3">
           <div className="flex gap-5">
             <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
-              <div className="scale-[1.7]">{Icon ? <Icon /> : null}</div>
+              <div className="scale-[1.4]">{Icon ? <Icon strokeWidth={1.6} /> : null}</div>
             </div>
             <div className="flex flex-col justify-between">
               <div className="text-xl leading-8">{name}</div>
               <div className="text-xs text-grey-500">
                 <div className="leading-3">
-                  {dateToFormate(createAt, true)} {creatorIdUser?.name}新增
+                  {format(createAt, 'yyyy/MM/dd')} {creatorIdUser?.name}新增
                 </div>
-                <div className="leading-6">{dateToFormate(updateAt, true)} 最後更新</div>
+                <div className="leading-6">{format(updateAt, 'yyyy/MM/dd')} 最後更新</div>
               </div>
             </div>
           </div>

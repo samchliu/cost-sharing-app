@@ -1,3 +1,0 @@
-const DatePicker = () => {
-    return(<></>)
-  }

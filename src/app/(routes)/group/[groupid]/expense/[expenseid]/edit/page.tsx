@@ -4,14 +4,12 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 //import data
 import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 //import ui
 import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
 import { GroupInfoBar, NextStepButton } from '@/app/ui/group/expense/edit/ExpenseSettingDetails';
 import { ExpenseSettingStepOne } from '@/app/ui/group/expense/edit/ExpenseSettingStepOne';
 import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/edit/ExpenseSettingStepTwo';
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/edit/ExpenseSettingStepThree';
-import SharerAmountInput from '@/app/ui/group/expense/edit/SharerAmountInput';
 
 export default function Page() {
   const params = useParams<{ groupid: string; expenseid: string }>();
@@ -22,7 +20,9 @@ export default function Page() {
   const expense: any = useExpense(params.groupid, params.expenseid);
 
   const [currentExpense, setCurrentExpense] = useState(expense);
+  const [updatedSharers, setUpdatedSharers] = useState([...currentExpense.sharers]);
 
+  if (!currentExpense) return null;
   if (!group) return;
 
   return (
@@ -49,10 +49,11 @@ export default function Page() {
           />
           <ExpenseSettingStepThree
             expenseData={currentExpense}
-            setCurrentExpense={setCurrentExpense}
             group={group}
             phase={phase}
             setIsNotEqual={setIsNotEqual}
+            updatedSharers={updatedSharers}
+            setUpdatedSharers={setUpdatedSharers}
           />
         </section>
         <section>

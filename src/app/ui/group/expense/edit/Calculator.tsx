@@ -4,7 +4,7 @@ import { useState, useContext, useEffect, useRef } from 'react';
 //import data
 import { CalcContext } from '@/app/_components/frontendData/sharedFunction/CalcProvider';
 //import ui
-import { BackspaceIcon } from '@/app/ui/shareComponents/Icons';
+import { BackspaceIcon, DollarIcon } from '@/app/ui/shareComponents/Icons';
 //import other
 import clsx from 'clsx';
 
@@ -35,20 +35,28 @@ export const CalculatorAndInput = ({ expenseData }: { expenseData: any }) => {
   };
 
   return (
-    <div className="relative">
-      <Display
-        amount={expenseData.amount}
-        handleKeyboardFocus={handleKeyboardFocus}
-        handleKeyboardBlur={handleKeyboardBlur}
-        inputRef={inputRef}
-      />
-      {showKeyboard && (
+    <div className=" flex w-fit items-end justify-between gap-6">
+      <button
+        type="button"
+        onClick={handleInputFocus}
+        className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60"
+      >
+        <DollarIcon />
+      </button>
+      <div className="relative">
+        <Display
+          amount={expenseData.amount}
+          handleKeyboardFocus={handleKeyboardFocus}
+          handleKeyboardBlur={handleKeyboardBlur}
+          inputRef={inputRef}
+        />
         <Calculator
+          showKeyboard={showKeyboard}
           handleKeyboardBlur={handleKeyboardBlur}
           handleInputFocus={handleInputFocus}
           handleInputBlur={handleInputBlur}
         />
-      )}
+      </div>
     </div>
   );
 };
@@ -81,7 +89,7 @@ function Display({
   return (
     <input
       ref={inputRef}
-      className="z-10 w-48 border-0 border-b border-grey-500 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0 "
+      className="z-10 w-48 border-0 border-b border-grey-500 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0"
       onChange={handleChange}
       onFocus={() => {
         handleKeyboardFocus();
@@ -103,10 +111,12 @@ function Display({
 }
 
 const Calculator = ({
+  showKeyboard,
   handleKeyboardBlur,
   handleInputFocus,
   handleInputBlur,
 }: {
+  showKeyboard: any;
   handleKeyboardBlur: any;
   handleInputFocus: any;
   handleInputBlur: any;
@@ -136,7 +146,13 @@ const Calculator = ({
     <div
       ref={keyboardRef}
       id="calculator"
-      className="fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50"
+      className={clsx(
+        'fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50 transition-all duration-300',
+        {
+          'bottom-0 z-50 transform opacity-100': showKeyboard,
+          'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
+        }
+      )}
       onClick={handleInputFocus}
     >
       <div className="flex items-center justify-center">
