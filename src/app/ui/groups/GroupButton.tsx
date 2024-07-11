@@ -14,7 +14,22 @@ export default function GroupButton({ groupData }: { groupData: any }) {
     name,
   }: {
     id: string;
-    picture: 'travel' | 'health' | 'games' | 'other';
+    picture:
+      | 'groupIcon01'
+      | 'groupIcon02'
+      | 'groupIcon03'
+      | 'groupIcon04'
+      | 'groupIcon05'
+      | 'groupIcon06'
+      | 'groupIcon07'
+      | 'groupIcon08'
+      | 'groupIcon09'
+      | 'groupIcon10'
+      | 'groupIcon11'
+      | 'groupIcon12'
+      | 'groupIcon13'
+      | 'groupIcon14'
+      | 'groupIcon15';
     name: string;
   } = groupData;
 

@@ -1,78 +1,75 @@
 'use client';
 //import react
-import { useContext, useEffect, useRef } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 //import data
-import { CalcContext, CalcProvider } from '@/app/_components/frontendData/CalcProvider';
-
+import { CalcContext } from '@/app/_components/frontendData/sharedFunction/CalcProvider';
+//import ui
+import { BackspaceIcon, DollarIcon } from '@/app/ui/shareComponents/Icons';
+//import other
 import clsx from 'clsx';
-import { BackspaceIcon } from '@/app/ui/shareComponents/Icons';
 
-export const CalculatorAndInput = ({
-  group,
-  showKeyboard,
-  setShowKeyboard,
-  expenseData,
-  setCurrentExpense,
-  setIsNotEqual,
-}: {
-  group: any;
-  showKeyboard: any;
-  setShowKeyboard: any;
-  expenseData: any;
-  setCurrentExpense: any;
-  setIsNotEqual: any;
-}) => {
+
+export const CalculatorAndInput = ({ expenseData }: { expenseData: any }) => {
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const inputRef = useRef<any>(null);
 
-  const focus = () => {
+  const handleInputFocus = () => {
     inputRef.current.focus();
-  };
-  const blur = () => {
-    inputRef.current.blur();
-  };
-
-  const handleFocus = () => {
     setShowKeyboard(true);
   };
 
-  const handleBlur = () => {
+  const handleInputBlur = () => {
+    inputRef.current.blur();
+  };
+
+  const handleKeyboardFocus = () => {
+    setShowKeyboard(true);
+  };
+
+  const handleKeyboardBlur = () => {
+    //To check if the input element referenced by inputRef is currently focused
+    if (inputRef.current && document.activeElement === inputRef.current) {
+      return;
+    }
     setShowKeyboard(false);
   };
 
   return (
-    <CalcProvider>
+    <div className=" flex w-fit items-end justify-between gap-6">
+      <button
+        type="button"
+        onClick={handleInputFocus}
+        className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60"
+      >
+        <DollarIcon />
+      </button>
       <div className="relative">
         <Display
           amount={expenseData.amount}
-          handleFocus={handleFocus}
-          handleBlur={handleBlur}
+          handleKeyboardFocus={handleKeyboardFocus}
+          handleKeyboardBlur={handleKeyboardBlur}
           inputRef={inputRef}
         />
-        {showKeyboard && (
-          <Calculator
-            group={group}
-            handleBlur={handleBlur}
-            expenseData={expenseData}
-            setCurrentExpense={setCurrentExpense}
-            setIsNotEqual={setIsNotEqual}
-            focus={focus}
-            blur={blur}
-          />
-        )}
+        <Calculator
+          showKeyboard={showKeyboard}
+          handleKeyboardBlur={handleKeyboardBlur}
+          handleInputFocus={handleInputFocus}
+          handleInputBlur={handleInputBlur}
+        />
       </div>
-    </CalcProvider>
+    </div>
   );
 };
 
 function Display({
   amount,
-  handleFocus,
-  handleBlur,
+  handleKeyboardFocus,
+  handleKeyboardBlur,
   inputRef,
 }: {
   amount: string;
-  handleFocus: any;
-  handleBlur: any;
+  handleKeyboardFocus: any;
+  handleKeyboardBlur: any;
   inputRef: any;
 }) {
   const { display, setDisplay, updateDisplay, onFocusDisplay, onBlurDisplay } =
@@ -80,7 +77,7 @@ function Display({
 
   useEffect(() => {
     if (amount) {
-      setDisplay(amount);
+      setDisplay(Number(amount));
     }
   }, [amount]);
 
@@ -92,13 +89,17 @@ function Display({
   return (
     <input
       ref={inputRef}
-      className="z-10 w-48 border-0 border-b border-grey-500 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0 "
+      className="z-10 w-48 border-0 border-b border-grey-500 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0"
       onChange={handleChange}
       onFocus={() => {
-        handleFocus();
+        handleKeyboardFocus();
         onFocusDisplay();
       }}
       onBlur={() => {
+        //setTimeout to make sure handleKeyboardBlur function happened after inputRef is focus by keyboard
+        setTimeout(() => {
+          handleKeyboardBlur();
+        }, 100);
         onBlurDisplay();
       }}
       type="text"
@@ -110,46 +111,49 @@ function Display({
 }
 
 const Calculator = ({
-  group,
-  handleBlur,
-  expenseData,
-  setCurrentExpense,
-  setIsNotEqual,
-  focus,
-  blur,
+  showKeyboard,
+  handleKeyboardBlur,
+  handleInputFocus,
+  handleInputBlur,
 }: {
-  group: any;
-  handleBlur: any;
-  expenseData: any;
-  setCurrentExpense: any;
-  setIsNotEqual: any;
-  focus: any;
-  blur: any;
+  showKeyboard: any;
+  handleKeyboardBlur: any;
+  handleInputFocus: any;
+  handleInputBlur: any;
 }) => {
-  const { display, buttonClick, equalClick, clearClick } = useContext<any>(CalcContext);
-  const users = group.users;
+  const keyboardRef = useRef<HTMLDivElement>(null);
 
-  const CheckAmountIsNotEqual = () => {
-    let addedAmount = 0;
+  const { buttonClick, equalClick, clearClick } = useContext<any>(CalcContext);
 
-    users.forEach((user: any) => {
-      const existingIndex = expenseData.sharers.findIndex((sharer: any) => sharer.id === user.id);
-
-      if (existingIndex !== -1) {
-        addedAmount += expenseData.sharers[existingIndex].amount;
-      } else {
-        addedAmount = addedAmount;
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent): void => {
+      if (keyboardRef.current && !keyboardRef.current.contains(e.target as Node)) {
+        handleKeyboardBlur();
       }
-    });
+    };
 
-    setIsNotEqual(Number(display) !== addedAmount);
-  };
+    const eventType = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
+    // Bind the event listener
+    document.addEventListener(eventType, handleClickOutside);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      document.removeEventListener(eventType, handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
+      ref={keyboardRef}
       id="calculator"
-      className="fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-black"
-      onClick={focus}
+      className={clsx(
+        'fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50 transition-all duration-300',
+        {
+          'bottom-0 z-50 transform opacity-100': showKeyboard,
+          'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
+        }
+      )}
+      onClick={handleInputFocus}
     >
       <div className="flex items-center justify-center">
         <CalculatorButton value={'1'} onClick={() => buttonClick('1')} />
@@ -177,18 +181,16 @@ const Calculator = ({
         <CalculatorButton value={'0'} onClick={() => buttonClick('0')} />
         <CalculatorButton value={'<-'} onClick={() => buttonClick('Backspace')} />
         <button
-          disabled={isNaN(Number(display)) || display < 1}
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            handleBlur();
-            setCurrentExpense({ ...expenseData, amount: display });
-            CheckAmountIsNotEqual();
-            blur();
+            equalClick();
+            handleKeyboardBlur();
+            handleInputBlur();
           }}
           className="m-[5px] flex h-14 w-[122px] cursor-pointer items-center justify-center rounded-lg bg-highlight-60"
         >
-          儲存
+          確認
         </button>
       </div>
     </div>

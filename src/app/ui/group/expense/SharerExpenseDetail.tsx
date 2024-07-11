@@ -1,7 +1,7 @@
 //import from next
 import Image from 'next/image';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 
 export default function SharerExpenseDetail({
   expenseData,
@@ -30,7 +30,7 @@ export default function SharerExpenseDetail({
         <div className="flex items-center">
           {sharerData ? (
             <Image
-              className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-grey-200"
+              className="bg-grey-200 flex h-[32px] w-[32px] items-center justify-center rounded-full"
               src={sharerData.picture}
               width={32}
               height={32}

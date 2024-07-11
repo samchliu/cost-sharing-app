@@ -2,17 +2,15 @@
 //import from react
 import { createContext, useContext, useEffect, useState } from 'react';
 //import data
-import { getGroup, getUser } from '@/app/_components/frontendData/API';
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { getGroup, getUser, getExpense } from '@/app/_components/frontendData/fetchData/API';
 
 interface AllContextType {
   users: { [key: string]: any };
   groups: { [key: string]: any };
-  expense: any[];
-  groupUsers: any[];
+  expenses: { [key: string]: any };
   fetchUser: (userId: string) => void;
   fetchGroup: (groupId: string) => void;
-  fetchExpenses: (userId: string) => void;
+  fetchExpense: (groupId: string, expenseId: string) => void;
 }
 
 const AllContext = createContext<AllContextType | null>(null);
@@ -20,8 +18,7 @@ const AllContext = createContext<AllContextType | null>(null);
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [users, setUsers] = useState<{ [key: string]: any }>({});
   const [groups, setGroups] = useState<{ [key: string]: any }>({});
-  const [expense, setExpense] = useState<any>([]);
-  const [groupUsers, setGroupUsers] = useState<any>([]);
+  const [expenses, setExpenses] = useState<{ [key: string]: any }>([]);
 
   const fetchUser = async (userId: string) => {
     if (!users[userId]) {
@@ -55,44 +52,19 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const fetchExpenses = async (expenseId: string) => {
-    try {
-      let groupWithExpense: any = null;
-
-      // Fetch user data from API 1
-      const user = await getUser(loginUserId);
-
-      // Extract group IDs from user data
-      const groupIds = user.groups.map((group: any) => group.id);
-
-      // Fetch every group data of user's groupIds from API 2, wait for all requests to complete
-      const groupData = await Promise.all(
-        groupIds.map((groupId: any) => {
-          // console.log(groupId)
-          return getGroup(groupId);
-        })
-      );
-
-      // Find the group that contains the expense with the given expenseId
-      groupData.forEach((group) => {
-        const expense = group.expense.find((exp: any) => exp.id === expenseId);
-        if (expense) {
-          groupWithExpense = {
-            group: group,
-            expense: expense,
-          };
-        }
-      });
-      //
-      if (!groupWithExpense) {
-        throw new Error(`Expense with ID ${expenseId} not found in any group.`);
+  const fetchExpense = async (groupId: string, expenseId: string) => {
+    if (!expenses[expenseId]) {
+      try {
+        const expense = await getExpense(expenseId);
+        // console.log(groupId)
+        setExpenses((prevExpenses) => ({
+          ...prevExpenses,
+          [expenseId]: expense,
+        }));
+      } catch (error) {
+        console.error('Error fetching expense data:', error);
+        // Handle errors
       }
-
-      setExpense(groupWithExpense);
-      setGroupUsers(groupWithExpense.group.users);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle errors
     }
   };
 
@@ -101,11 +73,10 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       value={{
         users,
         groups,
-        expense,
-        groupUsers,
+        expenses,
         fetchUser,
         fetchGroup,
-        fetchExpenses,
+        fetchExpense,
       }}
     >
       {children}
@@ -143,17 +114,17 @@ export const useGroup = (groupId: string) => {
   return context.groups[groupId];
 };
 
-export const useExpenses = (expenseId: string) => {
+export const useExpense = (groupId: string, expenseId: string) => {
   const context = useContext(AllContext);
   if (!context) {
-    throw new Error('useGroup must be used within a Provider');
+    throw new Error('useExpense must be used within a Provider');
   }
 
   useEffect(() => {
-    context.fetchExpenses(expenseId);
+    context.fetchExpense(groupId, expenseId);
 
-    // console.log(`useEffect fetch expenseId ${expenseId}`)
+    // console.log(`useEffect fetch expense ${expenseId}`)
   }, [expenseId]);
 
-  return { expense: context.expense, users: context.groupUsers };
+  return context.expenses[expenseId];
 };

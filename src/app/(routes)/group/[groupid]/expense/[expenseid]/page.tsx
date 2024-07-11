@@ -3,27 +3,24 @@
 import { useParams } from 'next/navigation';
 import { Suspense } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
-import { useExpenses } from '@/app/_components/frontendData/Providers';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
 //import ui
 import { TopExpenseBar } from '@/app/ui/shareComponents/TopBars';
 import {
   ExpenseDetailOne,
   ExpenseDetailTwo,
   ExpenseDetailThree,
-} from '@/app/ui/expense/ExpenseDetails';
-import DeleteExpenseButton from '@/app/ui/expense/DeleteExpenseButton';
+} from '@/app/ui/group/expense/ExpenseDetails';
+import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
 import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
-  const params = useParams<{ expenseid: string }>();
-
-  //group users and this expense's info
-  let users: any = useExpenses(params.expenseid).users;
-  let groupWithExpense: any = useExpenses(params.expenseid).expense;
-  if (!groupWithExpense) return;
-  let expense = groupWithExpense.expense;
-  let group = groupWithExpense.group;
+  const params = useParams<{ groupid: string; expenseid: string }>();
+  const group = useGroup(params.groupid);
+  const expense: any = useExpense(params.groupid, params.expenseid);
+  if (!group) return;
+  const users: any = group.users;
 
   return (
     <div className="flex flex-col items-center">

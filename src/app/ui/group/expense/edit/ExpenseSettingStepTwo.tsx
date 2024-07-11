@@ -26,10 +26,7 @@ export function ExpenseSettingStepTwo({
       <p className="mb-5 text-xl">選擇付款人</p>
       {users.map((user: any) => {
         return (
-          <div
-            className="my-2 flex w-full items-center justify-between px-7"
-            key={user.id}
-          >
+          <div className="my-2 flex w-full items-center justify-between px-7" key={user.id}>
             <div className="flex items-center gap-4">
               <Image
                 className="h-12 w-12 rounded-full"

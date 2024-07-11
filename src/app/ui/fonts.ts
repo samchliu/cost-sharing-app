@@ -1,4 +1,4 @@
-import { Inter, Noto_Sans_JP, Noto_Sans_TC, Lusitana, Kumbh_Sans } from 'next/font/google';
+import { Inter, Noto_Sans_JP, Noto_Sans_TC, Lato, Lusitana, Kumbh_Sans } from 'next/font/google';
 
 export const inter = Inter({
   subsets: ['latin'],
@@ -17,8 +17,16 @@ export const notoSansTC = Noto_Sans_TC({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-notoSansTC',
 });
+export const lato = Lato({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
+  variable: '--font-lato',
+});
 
-export const lusitana = Lusitana({ subsets: ['latin'], weight: ['400', '700'] });
+export const lusitana = Lusitana({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export const kumbhSans = Kumbh_Sans({
   subsets: ['latin'],

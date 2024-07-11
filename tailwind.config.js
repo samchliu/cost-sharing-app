@@ -31,6 +31,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'var(--font-notoSansJP)', 'var(--font-notoSansTC)'],
+        lato: ['var(--font-lato)', 'var(--font-notoSansJP)', 'var(--font-notoSansTC)'],
       },
       colors: {
         blue: {
@@ -57,6 +58,7 @@ module.exports = {
           // 600: '#1c1a1b',
           userBar: '#cad4e0',
           keyBoard: '#d1d3d9',
+          calendar: '#bdbdbd',
         },
         highlight: {
           60: '#EBFF79',

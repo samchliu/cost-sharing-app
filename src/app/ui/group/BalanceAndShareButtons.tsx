@@ -1,9 +1,10 @@
 //import data
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 //import ui
 import { DollarTwoIcon } from '@/app/ui/shareComponents/Icons';
 import ShareButton from '@/app/ui/shareComponents/ShareButton';
 import CopyLinkButton from '@/app/ui/shareComponents/CopyLinkButton';
+
 
 export default function BalanceAndShareButtons({
   groupData,

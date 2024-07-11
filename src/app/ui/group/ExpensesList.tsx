@@ -2,13 +2,16 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 //import data
-import { filterExpense } from '@/app/_components/frontendData/totalDebts';
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
 //import ui
 import { GreaterThanIcon, expenseIconMap } from '@/app/ui/shareComponents/Icons';
+//import other
+import { format } from 'date-fns';
 
 export default function ExpensesList({ groupData }: { groupData: any }) {
-  let { expensesWithDebts } = filterExpense(groupData.expense);
+  let { expensesWithDebts } = filterExpense(groupData.expenses);
+  let groupId = groupData.id;
   let users = groupData.users;
   let expenses = expensesWithDebts;
 
@@ -25,15 +28,11 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
   // Step 2: Render expenses grouped by date
   const renderExpensesByDate = () => {
     return Object.keys(groupedExpenses).map((date, index) => {
-      const dateObj = new Date();
-      const year = String(dateObj.getUTCFullYear());
-      let dateArray = date.split('/');
-      let formateDate;
-      if (dateArray[0] === year) {
-        formateDate = `${dateArray[1]}月${dateArray[2]}日`;
-      } else {
-        formateDate = `${dateArray[0]}年${dateArray[1]}月${dateArray[2]}日`;
-      }
+      let formateDate: any = new Date(date);
+      formateDate = format(
+        formateDate,
+        (formateDate.getFullYear() === new Date().getFullYear() ? '' : 'yyyy年') + 'MM月dd日'
+      );
 
       return (
         <div key={index}>
@@ -44,7 +43,7 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
             <Fragment key={expense.id}>
               {expense.sharers.some((sharer: any) => sharer.id === loginUserId) ||
               expense.payerId.includes(loginUserId) ? (
-                <ExpenseButton users={users} expense={expense} />
+                <ExpenseButton users={users} expense={expense} groupId={groupId} />
               ) : null}
             </Fragment>
           ))}
@@ -56,7 +55,7 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
   return <>{renderExpensesByDate()}</>;
 }
 
-function ExpenseButton({ users, expense }: { users: any; expense: any }) {
+function ExpenseButton({ users, expense, groupId }: { users: any; expense: any; groupId: any }) {
   const {
     id,
     category,
@@ -77,19 +76,15 @@ function ExpenseButton({ users, expense }: { users: any; expense: any }) {
 
   const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
-
   return (
     <Link
-      href={`/expense/${id}`}
+      href={`/group/${groupId}/expense/${id}`}
       className="mx-4 mb-4 flex justify-between rounded-lg bg-white py-3 pl-4 pr-3"
+      scroll={false}
     >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-highlight-60">
-          {Icon ? (
-            <div className="scale-[1.2]">
-              <Icon />{' '}
-            </div>
-          ) : null}
+          {Icon ? <Icon strokeWidth={1} /> : null}
         </div>
         <div className="leading-[20px]">
           <p className="font-normal">{name}</p>

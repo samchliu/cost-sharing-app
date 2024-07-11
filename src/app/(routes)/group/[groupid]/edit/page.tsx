@@ -2,11 +2,16 @@
 //import from next & react
 import { useParams } from 'next/navigation';
 //import data
-import { useUser, useGroup } from '@/app/_components/frontendData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/user';
+import { useUser, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
-import { GroupNameSetting, GroupOtherSetting, GroupSave, GroupUsersSetting } from '@/app/ui/group/edit/GroupSettingDetails';
+import {
+  GroupNameSetting,
+  GroupOtherSetting,
+  GroupSave,
+  GroupUsersSetting,
+} from '@/app/ui/group/edit/GroupSettingDetails';
 
 export default function Page() {
   const params = useParams<{ groupid: string }>();
@@ -22,7 +27,7 @@ export default function Page() {
   }
 
   return (
-    <form action={`/group/${params.groupid}`}>
+    <form method="post" action={`/group/${params.groupid}`}>
       <div className="relative flex flex-col">
         <TopGroupSettingBar groupData={group} />
         <GroupNameSetting groupData={groupNameAndImage} />

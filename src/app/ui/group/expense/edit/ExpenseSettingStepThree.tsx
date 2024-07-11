@@ -1,107 +1,79 @@
 //import from next & react
 import Image from 'next/image';
+import { useEffect } from 'react';
 //import ui
 import { NotePencilIcon } from '@/app/ui/shareComponents/Icons';
 //other
 import clsx from 'clsx';
 
+interface User {
+  id: string;
+  name: string;
+  picture: string;
+}
+
+interface Sharer {
+  id: string;
+  amount: number;
+}
+
+interface ExpenseData {
+  amount: number;
+  sharers: Sharer[];
+}
+
+interface ExpenseSettingStepThreeProps {
+  expenseData: ExpenseData;
+  group: { users: User[] };
+  phase: number;
+  setIsNotEqual: (isNotEqual: boolean) => void;
+  updatedSharers: Sharer[];
+  setUpdatedSharers: (sharers: Sharer[]) => void;
+}
+
 export function ExpenseSettingStepThree({
   expenseData,
-  setCurrentExpense,
   group,
   phase,
   setIsNotEqual,
-}: {
-  expenseData: any;
-  setCurrentExpense: any;
-  group: any;
-  phase: number;
-  setIsNotEqual: any;
-}) {
-  if (!expenseData) return null;
-
+  updatedSharers,
+  setUpdatedSharers,
+}: ExpenseSettingStepThreeProps) {
   const users = group.users;
-  const updatedSharers = [...expenseData.sharers];
 
-  const CheckAmountIsNotEqual = () => {
-    let addedAmount = 0;
-
-    users.forEach((user: any) => {
-      const existingIndex = updatedSharers.findIndex(
-        (sharer) => sharer.id === user.id,
-      );
-
-      if (existingIndex !== -1) {
-        addedAmount += updatedSharers[existingIndex].amount;
-      } else {
-        addedAmount = addedAmount;
-      }
-    }); 
-
+  useEffect(() => {
+    const addedAmount = updatedSharers.reduce((total, sharer) => total + sharer.amount, 0);
     setIsNotEqual(Number(expenseData.amount) !== Number(addedAmount));
-  };
+  }, [updatedSharers, expenseData.amount, setIsNotEqual]);
 
   const handleAllSelect = () => {
-    users.forEach((user: any) => {
-      const existingIndex = updatedSharers.findIndex(
-        (sharer) => sharer.id === user.id,
-      );
-
-      if (existingIndex !== -1) {
-        updatedSharers[existingIndex].amount =
-          expenseData.amount / users.length;
-      } else {
-        updatedSharers.push({
-          id: user.id,
-          amount: expenseData.amount / users.length,
-        });
-      }
-    });
-
-    setCurrentExpense({
-      ...expenseData,
-      sharers: updatedSharers,
-    });
-    CheckAmountIsNotEqual();
+    const updatedSharersCopy = users.map((user) => ({
+      id: user.id,
+      amount: expenseData.amount / users.length,
+    }));
+    setUpdatedSharers(updatedSharersCopy);
   };
 
   const handleAllNoSelect = () => {
-    users.forEach((user: any) => {
-      const existingIndex = updatedSharers.findIndex(
-        (sharer) => sharer.id === user.id,
-      );
-
-      if (existingIndex !== -1) {
-        updatedSharers.splice(existingIndex, 1);
-      }
-    });
-
-    setCurrentExpense({
-      ...expenseData,
-      sharers: updatedSharers,
-    });
-    CheckAmountIsNotEqual();
+    setUpdatedSharers([]);
   };
 
+  if (!expenseData || !updatedSharers) return null;
+
   const handleSharerToggle = (userId: string) => {
-    const existingIndex = updatedSharers.findIndex(
-      (sharer) => sharer.id === userId,
-    );
+    const existingIndex = updatedSharers.findIndex((sharer) => sharer.id === userId);
+    const updatedSharersCopy = [...updatedSharers];
 
     if (existingIndex !== -1) {
-      updatedSharers.splice(existingIndex, 1);
+      updatedSharersCopy.splice(existingIndex, 1);
     } else {
-      updatedSharers.push({
+      updatedSharersCopy.push({
         id: userId,
         amount: expenseData.amount / users.length,
       });
     }
 
-    setCurrentExpense({
-      ...expenseData,
-      sharers: updatedSharers,
-    });
-    CheckAmountIsNotEqual();
+    setUpdatedSharers(updatedSharersCopy);
   };
 
   return (
@@ -119,7 +91,7 @@ export function ExpenseSettingStepThree({
             </div>
             負擔金額
           </div>
-          {expenseData.sharers.length === users.length ? (
+          {updatedSharers.length === users.length ? (
             <div
               onClick={handleAllNoSelect}
               className="flex w-12 cursor-pointer justify-center text-xs"
@@ -136,21 +108,14 @@ export function ExpenseSettingStepThree({
           )}
         </div>
       </div>
-      {users.map((user: any) => {
-        const isChecked = expenseData.sharers.some(
-          (sharer: any) => sharer.id === user.id,
-        );
+      {users.map((user) => {
+        const isChecked = updatedSharers.some((sharer) => sharer.id === user.id);
         const amountValue = isChecked
-          ? expenseData.sharers.filter(
-              (sharer: any) => sharer.id === user.id,
-            )[0].amount
+          ? updatedSharers.find((sharer) => sharer.id === user.id)?.amount
           : '0';
 
         return (
-          <div
-            className="my-2 flex w-full items-center justify-between px-7"
-            key={user.id}
-          >
+          <div className="my-2 flex w-full items-center justify-between px-7" key={user.id}>
             <div className="flex items-center gap-4">
               <Image
                 className="h-12 w-12 rounded-full"
