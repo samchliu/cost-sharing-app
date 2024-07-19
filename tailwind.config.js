@@ -87,7 +87,7 @@ module.exports = {
       },
       zIndex: {
         100: '100',
-      },
+      }
     },
     screens: {
       '3xl': { max: '2200px' },

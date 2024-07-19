@@ -33,143 +33,6 @@ interface ExpenseSettingStepThreeProps {
   setUpdatedSharers: any;
 }
 
-// export function ExpenseSettingStepThree({
-//   expenseData,
-//   group,
-//   phase,
-//   setIsNotEqual,
-//   updatedSharers,
-//   setUpdatedSharers,
-// }: ExpenseSettingStepThreeProps) {
-//   const users = group.users;
-//   const [sharers, setSharers] = useState<any>(updatedSharers);
-
-//   const addedAmount = updatedSharers.reduce(
-//     (total, sharer) =>  {return Number(total) + Number(sharer.amount)},
-//     0,
-//   );
-
-//   useEffect(() => {
-
-//     setIsNotEqual(Number(expenseData.amount) !== Number(addedAmount));
-//   }, [updatedSharers, expenseData.amount, setIsNotEqual]);
-
-//   if (!expenseData || !updatedSharers) return null;
-
-//   const handleAllSelect = () => {
-//     console.log('users are')
-//     console.log(users)
-//     console.log(updatedSharers)
-//     const updatedSharersCopy = users.map((user) => ({
-//       id: user.id,
-//       amount: expenseData.amount / users.length,
-//       // amount: 0,
-//     }));
-//     setUpdatedSharers(updatedSharersCopy);
-//     setSharers(updatedSharersCopy);
-//   };
-
-//   const handleAllNoSelect = () => {
-//     setUpdatedSharers([]);
-//     setSharers([])
-//   };
-
-//   const handleSharerToggle = (userId: string) => {
-//     const existingIndex = updatedSharers.findIndex(
-//       (sharer) => sharer.id === userId,
-//     );
-//     const updatedSharersCopy = [...updatedSharers];
-
-//     if (existingIndex !== -1) {
-//       updatedSharersCopy.splice(existingIndex, 1);
-//     } else {
-//       updatedSharersCopy.push({
-//         id: userId,
-//         amount: expenseData.amount / users.length,
-//       });
-//     }
-
-//     setUpdatedSharers(updatedSharersCopy);
-//     setSharers(updatedSharersCopy);
-//   };
-
-//   return (
-//     <div
-//       className={clsx('my-6 flex w-full flex-col items-center', {
-//         hidden: phase !== 3,
-//       })}
-//     >
-//       <div className="mx-auto mb-5 px-3 text-xl">選擇分帳成員</div>
-//       <div className="mb-3 mt-1 flex w-full items-center justify-end px-[14px]">
-//         <div className="flex gap-3">
-//           <SharersAmountButton
-//             users={users}
-//             expenseData={expenseData}
-//             updatedSharers={updatedSharers}
-//             setUpdatedSharers={setUpdatedSharers}
-//             sharers={sharers}
-//             setSharers={setSharers}
-//           />
-//           {updatedSharers.length === users.length ? (
-//             <div
-//               onClick={handleAllNoSelect}
-//               className="flex w-12 cursor-pointer justify-center text-xs"
-//             >
-//               取消全選
-//             </div>
-//           ) : (
-//             <div
-//               onClick={handleAllSelect}
-//               className="flex w-12 cursor-pointer justify-center text-xs"
-//             >
-//               全選
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//       {users.map((user) => {
-//         const isChecked = updatedSharers.some(
-//           (sharer) => sharer.id === user.id,
-//         );
-//         const amountValue = isChecked
-//           ? updatedSharers.find((sharer) => sharer.id === user.id)?.amount
-//           : '0';
-
-//         return (
-//           <div
-//             className="my-2 flex w-full items-center justify-between px-7"
-//             key={user.id}
-//           >
-//             <div className="flex items-center gap-4">
-//               <Image
-//                 className="h-12 w-12 rounded-full"
-//                 src={user.picture}
-//                 width={50}
-//                 height={50}
-//                 alt="user's picture"
-//               />
-//               <div>{user.name}</div>
-//             </div>
-//             <div className="flex justify-between gap-10">
-//               <p className="text-sm text-neutrals-70">${amountValue}</p>
-//               <input
-//                 className="relative h-5 w-5 rounded-full border-[1.5px] border-black ring-transparent checked:border-black checked:bg-highlight-60 checked:text-highlight-60 checked:before:absolute checked:before:left-[50%] checked:before:top-[50%] checked:before:block checked:before:h-4 checked:before:w-4 checked:before:translate-x-[-50%] checked:before:translate-y-[-50%] checked:before:rounded-full checked:before:bg-highlight-60 hover:checked:border-black focus:ring-transparent checked:focus:border-black"
-//                 type="radio"
-//                 id={user.name}
-//                 name={user.name}
-//                 value={user.name}
-//                 onChange={() => {}}
-//                 onClick={() => handleSharerToggle(user.id)} // Call handleSharerToggle on change
-//                 checked={isChecked}
-//               />
-//             </div>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
-
 export function ExpenseSettingStepThree({
   expenseData,
   group,
@@ -309,20 +172,12 @@ export function ExpenseSettingStepThree({
       <div className="mx-auto mb-5 px-3 text-xl">選擇分帳成員</div>
       <div className="mb-3 mt-1 flex w-full items-center justify-end px-[14px]">
         <div className="flex gap-3">
-          {/* <div className="flex w-20 cursor-pointer justify-center text-xs">
+          <div className="flex w-20 cursor-pointer justify-center text-xs">
             <div className="scale-75">
               <NotePencilIcon />
             </div>
             <div>負擔金額</div>
-          </div> */}
-      <SharersAmountButton
-    users={users}
-         expenseData={expenseData}
-         updatedSharers={updatedSharers}
-           setUpdatedSharers={setUpdatedSharers}
-          sharers={sharers}
-           setSharers={setSharers}
-          />
+          </div>
           {updatedSharers.length === users.length ? (
             <div
               onClick={handleAllNoSelect}
@@ -370,8 +225,6 @@ export function ExpenseSettingStepThree({
               <div>{user.name}</div>
             </div>
             <div className="flex items-center justify-between gap-7">
-              {/* <p className="text-sm text-neutrals-70">${amountValue}</p> */}
-
               <input
                 className=" w-20 border-0 border-b-[1px] border-black bg-transparent text-neutrals-70 focus:border-black focus:border-highlight-40 focus:outline-none focus:ring-0"
                 type="number"
@@ -404,7 +257,7 @@ export function ExpenseSettingStepThree({
                           amount: 0,
                         };
 
-                        console.log(sharer.amount);
+                  console.log(sharer.amount);
                 }}
                 onChange={(e: any) => {
                   let value = e.target.value;
@@ -417,10 +270,14 @@ export function ExpenseSettingStepThree({
                     amount: value,
                   });
                 }}
-                value={sharer.amount === 0 && !onFocus ? 0 : sharer.amount} // Prevent display of 0
+                value={sharer.amount === 0 ? '' : sharer.amount} // Prevent display of 0
               />
               <input
-                className="relative h-5 w-5 rounded-full border-[1.5px] border-black ring-transparent checked:border-black checked:bg-highlight-60 checked:text-highlight-60 checked:before:absolute checked:before:left-[50%] checked:before:top-[50%] checked:before:block checked:before:h-4 checked:before:w-4 checked:before:translate-x-[-50%] checked:before:translate-y-[-50%] checked:before:rounded-full checked:before:bg-highlight-60 hover:checked:border-black focus:ring-transparent checked:focus:border-black"
+                className="relative h-5 w-5 rounded-full border-[1.5px] border-black ring-transparent checked:border-black checked:bg-highlight-60 checked:text-highlight-60 checked:before:absolute 
+                checked:before:left-[50%] checked:before:top-[50%] 
+                checked:before:block checked:before:h-4 checked:before:w-4 checked:before:translate-x-[-50%] 
+                checked:before:translate-y-[-50%] checked:before:rounded-full checked:before:bg-highlight-60
+                 hover:checked:border-black focus:ring-transparent checked:focus:border-black"
                 type="radio"
                 id={user.name}
                 name={user.name}
