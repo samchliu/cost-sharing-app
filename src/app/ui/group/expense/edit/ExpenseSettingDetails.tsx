@@ -67,6 +67,7 @@ export function NextStepButton({
   isNotEqual,
   setIsNotEqual,
   setCurrentExpense,
+  updatedSharers,
 }: {
   phase: number;
   setPhase: any;
@@ -75,6 +76,7 @@ export function NextStepButton({
   isNotEqual: any;
   setIsNotEqual: any;
   setCurrentExpense: any;
+  updatedSharers: any;
 }) {
   const { display } = useContext<any>(CalcContext);
 
@@ -106,7 +108,7 @@ export function NextStepButton({
   }
 
   function handleSubmit(expense: any) {
-    console.log(expenseData);
+    // console.log(expenseData);
   }
 
   return (
@@ -130,9 +132,11 @@ export function NextStepButton({
       ) : (
         <button
           disabled={isNotEqual}
-          type="submit"
+          type="button"
           onClick={() => {
             console.log('click submit');
+            setCurrentExpense({ ...expenseData, sharers: updatedSharers });
+            console.log(expenseData);
           }}
           onSubmit={() => handleSubmit(expenseData)}
           className="relative flex w-[180px] items-center justify-between rounded-full bg-highlight-20 px-4 py-2 disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"

@@ -20,13 +20,13 @@ export default function Page() {
   const expense: any = useExpense(params.groupid, params.expenseid);
 
   const [currentExpense, setCurrentExpense] = useState(expense);
-  const [updatedSharers, setUpdatedSharers] = useState([...currentExpense.sharers]);
+  const [updatedSharers, setUpdatedSharers] = useState([...currentExpense?.sharers]);
 
   if (!currentExpense) return null;
   if (!group) return;
 
   return (
-    <form method="post" action={`/group/${params.groupid}/expense/${params.expenseid}`}>
+    <form method="post" action={`/test/split/group/${params.groupid}/expense/${params.expenseid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           group={group}
@@ -65,9 +65,10 @@ export default function Page() {
             setPhase={setPhase}
             isNotEqual={isNotEqual}
             setIsNotEqual={setIsNotEqual}
+            updatedSharers={updatedSharers}
           />
         </section>
-        <div className="h-[420px]"></div>
+        {/* <div className="h-[420px]"></div> */}
       </div>
     </form>
   );
