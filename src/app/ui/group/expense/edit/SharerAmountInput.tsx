@@ -6,7 +6,7 @@ export default function SharerAmountInput() {
   const [onFocus, setOnFocus] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize:any = () => {
       if (window.visualViewport) {
         const newTop = `${window.visualViewport.height}px`;
         console.log(newTop);
@@ -26,9 +26,9 @@ export default function SharerAmountInput() {
   }, []); // empty dependency array ensures this effect runs only once
 
   return (
-    <div className="relative">
+    <>
       <input
-        className="ml-[0px] mt-[200px] border-0 border-b focus:border-0 focus:border-b-highlight-60 focus:ring-b-highlight-60"
+        className="w-20 ml-[0px] border-0 border-b-[1px] border-black focus:border-black focus:ring-0 focus:outline-none"
         type="number"
         pattern="[0-9]*"
         inputMode="numeric"
@@ -46,6 +46,6 @@ export default function SharerAmountInput() {
         <div className="text-black">小陳負擔$3,000中的$</div>
         <div className="text-sm text-neutrals-60">還剩下$3,000還沒被分帳</div>
       </div>
-    </div>
+    </>
   );
 };
