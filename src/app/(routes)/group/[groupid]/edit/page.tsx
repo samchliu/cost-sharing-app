@@ -1,9 +1,9 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 //import data
-import { useUser, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
 import {
@@ -15,25 +15,16 @@ import {
 
 export default function Page() {
   const params = useParams<{ groupid: string }>();
-  const user = useUser(loginUserId);
   const group = useGroup(params.groupid);
-
-  let groupNameAndImage = null;
-  if (!user) return;
-  for (let group of user.groups) {
-    if (group.id === params.groupid) {
-      groupNameAndImage = group;
-    }
-  }
-
+  const [currentGroup, setCurrentGroup] = useState(group);
   return (
     <form method="post" action={`/group/${params.groupid}`}>
       <div className="relative flex flex-col">
         <TopGroupSettingBar groupData={group} />
-        <GroupNameSetting groupData={groupNameAndImage} />
-        <GroupUsersSetting groupData={group} />
-        <GroupOtherSetting groupData={group} />
-        <GroupSave groupData={group} />
+        <GroupNameSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
+        <GroupUsersSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
+        <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
+        <GroupSave groupData={currentGroup} />
       </div>
     </form>
   );

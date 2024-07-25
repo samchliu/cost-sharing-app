@@ -26,7 +26,7 @@ export default function Page() {
   if (!group) return;
 
   return (
-    <form method="post" action={`/test/split/group/${params.groupid}/expense/${params.expenseid}`}>
+    <form method="post" action={`/group/${params.groupid}/expense/${params.expenseid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           group={group}
@@ -68,7 +68,6 @@ export default function Page() {
             updatedSharers={updatedSharers}
           />
         </section>
-        {/* <div className="h-[420px]"></div> */}
       </div>
     </form>
   );

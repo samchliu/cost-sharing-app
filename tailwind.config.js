@@ -87,7 +87,10 @@ module.exports = {
       },
       zIndex: {
         100: '100',
-      }
+      },
+      content: {
+        checkWhiteIcon: 'url("../../../public/icons/checkWhite.svg")',
+      },
     },
     screens: {
       '3xl': { max: '2200px' },
