@@ -1,17 +1,39 @@
 'use client';
 //import next & react
-// import { Fragment, useEffect, useState } from 'react';
-// import { useLiff } from '@/app/_components/liff-provider';
-
+import { useEffect, useContext } from 'react';
+import { useLiff } from '@/app/_components/liff-provider';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
-import { useUser } from '@/app/_components/frontendData/fetchData/Providers';
+import { useUser, AllContext } from '@/app/_components/frontendData/fetchData/Providers';
 //import ui
 import GroupButton from '@/app/ui/groups/GroupButton';
 import AddGroupButton from '@/app/ui/groups/AddGroupButton';
 
 export default function Page() {
+  const { personInfo, setPersonInfo } = useContext<any>(AllContext);
+
+  const { liffObject } = useLiff();
+  //  const [personInfo, setPersonInfo] = useState(lineInitialProfile);
+  useEffect(() => {
+    if (!liffObject) return;
+    const userProfile = liffObject.getProfile();
+    userProfile.then(
+      (profile: {
+        userId: string;
+        displayName: string;
+        statusMessage: string;
+        pictureUrl: string;
+      }) => {
+        const data = profile;
+        console.log(data);
+        setPersonInfo(data);
+      }
+    );
+  }, [liffObject]);
+
+  // const data = useUser(personInfo.userId);
   const data = useUser(loginUserId);
+  if (!data) return;
 
   return (
     <div className="flex min-h-screen flex-col bg-highlight-50">
@@ -24,42 +46,9 @@ export default function Page() {
           ? data.groups.map((group: any) => <GroupButton key={group.id} groupData={group} />)
           : null}
       </div>
+      <p className="mt-[6.5rem] text-white">Name: {personInfo.displayName}</p>
+      {/* <p className="text-white">userId: {personInfo.userId}</p> */}
       <div className="mb-16"></div>
     </div>
   );
 }
-
-// function LiffObject() {
-//   const lineInitialProfile = {
-//     userId: '',
-//     displayName: '',
-//     statusMessage: '',
-//     pictureUrl: '',
-//   };
-//   const { liffObject } = useLiff();
-//   const [personInfo, setPersonInfo] = useState(lineInitialProfile);
-//   useEffect(() => {
-//     if (!liffObject) return;
-//     const userProfile = liffObject.getProfile();
-//     userProfile.then(
-//       (profile: {
-//         userId: string;
-//         displayName: string;
-//         statusMessage: string;
-//         pictureUrl: string;
-//       }) => {
-//         const data = profile;
-//         console.log(data);
-//         setPersonInfo(data);
-//       }
-//     );
-//   }, [liffObject]);
-
-//   return (
-//     <>
-//       <p>Name: {personInfo.displayName}</p>
-//       <Image src={personInfo.pictureUrl} alt={personInfo.displayName} width={500} height={500} />
-//       <p>userId: {personInfo.userId}</p>
-//     </>
-//   );
-// }
