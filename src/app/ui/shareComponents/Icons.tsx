@@ -31,6 +31,8 @@ import homeIcon from '../../../../public/icons/home.svg';
 import editIcon from '../../../../public/icons/edit.svg';
 import editTwoIcon from '../../../../public/icons/editTwo.svg';
 import greaterThanIcon from '../../../../public/icons/greaterThan.svg';
+import cameraIcon from '../../../../public/icons/camera.svg';
+import leaveIcon from '../../../../public/icons/leave.svg';
 
 function FoodIcon({ strokeWidth }: { strokeWidth: any }) {
   return (
@@ -252,6 +254,14 @@ function CloseIcon() {
   return <Image src={closeIcon} alt="" />;
 }
 
+function CameraIcon() {
+  return <Image src={cameraIcon} alt="" />;
+}
+
+function LeaveIcon() {
+  return <Image src={leaveIcon} alt="" />;
+}
+
 const expenseIconMap = {
   food: FoodIcon,
   drink: DrinkIcon,
@@ -299,4 +309,6 @@ export {
   EditIcon,
   EditTwoIcon,
   GreaterThanIcon,
+  CameraIcon,
+  LeaveIcon,
 };

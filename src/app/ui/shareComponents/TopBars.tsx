@@ -137,3 +137,33 @@ export function TopExpenseSettingBar({
     </div>
   );
 }
+
+export function TopBar({
+  name,
+  leftBtnName,
+  rightBtnName,
+  handleLeftClick,
+  handleRightClick,
+}: {
+  name: string;
+  leftBtnName: string;
+  rightBtnName: string;
+  handleLeftClick: () => void;
+  handleRightClick: () => void;
+}) {
+  return (
+    <div className="fixed top-0 z-50 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
+      <div className="h-6 w-8">
+        <div onClick={handleLeftClick}>
+          <p className="">{leftBtnName}</p>
+        </div>
+      </div>
+      <h1 className="text-lg">{name}</h1>
+      <div className="h-6 w-8">
+        <div onClick={handleRightClick}>
+          <p className="">{rightBtnName}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
