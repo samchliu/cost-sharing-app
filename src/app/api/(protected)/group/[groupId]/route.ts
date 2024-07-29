@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/db';
+import { z } from 'zod';
 
 export async function GET(request: NextRequest, { params }: { params: { groupId: string } }) {
   try {
@@ -61,6 +62,37 @@ export async function DELETE(request: NextRequest, { params }: { params: { group
 
     await prisma.group.delete({ where: { id: params.groupId } });
     return NextResponse.json(undefined, { status: 204 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.error();
+  }
+}
+
+const RequestSchema = z.object({
+  name: z.string(),
+  picture: z.string(),
+});
+
+export async function PUT(request: NextRequest, { params }: { params: { groupId: string } }) {
+  try {
+    let validatedBody;
+    try {
+      const body = await request.json();
+      validatedBody = RequestSchema.parse(body);
+    } catch (error) {
+      console.error(error);
+      return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
+    }
+
+    const group = await prisma.group.findUnique({ where: { id: params.groupId } });
+    if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
+
+    const responseBody = await prisma.group.update({
+      where: { id: params.groupId },
+      data: { ...validatedBody },
+    });
+
+    return NextResponse.json(responseBody);
   } catch (error) {
     console.error(error);
     return NextResponse.error();
