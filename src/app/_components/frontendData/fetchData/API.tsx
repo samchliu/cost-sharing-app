@@ -26,6 +26,18 @@ async function getUser(id: any) {
   return data;
 }
 
+// async function getUser(id: any) {
+//   const res = await fetch(`/api/user/${id}`, {
+//     cache: 'no-store',
+//   });
+
+//   if (!res.ok) throw Error;
+
+//   const data = await res.json();
+
+//   return data;
+// }
+
 //get expense
 async function getExpense(id: any) {
   const res = await fetch(`http://localhost:3001/expense/${id}`, {

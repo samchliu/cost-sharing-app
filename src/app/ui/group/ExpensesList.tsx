@@ -29,10 +29,8 @@ export default function ExpensesList({ groupData }: { groupData: any }) {
   const renderExpensesByDate = () => {
     return Object.keys(groupedExpenses).map((date, index) => {
       let formateDate: any = new Date(date);
-      formateDate = format(
-        formateDate,
-        (formateDate.getFullYear() === new Date().getFullYear() ? '' : 'yyyy年') + 'MM月dd日'
-      );
+      // formateDate = format(formateDate, (formateDate.getFullYear() === new Date().getFullYear() ? '' : 'yyyy/') + 'MM/dd')
+      formateDate = format(formateDate, 'yyyy/MM/dd');
 
       return (
         <div key={index}>

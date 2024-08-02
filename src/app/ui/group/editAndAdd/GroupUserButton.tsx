@@ -8,16 +8,21 @@ import { TrashcanIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
 export function GroupUser({
+  idx,
   userData,
   groupData,
   setCurrentGroup,
+  isAddPage,
+  loginUserData,
 }: {
+  idx: any;
   userData: any;
   groupData: any;
   setCurrentGroup: any;
+  isAddPage: boolean;
+  loginUserData: any;
 }) {
-  const [GroupUsers, setGroupUsers] = useState(groupData.users);
-  const [lastSavedGroupUsers, setLastSavedGroupUsers] = useState<any>(GroupUsers);
+  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
   const [isShow, setIsShow] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
@@ -31,7 +36,7 @@ export function GroupUser({
   };
 
   const handleClose = () => {
-    setGroupUsers(lastSavedGroupUsers);
+    setCurrentGroup(lastSavedGroup);
     setIsShow(false);
     setTimeout(() => {
       dialogRef.current?.close();
@@ -39,16 +44,19 @@ export function GroupUser({
   };
 
   const handleSave = (e: any) => {
-    let currentGroupUsers = [...GroupUsers];
-
-    const userIndex = currentGroupUsers.findIndex((user: any) => user.id === userData.id);
+    let currentGroupUsers = [...groupData.users];
+    const userIndex = currentGroupUsers.findIndex(
+      (user: any) => user.name === userData.name && e.target.id === idx
+    );
 
     if (userIndex !== -1) {
       currentGroupUsers.splice(userIndex, 1);
     }
 
-    setGroupUsers(currentGroupUsers);
-    setLastSavedGroupUsers(currentGroupUsers);
+    setLastSavedGroup({
+      ...groupData,
+      users: currentGroupUsers,
+    });
     setCurrentGroup({
       ...groupData,
       users: currentGroupUsers,
@@ -60,6 +68,9 @@ export function GroupUser({
   };
 
   const isAdmin = groupData.creatorId === loginUserId;
+  const isMemberAdmin = groupData.creatorId === userData.id && groupData.creatorId !== undefined;
+  const showAdminLabel = (isAddPage && loginUserData.id === idx) || isMemberAdmin;
+  const showDeleteButton = (isAddPage && loginUserData.id !== idx) || (isAdmin && !isMemberAdmin);
 
   return (
     <div className="mb-4 flex items-center justify-between">
@@ -77,31 +88,26 @@ export function GroupUser({
         )}
         <p>
           {userData.name}
-          {groupData.creatorId === userData.id ? <span>&emsp;(管理員)</span> : ''}
+          {showAdminLabel ? <span>&emsp;(管理員)</span> : ''}
         </p>
       </div>
-      {isAdmin && groupData.creatorId === userData.id ? (
-        <div></div>
-      ) : (
+      {showDeleteButton ? (
         <>
-          {isAdmin && (
-            <>
-              <div onClick={handleToggle} className="flex h-8 w-8 items-center justify-center">
-                <TrashcanIcon />
-              </div>
-              <DeleteModal
-                dialogRef={dialogRef}
-                dialogId={dialogId}
-                isShow={isShow}
-                headerId={headerId}
-                handleClose={handleClose}
-                handleSave={(e: any) => handleSave(e)}
-                hintWord="確定要刪除成員嗎？"
-              />
-            </>
-          )}
+          <div onClick={handleToggle} className="flex h-8 w-8 items-center justify-center">
+            <TrashcanIcon />
+          </div>
+          <DeleteModal
+            dialogRef={dialogRef}
+            dialogId={dialogId}
+            isShow={isShow}
+            headerId={headerId}
+            handleClose={handleClose}
+            handleSave={(e: any) => handleSave(e)}
+            hintWord="確定要刪除成員嗎？"
+            idx={idx}
+          />
         </>
-      )}
+      ) : null}
     </div>
   );
 }

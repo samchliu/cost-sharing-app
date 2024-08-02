@@ -76,7 +76,7 @@ function Display({
     useContext<any>(CalcContext);
 
   useEffect(() => {
-    if (amount) {
+    if (amount || amount === '') {
       setDisplay(Number(amount));
     }
   }, [amount]);

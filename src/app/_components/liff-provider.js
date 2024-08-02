@@ -34,7 +34,7 @@ export default function LiffProvider({ children }) {
         }
         setLiffObject(liff);
         setLiffStatus(LIFF_STATUS.INITED);
-      })
+      }) //在這邊加const accessToken = liff.getAccessToken();
       .catch((error) => {
         console.log(`liff.init() failed: ${error}`);
         if (!process.env.liffId) {

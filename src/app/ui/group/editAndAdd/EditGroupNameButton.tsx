@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 //import ui
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
-export default function GroupNameButton({
+export default function EditGroupNameButton({
   groupData,
   setCurrentGroup,
 }: {
@@ -56,10 +56,7 @@ export default function GroupNameButton({
 
   return (
     <div className="relative">
-      <div
-        onClick={toggleDialog}
-        className="relative cursor-pointer text-sm text-grey-500"
-      >
+      <div onClick={toggleDialog} className="relative cursor-pointer text-sm text-grey-500">
         編輯
       </div>
       <NameModal
@@ -67,7 +64,7 @@ export default function GroupNameButton({
         handleChange={handleChange}
         handleClose={handleClose}
         handleSave={handleSave}
-        TopBarName='群組名稱'
+        TopBarName="群組名稱"
         inputRef={inputRef}
         currentValue={currentName}
       />

@@ -15,8 +15,8 @@ export default function DeleteGroupButton({
 }) {
   const isAdmin = groupData.creatorId === loginUserId;
 
-  const [GroupUsers, setGroupUsers] = useState(groupData.users);
-  const [lastSavedGroupUsers, setLastSavedGroupUsers] = useState<any>(GroupUsers);
+  // const [GroupUsers, setGroupUsers] = useState(groupData.users);
+  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
   const [isShow, setIsShow] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
@@ -30,7 +30,6 @@ export default function DeleteGroupButton({
   };
 
   const handleClose = () => {
-    setGroupUsers(lastSavedGroupUsers);
     setIsShow(false);
     setTimeout(() => {
       dialogRef.current?.close();
@@ -38,22 +37,6 @@ export default function DeleteGroupButton({
   };
 
   const handleDeleteGroup = () => {
-    // let currentGroupUsers = [...GroupUsers];
-
-    // const userIndex = currentGroupUsers.findIndex(
-    //   (user: any) => user.id === userData.id,
-    // );
-
-    // if (userIndex !== -1) {
-    //   currentGroupUsers.splice(userIndex, 1);
-    // }
-
-    // setGroupUsers(currentGroupUsers);
-    // setLastSavedGroupUsers(currentGroupUsers);
-    // setCurrentGroup({
-    //   ...groupData,
-    //   users: currentGroupUsers,
-    // });
     console.log('delete Group!');
 
     setIsShow(false);
@@ -63,7 +46,7 @@ export default function DeleteGroupButton({
   };
 
   const handleLeaveGroup = (id: string) => {
-    let currentGroupUsers = [...GroupUsers];
+    let currentGroupUsers = [...groupData.users];
 
     const userIndex = currentGroupUsers.findIndex((user: any) => user.id === id);
 
@@ -71,8 +54,10 @@ export default function DeleteGroupButton({
       currentGroupUsers.splice(userIndex, 1);
     }
 
-    setGroupUsers(currentGroupUsers);
-    setLastSavedGroupUsers(currentGroupUsers);
+    setLastSavedGroup({
+      ...groupData,
+      users: currentGroupUsers,
+    });
     setCurrentGroup({
       ...groupData,
       users: currentGroupUsers,
@@ -104,6 +89,7 @@ export default function DeleteGroupButton({
           handleClose={handleClose}
           handleSave={handleDeleteGroup}
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
+          idx={`deleteGroup${loginUserId}`}
         />
       ) : (
         <DeleteModal
@@ -114,6 +100,7 @@ export default function DeleteGroupButton({
           handleClose={handleClose}
           handleSave={() => handleLeaveGroup(loginUserId)}
           hintWord="確定要離開群組嗎？"
+          idx={`leaveGroup${loginUserId}`}
         />
       )}
     </>

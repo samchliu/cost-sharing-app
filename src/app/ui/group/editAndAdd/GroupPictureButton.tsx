@@ -91,7 +91,7 @@ export default function GroupPictureButton({
   };
 
   return (
-    <div className="relative">
+    <div className="relative grow-0">
       <div onClick={toggleDialog} className="relative">
         <Image
           src={Icon}
@@ -111,7 +111,7 @@ export default function GroupPictureButton({
           {
             'top-0 z-50 opacity-100': isShow,
             'top-5 -z-50 opacity-0': !isShow,
-          },
+          }
         )}
       >
         <TopBar
@@ -127,11 +127,11 @@ export default function GroupPictureButton({
             return (
               <div
                 className={clsx(
-                  'after:content-checkWhiteIcon relative max-w-[33.33%] before:absolute before:top-0 before:h-full before:w-full before:bg-neutrals-60 before:opacity-50 after:absolute after:left-[50%] after:top-[50%] after:z-100 after:w-8 after:translate-x-[-50%] after:translate-y-[-50%]',
+                  'relative max-w-[33.33%] before:absolute before:top-0 before:h-full before:w-full before:bg-neutrals-60 before:opacity-50 after:absolute after:left-[50%] after:top-[50%] after:z-100 after:w-8 after:translate-x-[-50%] after:translate-y-[-50%] after:content-checkWhiteIcon',
                   {
                     '': currentPicture === picture,
                     'before:hidden after:hidden': currentPicture !== picture,
-                  },
+                  }
                 )}
                 key={idx}
               >

@@ -16,9 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <CalcProvider>
             <body
-              className={`${inter.variable} ${notoSansJP.variable} ${notoSansTC.variable} min-h-screen w-full bg-primary-100 font-sans antialiased`}
+              className={`${inter.variable} ${notoSansJP.variable} ${notoSansTC.variable} min-h-screen w-full font-sans antialiased`}
             >
-              {children}
+              <main className="h-dvh min-h-screen w-full bg-neutrals-0">{children}</main>
             </body>
           </CalcProvider>
         </Providers>

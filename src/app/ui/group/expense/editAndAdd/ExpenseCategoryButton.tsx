@@ -9,7 +9,7 @@ import clsx from 'clsx';
 
 export default function ExpenseCategoryButton({
   expenseData,
-  setCurrentExpense
+  setCurrentExpense,
 }: {
   expenseData: any;
   setCurrentExpense: any;
@@ -20,14 +20,7 @@ export default function ExpenseCategoryButton({
   const {
     category,
   }: {
-    category:
-      | 'food'
-      | 'drink'
-      | 'transport'
-      | 'stay'
-      | 'shopping'
-      | 'entertainment'
-      | 'other';
+    category: 'food' | 'drink' | 'transport' | 'stay' | 'shopping' | 'entertainment' | 'other';
   } = expenseData;
 
   if (!expenseData) return;
@@ -46,7 +39,6 @@ export default function ExpenseCategoryButton({
   };
 
   const handleKeyboardBlur = () => {
-    //To check if the input element referenced by inputRef is currently focused
     if (inputRef.current && document.activeElement === inputRef.current) {
       return;
     }
@@ -98,30 +90,29 @@ function Display({
 
   const SelectIcon = expenseIconMap[display as keyof typeof expenseIconMap];
 
-  return ( <>
-    <Link 
-    href="#"
-    ref={inputRef}
-    type="button"
-    className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60 focus:border-0 focus:ring-0 outline-none"
-    onClick={handleKeyboardFocus}
-    onBlur={() => {
-      //setTimeout to make sure handleKeyboardBlur function happened after inputRef is focus by keyboard
-      setTimeout(() => {
-        handleKeyboardBlur();
-      }, 0);
-    }}
-    onMouseOut={() => {
-      //setTimeout to make sure handleKeyboardBlur function happened after inputRef is focus by keyboard
-      setTimeout(() => {
-        handleKeyboardBlur();
-      }, 0);
-    }}
-    id="display"
-    >
-    {SelectIcon ? <SelectIcon strokeWidth={1.2} /> : null}
-    </Link>
-   </>
+  return (
+    <>
+      <Link
+        href="#"
+        ref={inputRef}
+        type="button"
+        className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60 outline-none focus:border-0 focus:ring-0"
+        onClick={handleKeyboardFocus}
+        onBlur={() => {
+          setTimeout(() => {
+            handleKeyboardBlur();
+          }, 0);
+        }}
+        onMouseOut={() => {
+          setTimeout(() => {
+            handleKeyboardBlur();
+          }, 0);
+        }}
+        id="display"
+      >
+        {SelectIcon ? <SelectIcon strokeWidth={1.2} /> : null}
+      </Link>
+    </>
   );
 }
 
@@ -174,10 +165,7 @@ const Keyboard = ({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent): void => {
-      if (
-        keyboardRef.current &&
-        !keyboardRef.current.contains(e.target as Node)
-      ) {
+      if (keyboardRef.current && !keyboardRef.current.contains(e.target as Node)) {
         handleKeyboardBlur();
       }
     };
@@ -200,14 +188,13 @@ const Keyboard = ({
         {
           'bottom-0 z-50 transform opacity-100': showKeyboard,
           'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
-        },
+        }
       )}
     >
       <div className="mb-8 mt-5 text-center text-white">選擇類別</div>
       <div className="flex flex-wrap items-center justify-start gap-y-3 px-4">
         {allCategory.map((category: any, idx: any) => {
-          const Icon =
-            expenseIconMap[category['category'] as keyof typeof expenseIconMap];
+          const Icon = expenseIconMap[category['category'] as keyof typeof expenseIconMap];
 
           return (
             <Fragment key={idx}>

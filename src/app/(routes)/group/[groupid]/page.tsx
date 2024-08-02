@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { Suspense } from 'react';
 //import data
-import { useGroup, useUser } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 //import ui
 import { TopGroupBar } from '@/app/ui/shareComponents/TopBars';
 import UsersBar from '@/app/ui/group/UsersBar';
@@ -16,26 +15,18 @@ import { UsersBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
   const params = useParams<{ groupid: string }>();
-  const user = useUser(loginUserId);
   const group = useGroup(params.groupid);
 
-  let groupName = '';
-  if (!user) return;
   if (!group) return;
-  for (let group of user.groups) {
-    if (group.id === params.groupid) {
-      groupName = group.name;
-    }
-  }
 
   return (
     <div className="flex flex-col">
       <Suspense fallback={<UsersBarSkeleton />}>
-        <TopGroupBar groupData={group} groupName={groupName} />
+        <TopGroupBar groupData={group} isBalancePage={false} />
         <UsersBar groupData={group} />
-        <BalanceAndShareButtons groupData={group} groupName={groupName} />
+        <BalanceAndShareButtons groupData={group} />
         <ExpensesList groupData={group} />
-        <AddExpenseButton />
+        <AddExpenseButton groupId={params.groupid} />
       </Suspense>
     </div>
   );

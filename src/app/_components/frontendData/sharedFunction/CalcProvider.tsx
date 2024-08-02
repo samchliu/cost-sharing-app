@@ -60,8 +60,6 @@ export const CalcProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const buttonClick = (num: any) => {
-    // const keyPressEvent = new KeyboardEvent('keydown', { key: num })
-    // document.dispatchEvent(keyPressEvent);
     if (num === 'Backspace') {
       let myString = String(display);
       myString = myString.split('').reverse().slice(1).reverse().join('');
@@ -112,10 +110,6 @@ export const CalcProvider = ({ children }: { children: React.ReactNode }) => {
     setDisplay('');
   };
 
-  //
-  // The next functions & useEffect allow users to manipulate the calculator using the keyboard
-  //
-
   const backspace = () => {
     setDisplay(display.slice(0, -1));
   };
@@ -143,19 +137,12 @@ export const CalcProvider = ({ children }: { children: React.ReactNode }) => {
           break;
       }
     }
-    // else {
-    //     e.preventDefault()
-    // }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleKeyDown);
     return () => document.removeEventListener('click', handleKeyDown);
   });
-
-  //
-  //
-  //
 
   return (
     <CalcContext.Provider

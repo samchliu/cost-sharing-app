@@ -1,6 +1,38 @@
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 
-function filterExpense(expenses: any) {
+interface Sharer {
+  id: string;
+  amount: string | number;
+}
+
+interface Expense {
+  id: string;
+  name: string;
+  amount: string | number;
+  date: string;
+  category: string;
+  payerId: string;
+  sharers: Sharer[];
+  note: string;
+}
+
+interface Debts {
+  [userId: string]: {
+    [expenseName: string]: number;
+  };
+}
+
+interface TotalDebts {
+  [userId: string]: number; // Total debt amount for each user
+}
+
+interface SplitExpenseResult {
+  debts: Debts;
+  totalDebts: TotalDebts;
+  expensesWithDebts: Expense[];
+}
+
+function filterExpense(expenses: Expense[]): SplitExpenseResult {
   let newExpenses = expenses.map((expense: any) => ({ ...expense }));
 
   //every one's debt save in to new object

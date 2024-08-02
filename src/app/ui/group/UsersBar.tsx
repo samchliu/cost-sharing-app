@@ -26,7 +26,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
                 ))}
               </ul>
               <Link
-                href={`/group/${groupData.id}/edit`}
+                href={`/test/split/group/${groupData.id}/edit`}
                 className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500"
                 scroll={false}
               >

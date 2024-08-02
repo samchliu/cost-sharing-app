@@ -644,7 +644,7 @@
                     "sharers": [
                         {
                             "id": "u4",
-                            "amount": 100
+                            "amount": 120
                         }
                     ],
                     "note": ""
@@ -1696,7 +1696,7 @@
             "sharers": [
                 {
                     "id": "u4",
-                    "amount": 100
+                    "amount": 120
                 }
             ],
             "note": "",

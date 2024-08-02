@@ -1,4 +1,4 @@
-const baseUrl = 'https://xxxxxx.com';
+const baseUrl = '';
 
 interface FetchOptions extends RequestInit {
   headers?: HeadersInit;
