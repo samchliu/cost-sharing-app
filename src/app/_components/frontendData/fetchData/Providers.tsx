@@ -11,30 +11,11 @@ interface AllContextType {
   fetchUser: (userId: string) => void;
   fetchGroup: (groupId: string) => void;
   fetchExpense: (groupId: string, expenseId: string) => void;
-  personInfo: { [key: string]: any };
-  setPersonInfo: React.Dispatch<
-    React.SetStateAction<{
-      userId: string;
-      displayName: string;
-      statusMessage: string;
-      pictureUrl: string;
-    }>
-  >;
 }
 
-type UserProfile = typeof lineInitialProfile;
-
-const lineInitialProfile = {
-  userId: '',
-  displayName: '',
-  statusMessage: '',
-  pictureUrl: '',
-};
-
-export const AllContext = createContext<AllContextType | null>(null);
+const AllContext = createContext<AllContextType | null>(null);
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  const [personInfo, setPersonInfo] = useState<UserProfile>(lineInitialProfile);
   const [users, setUsers] = useState<{ [key: string]: any }>({});
   const [groups, setGroups] = useState<{ [key: string]: any }>({});
   const [expenses, setExpenses] = useState<{ [key: string]: any }>([]);
@@ -96,8 +77,6 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
         fetchUser,
         fetchGroup,
         fetchExpense,
-        personInfo,
-        setPersonInfo,
       }}
     >
       {children}
@@ -149,4 +128,3 @@ export const useExpense = (groupId: string, expenseId: string) => {
 
   return context.expenses[expenseId];
 };
-300

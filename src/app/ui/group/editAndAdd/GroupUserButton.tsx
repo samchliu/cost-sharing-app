@@ -3,11 +3,12 @@ import Image from 'next/image';
 import { useId, useRef, useState } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
-export function GroupUser({
+export function GroupUserButton({
   idx,
   userData,
   groupData,
@@ -15,15 +16,15 @@ export function GroupUser({
   isAddPage,
   loginUserData,
 }: {
-  idx: any;
-  userData: any;
-  groupData: any;
-  setCurrentGroup: any;
+  idx: string;
+  userData: GroupUser;
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
   isAddPage: boolean;
-  loginUserData: any;
+  loginUserData: GroupUser;
 }) {
-  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
-  const [isShow, setIsShow] = useState(false);
+  const [lastSavedGroup, setLastSavedGroup] = useState<ExtendedGroup>(groupData);
+  const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
   const headerId = useId();
@@ -43,10 +44,19 @@ export function GroupUser({
     }, 100);
   };
 
-  const handleSave = (e: any) => {
-    let currentGroupUsers = [...groupData.users];
+  const handleSave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    let currentGroupUsers = groupData.users
+      ? [...groupData.users]
+      : [
+          {
+            id: '',
+            name: '',
+            picture: '',
+            adoptable: false,
+          },
+        ];
     const userIndex = currentGroupUsers.findIndex(
-      (user: any) => user.name === userData.name && e.target.id === idx
+      (user: GroupUser) => user.name === userData.name && e.currentTarget.id === idx
     );
 
     if (userIndex !== -1) {
@@ -68,14 +78,15 @@ export function GroupUser({
   };
 
   const isAdmin = groupData.creatorId === loginUserId;
-  const isMemberAdmin = groupData.creatorId === userData.id && groupData.creatorId !== undefined;
-  const showAdminLabel = (isAddPage && loginUserData.id === idx) || isMemberAdmin;
-  const showDeleteButton = (isAddPage && loginUserData.id !== idx) || (isAdmin && !isMemberAdmin);
+  const isMemberAdmin = groupData.creatorId === userData?.id && groupData.creatorId !== undefined;
+  const showAdminLabel = (isAddPage && loginUserData?.id === idx) || isMemberAdmin;
+  const showDeleteButton = (isAddPage && loginUserData?.id !== idx) || (isAdmin && !isMemberAdmin);
 
   return (
     <div className="mb-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        {userData.picture !== '' ? (
+        {(userData?.adoptable === false || userData?.id === loginUserId) &&
+        userData.picture !== '' ? (
           <Image
             className="h-11 w-11 rounded-full bg-neutrals-20"
             src={userData.picture}
@@ -86,11 +97,11 @@ export function GroupUser({
         ) : (
           <div className="h-11 w-11 rounded-full bg-neutrals-20"></div>
         )}
-        <p>
-          {userData.name}
-          {showAdminLabel ? <span>&emsp;(管理員)</span> : ''}
-        </p>
+        <p className="w-56 truncate">{userData?.name}</p>
       </div>
+      {showAdminLabel ? (
+        <div className="relative left-[0.3rem] text-sm text-neutrals-70">管理員</div>
+      ) : null}
       {showDeleteButton ? (
         <>
           <div onClick={handleToggle} className="flex h-8 w-8 items-center justify-center">
@@ -102,7 +113,7 @@ export function GroupUser({
             isShow={isShow}
             headerId={headerId}
             handleClose={handleClose}
-            handleSave={(e: any) => handleSave(e)}
+            handleSave={handleSave}
             hintWord="確定要刪除成員嗎？"
             idx={idx}
           />

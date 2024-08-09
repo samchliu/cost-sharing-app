@@ -20,16 +20,11 @@ export default function ShareButton({
   const base = 'https://cost-sharing-app.vercel.app/group/';
   const links = base + id;
 
-  const handlesShareLink = (e: any) => {
+  const handlesShareLink = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsShow(true);
     router.refresh();
     console.log('share ' + links);
-
-    // setTimeout(() => {
-    //   setIsShow(false);
-    //   router.refresh();
-    // }, 900)
   };
 
   return (

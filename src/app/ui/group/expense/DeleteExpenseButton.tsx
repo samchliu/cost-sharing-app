@@ -2,19 +2,16 @@
 import { useId, useRef, useState } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedExpense } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
-export default function DeleteExpenseButton({ expenseData }: { expenseData: any }) {
-  const {
-    id,
-    payerId,
-    sharers,
-  }: {
-    id: string;
-    payerId: string;
-    sharers: string[];
-  } = expenseData;
+interface Props {
+  expenseData: ExtendedExpense;
+}
+
+export default function DeleteExpenseButton({ expenseData }: Props) {
+  const { id, payerId, sharers } = expenseData;
 
   const [isShow, setIsShow] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -46,7 +43,7 @@ export default function DeleteExpenseButton({ expenseData }: { expenseData: any 
   return (
     <>
       {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
+      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
         <>
           <div
             onClick={handleToggle}

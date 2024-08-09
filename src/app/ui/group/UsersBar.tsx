@@ -3,30 +3,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 
-export default function UsersBar({ groupData }: { groupData: any }) {
-  if (!groupData) return;
+export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
   let frontUsers = [];
 
-  if (groupData.users.length > 5) {
+  if (groupData.users && groupData.users.length > 5) {
     frontUsers = groupData.users.slice(0, 5);
-  } else {
+  } else if (groupData.users) {
     frontUsers = groupData.users;
-  }
+  } else return;
 
   return (
     <>
-      {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
+      {groupData && groupData.users.some((user) => user.id === loginUserId) ? (
         <>
           {groupData.users.length ? (
             <div className="mt-16 flex items-center justify-center gap-4 border-b-[1px] border-b-grey-userBar pb-5 pt-8">
               <ul className="flex items-center justify-center gap-2">
-                {frontUsers.map((user: any) => (
+                {frontUsers.map((user) => (
                   <UserBarImage user={user} key={user.id} />
                 ))}
               </ul>
               <Link
-                href={`/test/split/group/${groupData.id}/edit`}
+                href={`/group/${groupData.id}/edit`}
                 className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500"
                 scroll={false}
               >
@@ -39,7 +39,7 @@ export default function UsersBar({ groupData }: { groupData: any }) {
           )}
         </>
       ) : (
-        <NoneUsersBar text="no such group" />
+        <NoneUsersBar text="" />
       )}
     </>
   );
@@ -53,18 +53,22 @@ function NoneUsersBar({ text }: { text: string }) {
   );
 }
 
-function UserBarImage({ user }: { user: any }) {
+function UserBarImage({ user }: { user: GroupUser }) {
   return (
     <>
       {user ? (
         <li>
-          <Image
-            src={user.picture}
-            width={200}
-            height={200}
-            alt={user.name}
-            className="h-11 w-11 max-w-full rounded-full border-none object-cover align-middle shadow"
-          />
+          {user.picture ? (
+            <Image
+              src={user.picture}
+              width={200}
+              height={200}
+              alt={user.name}
+              className="h-11 w-11 max-w-full rounded-full border-none object-cover align-middle shadow"
+            />
+          ) : (
+            <div className="h-11 w-11 max-w-full rounded-full border-none bg-neutrals-20 object-cover align-middle shadow"></div>
+          )}
         </li>
       ) : null}
     </>

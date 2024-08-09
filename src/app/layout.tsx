@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-TW">
-      <LiffProvider>
+      {/* <LiffProvider> */}
         <Providers>
           <CalcProvider>
             <body
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </body>
           </CalcProvider>
         </Providers>
-      </LiffProvider>
+      {/* </LiffProvider> */}
     </html>
   );
 }

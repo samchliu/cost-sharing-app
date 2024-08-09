@@ -1,55 +1,49 @@
 //import from next & react
 import { Fragment, useEffect } from 'react';
+//import data
+import { Group, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { groupIconMap } from '@/app/ui/shareComponents/Icons';
 import DeleteGroupButton from '@/app/ui/group/editAndAdd/DeleteGroupButton';
-import { GroupUser } from '@/app/ui/group/editAndAdd/GroupUserButton';
+import { GroupUserButton } from '@/app/ui/group/editAndAdd/GroupUserButton';
 import GroupPictureButton from '@/app/ui/group/editAndAdd/GroupPictureButton';
 import EditGroupNameButton from '@/app/ui/group/editAndAdd/EditGroupNameButton';
 import AddUserButton from '@/app/ui/group/editAndAdd/AddUserButton';
 import AddGroupNameButton from '@/app/ui/shareComponents/AddGroupNameButton';
 //import other
 import { v4 as uuidv4 } from 'uuid';
+import clsx from 'clsx';
 
-export function GroupNameSetting({
-  groupData,
-  setCurrentGroup,
-  isAddPage,
-}: {
-  groupData: any;
-  setCurrentGroup: unknown;
+interface GroupNameSettingProps {
+  groupData: Group;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
   isAddPage: boolean;
-}) {
-  if (!groupData) return;
-  const {
-    picture,
-    name,
-  }: {
-    picture:
-      | 'groupIcon01'
-      | 'groupIcon02'
-      | 'groupIcon03'
-      | 'groupIcon04'
-      | 'groupIcon05'
-      | 'groupIcon06'
-      | 'groupIcon07'
-      | 'groupIcon08'
-      | 'groupIcon09'
-      | 'groupIcon10'
-      | 'groupIcon11'
-      | 'groupIcon12'
-      | 'groupIcon13'
-      | 'groupIcon14'
-      | 'groupIcon15';
-    name: string;
-  } = groupData;
+}
 
+interface GroupUsersSettingProps {
+  groupData: Group;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
+  isAddPage: boolean;
+  loginUserData: GroupUser;
+}
+
+interface GroupOtherSettingProps {
+  groupData: Group;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
+}
+
+export function GroupNameSetting({ groupData, setCurrentGroup, isAddPage }: GroupNameSettingProps) {
+  const { picture, name } = groupData;
   const Icon = groupIconMap[picture];
 
   return (
     <>
       <div className="m-6 mt-16 flex items-center justify-between pt-6">
-        <div className="flex items-center gap-4">
+        <div
+          className={clsx('flex items-center gap-4', {
+            'w-full': isAddPage,
+          })}
+        >
           {Icon ? (
             <GroupPictureButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
           ) : null}
@@ -72,18 +66,11 @@ export function GroupUsersSetting({
   setCurrentGroup,
   isAddPage,
   loginUserData,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-  isAddPage: any;
-  loginUserData: any;
-}) {
+}: GroupUsersSettingProps) {
   useEffect(() => {
     console.log('group Data change!');
     console.log(groupData);
   }, [groupData]);
-
-  if (!groupData) return;
 
   return (
     <>
@@ -95,49 +82,51 @@ export function GroupUsersSetting({
         <div>
           {isAddPage ? (
             <>
-              <GroupUser
-                idx={loginUserData.id}
+              <GroupUserButton
+                idx={loginUserData?.id}
                 userData={loginUserData}
                 groupData={groupData}
                 setCurrentGroup={setCurrentGroup}
                 isAddPage={isAddPage}
                 loginUserData={loginUserData}
               />
-              {groupData.users.map((user: any) => {
-                let idx = uuidv4();
+              {groupData.users &&
+                groupData.users.map((user: GroupUser) => {
+                  let idx = uuidv4();
 
-                return (
-                  <Fragment key={idx}>
-                    <GroupUser
-                      idx={idx}
-                      userData={user}
-                      groupData={groupData}
-                      setCurrentGroup={setCurrentGroup}
-                      isAddPage={isAddPage}
-                      loginUserData={loginUserData}
-                    />
-                  </Fragment>
-                );
-              })}
+                  return (
+                    <Fragment key={idx}>
+                      <GroupUserButton
+                        idx={idx}
+                        userData={user}
+                        groupData={groupData}
+                        setCurrentGroup={setCurrentGroup}
+                        isAddPage={isAddPage}
+                        loginUserData={loginUserData}
+                      />
+                    </Fragment>
+                  );
+                })}
             </>
           ) : (
             <>
-              {groupData.users.map((user: any) => {
-                let idx = uuidv4();
+              {groupData.users &&
+                groupData.users.map((user: GroupUser) => {
+                  let idx = uuidv4();
 
-                return (
-                  <Fragment key={idx}>
-                    <GroupUser
-                      idx={idx}
-                      userData={user}
-                      groupData={groupData}
-                      setCurrentGroup={setCurrentGroup}
-                      isAddPage={isAddPage}
-                      loginUserData={loginUserData}
-                    />
-                  </Fragment>
-                );
-              })}
+                  return (
+                    <Fragment key={idx}>
+                      <GroupUserButton
+                        idx={idx}
+                        userData={user}
+                        groupData={groupData}
+                        setCurrentGroup={setCurrentGroup}
+                        isAddPage={isAddPage}
+                        loginUserData={loginUserData}
+                      />
+                    </Fragment>
+                  );
+                })}
             </>
           )}
         </div>
@@ -146,15 +135,7 @@ export function GroupUsersSetting({
   );
 }
 
-export function GroupOtherSetting({
-  groupData,
-  setCurrentGroup,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-}) {
-  if (!groupData) return;
-
+export function GroupOtherSetting({ groupData, setCurrentGroup }: GroupOtherSettingProps) {
   return (
     <>
       <div className="mx-6 mt-4 flex flex-col">
@@ -165,7 +146,7 @@ export function GroupOtherSetting({
   );
 }
 
-export function GroupSave({ groupData }: { groupData: any }) {
+export function GroupSave({ groupData }: { groupData: Group }) {
   function handleClick() {
     console.log(`group ${groupData.id} has changed and saved`);
     console.log(groupData);

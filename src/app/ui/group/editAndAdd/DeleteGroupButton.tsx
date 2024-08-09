@@ -2,25 +2,25 @@
 import { useId, useRef, useState } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
-export default function DeleteGroupButton({
-  groupData,
-  setCurrentGroup,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-}) {
-  const isAdmin = groupData.creatorId === loginUserId;
+interface Props {
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+}
 
-  // const [GroupUsers, setGroupUsers] = useState(groupData.users);
-  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
-  const [isShow, setIsShow] = useState(false);
+export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props) {
+  const isAdmin = groupData.creatorId === loginUserId;
+  const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
   const headerId = useId();
+  const users = groupData.users
+    ? groupData.users
+    : [{ id: '', name: '', picture: '', adoptable: false }];
 
   const handleToggle = () => {
     dialogRef.current?.showModal();
@@ -46,18 +46,13 @@ export default function DeleteGroupButton({
   };
 
   const handleLeaveGroup = (id: string) => {
-    let currentGroupUsers = [...groupData.users];
+    let currentGroupUsers = [...users];
 
-    const userIndex = currentGroupUsers.findIndex((user: any) => user.id === id);
+    const userIndex = currentGroupUsers.findIndex((user: GroupUser) => user.id === id);
 
     if (userIndex !== -1) {
       currentGroupUsers.splice(userIndex, 1);
     }
-
-    setLastSavedGroup({
-      ...groupData,
-      users: currentGroupUsers,
-    });
     setCurrentGroup({
       ...groupData,
       users: currentGroupUsers,
@@ -66,7 +61,6 @@ export default function DeleteGroupButton({
     setTimeout(() => {
       dialogRef.current?.close();
     }, 100);
-    console.log(groupData);
     console.log('leave Group!');
   };
 

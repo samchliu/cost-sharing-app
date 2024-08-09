@@ -11,12 +11,12 @@ export default function NameModal({
   inputRef,
   currentValue,
 }: {
-  isShow: any;
-  handleChange: any;
-  handleClose: any;
-  handleSave: any;
+  isShow: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClose: () => void;
+  handleSave: () => void;
   TopBarName: string;
-  inputRef: any;
+  inputRef: React.Ref<HTMLInputElement>;
   currentValue: string;
 }) {
   return (

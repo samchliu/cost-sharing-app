@@ -1,20 +1,5 @@
 import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
-
-interface Sharer {
-  id: string;
-  amount: string | number;
-}
-
-interface Expense {
-  id: string;
-  name: string;
-  amount: string | number;
-  date: string;
-  category: string;
-  payerId: string;
-  sharers: Sharer[];
-  note: string;
-}
+import { ExtendedExpense } from '@/app/_components/frontendData/sharedFunction/types';
 
 interface SplitExpenseResult {
   [userId: string]: {
@@ -22,7 +7,7 @@ interface SplitExpenseResult {
   };
 }
 
-function splitExpense(expenses: Expense[]): SplitExpenseResult {
+function splitExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
   let { totalDebts } = filterExpense(expenses);
   const splitDebt: SplitExpenseResult = {};
 

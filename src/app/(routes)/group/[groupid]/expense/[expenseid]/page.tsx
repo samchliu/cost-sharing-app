@@ -5,6 +5,11 @@ import { Suspense } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
+import {
+  ExtendedExpense,
+  ExtendedGroup,
+  GroupUser,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopExpenseBar } from '@/app/ui/shareComponents/TopBars';
 import {
@@ -16,18 +21,25 @@ import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
 import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
-  const params = useParams<{ groupid: string; expenseid: string }>();
-  const group = useGroup(params.groupid);
-  const expense: any = useExpense(params.groupid, params.expenseid);
-  if (!group) return;
-  const users: any = group.users;
+  const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
+  const group: ExtendedGroup = useGroup(groupid);
+  const expense: ExtendedExpense = useExpense(groupid, expenseid);
+  const users: GroupUser[] = group?.users || [
+    {
+      id: '',
+      name: '',
+      picture: '',
+      adoptable: false,
+    },
+  ];
 
   return (
     <div className="flex flex-col items-center">
       <Suspense fallback={<ExpenseSkeleton />}>
-        <TopExpenseBar expenseData={expense} group={group} />
-        {expense &&
-        (expense.sharers?.some((sharer: any) => sharer.id === loginUserId) ||
+        <TopExpenseBar groupData={group} expenseData={expense} />
+        {group &&
+        expense &&
+        (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
           expense.payerId?.includes(loginUserId)) ? (
           <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
             <ExpenseDetailOne expenseData={expense} users={users} />

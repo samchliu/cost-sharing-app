@@ -2,13 +2,13 @@
 import { useState, createContext, useEffect } from 'react';
 import { evaluate } from 'mathjs';
 
-interface AllContextType {
-  display: string;
+export interface AllContextType {
+  display: string | number;
   setDisplay: any;
-  updateDisplay: (e: any) => void;
+  updateDisplay: (updateDisplayString: string) => void;
   onFocusDisplay: () => void;
   onBlurDisplay: () => void;
-  buttonClick: (num: any) => void;
+  buttonClick: (num: string) => void;
   equalClick: () => void;
   clearClick: () => void;
   setFocusDisplay: any;
@@ -19,8 +19,8 @@ export const CalcContext = createContext<AllContextType | null>(null);
 export const CalcProvider = ({ children }: { children: React.ReactNode }) => {
   const [display, setDisplay] = useState('');
 
-  const updateDisplay = (e: any) => {
-    setDisplay(e);
+  const updateDisplay = (updateDisplayString: string) => {
+    setDisplay(updateDisplayString);
   };
 
   const allowedKeys = [

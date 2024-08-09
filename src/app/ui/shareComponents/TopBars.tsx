@@ -2,21 +2,56 @@
 import Link from 'next/link';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  ExtendedGroup,
+  ExtendedExpense,
+  Expense,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { HomeIcon, EditIcon, EditTwoIcon, BackArrowIcon } from '@/app/ui/shareComponents/Icons';
 import clsx from 'clsx';
 
-
-export function TopGroupBar({
-  groupData,
-  isBalancePage,
-}: {
-  groupData: any;
+interface TopGroupBarProps {
   isBalancePage: boolean;
-}) {
+  groupData: ExtendedGroup;
+}
+
+interface TopGroupSettingBarProps {
+  isAddPage: boolean;
+  groupData: ExtendedGroup;
+  middleHintword: string;
+  leftHintWord: string | React.ReactNode;
+  rightHintWord: string;
+  leftCancelLink: string;
+  rightCancelLink: string;
+}
+
+interface TopExpenseBarProps {
+  groupData: ExtendedGroup;
+  expenseData: ExtendedExpense;
+}
+
+interface TopExpenseSettingBarProps {
+  isAddPage: boolean;
+  group: ExtendedGroup;
+  expenseData: ExtendedExpense | Expense;
+  phase: number;
+  setPhase: React.Dispatch<React.SetStateAction<number>>;
+  hintword: string;
+  cancelLink: string;
+}
+
+interface TopBarProps {
+  name: string;
+  leftBtnName: string;
+  rightBtnName: string;
+  handleLeftClick: () => void;
+  handleRightClick: () => void;
+}
+
+export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
   const hasGroupData = Boolean(groupData);
-  const isUserInGroup =
-    hasGroupData && groupData.users.some((user: any) => user.id === loginUserId);
+  const isUserInGroup = hasGroupData && groupData.users?.some((user) => user.id === loginUserId);
 
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
@@ -44,24 +79,16 @@ export function TopGroupBar({
 }
 
 export function TopGroupSettingBar({
-  groupData,
   isAddPage,
+  groupData,
   middleHintword,
   leftHintWord,
   rightHintWord,
   leftCancelLink,
   rightCancelLink,
-}: {
-  groupData: any;
-  isAddPage: boolean;
-  middleHintword: string;
-  leftHintWord: any;
-  rightHintWord: string;
-  leftCancelLink: string;
-  rightCancelLink: string;
-}) {
+}: TopGroupSettingBarProps) {
   const shouldRender =
-    groupData && (isAddPage || groupData.users.some((user: any) => user.id === loginUserId));
+    groupData && (isAddPage || groupData.users?.some((user) => user.id === loginUserId));
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
@@ -84,28 +111,27 @@ export function TopGroupSettingBar({
   );
 }
 
-export function TopExpenseBar({ expenseData, group }: { expenseData: any; group: any }) {
-  if (!group) return;
-  let groupId = group.id;
+export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
+  const id = groupData ? groupData.id : '';
 
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href={`/group/${groupId}`} className="h-6 w-6">
+      <Link href={`/group/${id}`} className="h-6 w-6">
         <HomeIcon />
       </Link>
       <h1 className="text-lg">
         {expenseData &&
         (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId))
+          expenseData.sharers?.some((sharer) => sharer.id === loginUserId))
           ? '費用明細'
-          : 'no such expense'}
+          : ''}
       </h1>
       <div className="h-6 w-6">
         {expenseData &&
         (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
+          expenseData.sharers?.some((sharer) => sharer.id === loginUserId)) ? (
           <Link
-            href={`/group/${groupId}/expense/${expenseData.id}/edit`}
+            href={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
             scroll={false}
           >
@@ -127,15 +153,7 @@ export function TopExpenseSettingBar({
   setPhase,
   hintword,
   cancelLink,
-}: {
-  isAddPage: boolean;
-  group: any;
-  expenseData: any;
-  phase: number;
-  setPhase: (phase: number) => void;
-  hintword: string;
-  cancelLink: string;
-}) {
+}: TopExpenseSettingBarProps) {
   function handleClick() {
     if (phase === 1) return;
     setPhase(phase - 1);
@@ -147,7 +165,7 @@ export function TopExpenseSettingBar({
     group &&
     (isAddPage ||
       expenseData.payerId === loginUserId ||
-      expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId));
+      expenseData.sharers?.some((sharer) => sharer.id === loginUserId));
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
@@ -181,13 +199,7 @@ export function TopBar({
   rightBtnName,
   handleLeftClick,
   handleRightClick,
-}: {
-  name: string;
-  leftBtnName: string;
-  rightBtnName: string;
-  handleLeftClick: () => void;
-  handleRightClick: () => void;
-}) {
+}: TopBarProps) {
   return (
     <div className="fixed top-0 z-50 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="h-6 w-8">
