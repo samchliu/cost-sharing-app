@@ -1,73 +1,90 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 //import data
 import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
+import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  ExtendedExpense,
+  ExtendedGroup,
+  Expense,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
-import { GroupInfoBar, NextStepButton } from '@/app/ui/group/expense/edit/ExpenseSettingDetails';
-import { ExpenseSettingStepOne } from '@/app/ui/group/expense/edit/ExpenseSettingStepOne';
-import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/edit/ExpenseSettingStepTwo';
-import { ExpenseSettingStepThree } from '@/app/ui/group/expense/edit/ExpenseSettingStepThree';
+import { GroupInfoBar, NextStepButton } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingDetails';
+import { ExpenseSettingStepOne } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepOne';
+import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepTwo';
+import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
 
 export default function Page() {
-  const params = useParams<{ groupid: string; expenseid: string }>();
-  const [phase, setPhase] = useState(1);
-  const [isNotEqual, setIsNotEqual] = useState(false);
+  const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
+  const [phase, setPhase] = useState<number>(1);
+  const [isNotEqual, setIsNotEqual] = useState<boolean>(false);
 
-  const group = useGroup(params.groupid);
-  const expense: any = useExpense(params.groupid, params.expenseid);
+  const group: ExtendedGroup = useGroup(groupid);
+  const expense: ExtendedExpense = useExpense(groupid, expenseid);
+  const [currentExpense, setCurrentExpense] = useState<ExtendedExpense | Expense>(expense);
 
-  const [currentExpense, setCurrentExpense] = useState(expense);
-  const [updatedSharers, setUpdatedSharers] = useState([...currentExpense?.sharers]);
-
-  if (!currentExpense) return null;
-  if (!group) return;
+  useEffect(() => {
+    if (expense) {
+      setCurrentExpense(expense);
+    }
+  }, [expense]);
 
   return (
-    <form method="post" action={`/group/${params.groupid}/expense/${params.expenseid}`}>
+    <form method="post" action={`/group/${groupid}/expense/${expenseid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
+          isAddPage={false}
           group={group}
           expenseData={expense}
           phase={phase}
           setPhase={setPhase}
+          hintword="編輯費用"
+          cancelLink={`/group/${groupid}/expense/${expenseid}`}
         />
-        <GroupInfoBar expenseData={currentExpense} group={group} />
-        <section>
-          <ExpenseSettingStepOne
-            expenseData={currentExpense}
-            setCurrentExpense={setCurrentExpense}
-            phase={phase}
-          />
-          <ExpenseSettingStepTwo
-            expenseData={currentExpense}
-            setCurrentExpense={setCurrentExpense}
-            group={group}
-            phase={phase}
-          />
-          <ExpenseSettingStepThree
-            expenseData={currentExpense}
-            group={group}
-            phase={phase}
-            setIsNotEqual={setIsNotEqual}
-            updatedSharers={updatedSharers}
-            setUpdatedSharers={setUpdatedSharers}
-          />
-        </section>
-        <section>
-          <NextStepButton
-            expenseData={currentExpense}
-            setCurrentExpense={setCurrentExpense}
-            group={group}
-            phase={phase}
-            setPhase={setPhase}
-            isNotEqual={isNotEqual}
-            setIsNotEqual={setIsNotEqual}
-            updatedSharers={updatedSharers}
-          />
-        </section>
+        {expense &&
+        (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
+          expense.payerId?.includes(loginUserId)) ? (
+          <>
+            <GroupInfoBar expenseData={currentExpense} group={group} />
+            <section>
+              <ExpenseSettingStepOne
+                group={group}
+                expenseData={currentExpense}
+                setCurrentExpense={setCurrentExpense}
+                phase={phase}
+              />
+              <ExpenseSettingStepTwo
+                expenseData={currentExpense}
+                setCurrentExpense={setCurrentExpense}
+                group={group}
+                phase={phase}
+              />
+              <ExpenseSettingStepThree
+                expenseData={currentExpense}
+                setCurrentExpense={setCurrentExpense}
+                group={group}
+                phase={phase}
+                setIsNotEqual={setIsNotEqual}
+              />
+            </section>
+            <section>
+              <NextStepButton
+                expenseData={currentExpense}
+                setCurrentExpense={setCurrentExpense}
+                phase={phase}
+                setPhase={setPhase}
+                isNotEqual={isNotEqual}
+                setIsNotEqual={setIsNotEqual}
+                isNotZero={true}
+              />
+            </section>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </form>
   );

@@ -19,10 +19,8 @@ export default function AddUserButton({
     users: any;
   } = groupData;
 
-  const [currentGroupUsers, setCurrentGroupUsers] = useState(users);
   const [currentGroupUserName, setCurrentGroupUserName] = useState('');
-  const [lastSavedGroupUsers, setLastSavedGroupUsers] =
-    useState<any>(currentGroupUsers);
+  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
   const [isShow, setIsShow] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -43,35 +41,31 @@ export default function AddUserButton({
   };
 
   const handleClose = () => {
-    setCurrentGroupUsers(lastSavedGroupUsers);
+    setCurrentGroup(lastSavedGroup);
     setIsShow(false);
     router.refresh();
   };
 
   const handleSave = () => {
-    let newUsers = [
-      ...currentGroupUsers,
-      {
-        name: currentGroupUserName,
-        picture: '',
-      },
-    ];
-    setCurrentGroupUsers(newUsers);
-    setLastSavedGroupUsers(newUsers);
-    setCurrentGroup({
+    let newGroup = {
       ...groupData,
-      users: newUsers,
-    });
+      users: [
+        ...users,
+        {
+          name: currentGroupUserName,
+          picture: '',
+        },
+      ],
+    };
+    setCurrentGroup(newGroup);
+    setLastSavedGroup(newGroup);
     setIsShow(false);
     setCurrentGroupUserName('');
   };
 
   return (
     <>
-      <div
-        onClick={toggleDialog}
-        className="flex cursor-pointer items-center gap-4"
-      >
+      <div onClick={toggleDialog} className="flex cursor-pointer items-center gap-4">
         <div className="relative flex h-11 w-11 items-center justify-center rounded-full">
           <div className="absolute left-[13px]">
             <AddUserIcon />

@@ -11,12 +11,12 @@ export default function NameModal({
   inputRef,
   currentValue,
 }: {
-  isShow: any;
-  handleChange: any;
-  handleClose: any;
-  handleSave: any;
+  isShow: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClose: () => void;
+  handleSave: () => void;
   TopBarName: string;
-  inputRef: any;
+  inputRef: React.Ref<HTMLInputElement>;
   currentValue: string;
 }) {
   return (
@@ -27,15 +27,15 @@ export default function NameModal({
           {
             'top-0 z-50 opacity-100': isShow,
             'top-5 -z-50 opacity-0': !isShow,
-          },
+          }
         )}
       >
         <TopBar
           name={TopBarName}
-          leftBtnName="取消"
-          rightBtnName=""
-          handleLeftClick={handleClose}
-          handleRightClick={() => {}}
+          leftBtnName=""
+          rightBtnName="取消"
+          handleLeftClick={() => {}}
+          handleRightClick={handleClose}
         />
         <input
           ref={inputRef}
@@ -46,7 +46,7 @@ export default function NameModal({
         />
         <button
           type="button"
-          disabled={currentValue === ""}
+          disabled={currentValue === ''}
           className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center"
           onClick={handleSave}
         >

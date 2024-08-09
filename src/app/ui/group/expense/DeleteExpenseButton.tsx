@@ -2,19 +2,17 @@
 import { useId, useRef, useState } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedExpense } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
-export default function DeleteExpenseButton({ expenseData }: { expenseData: any }) {
-  const {
-    payerId,
-    sharers,
-  }: {
-    payerId: string;
-    sharers: string[];
-  } = expenseData;
+interface Props {
+  expenseData: ExtendedExpense;
+}
 
-  const [expenseId, setExpenseId] = useState(expenseData.id);
+export default function DeleteExpenseButton({ expenseData }: Props) {
+  const { id, payerId, sharers } = expenseData;
+
   const [isShow, setIsShow] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
@@ -35,22 +33,6 @@ export default function DeleteExpenseButton({ expenseData }: { expenseData: any 
   };
 
   const handleDeleteEXpense = (id: string) => {
-    // let currentexpenseId = [...expenseId];
-
-    // const userIndex = currentexpenseId.findIndex(
-    //   (user: any) => user.id === userData.id,
-    // );
-
-    // if (userIndex !== -1) {
-    //   currentexpenseId.splice(userIndex, 1);
-    // }
-
-    // setExpenseId(currentexpenseId);
-    // setLastSavedexpenseId(currentexpenseId);
-    // setCurrentGroup({
-    //   ...groupData,
-    //   users: currentexpenseId,
-    // });
     console.log(`delete expense ${id}`);
 
     setIsShow(false);
@@ -61,7 +43,7 @@ export default function DeleteExpenseButton({ expenseData }: { expenseData: any 
   return (
     <>
       {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
+      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
         <>
           <div
             onClick={handleToggle}
@@ -75,8 +57,9 @@ export default function DeleteExpenseButton({ expenseData }: { expenseData: any 
             isShow={isShow}
             headerId={headerId}
             handleClose={handleClose}
-            handleSave={() => handleDeleteEXpense(expenseId)}
+            handleSave={() => handleDeleteEXpense(id)}
             hintWord="確定要放棄這筆費用嗎？"
+            idx={`deleteExpense${id}`}
           />
         </>
       ) : null}

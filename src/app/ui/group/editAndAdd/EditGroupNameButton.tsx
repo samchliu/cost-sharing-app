@@ -2,25 +2,23 @@
 //import from next & react
 import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
+//import data
+import { Group } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
-export default function GroupNameButton({
+export default function EditGroupNameButton({
   groupData,
   setCurrentGroup,
 }: {
-  groupData: any;
-  setCurrentGroup: any;
+  groupData: Group;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
 }) {
-  const {
-    name,
-  }: {
-    name: string;
-  } = groupData;
+  const { name } = groupData;
 
-  const [currentName, setCurrentName] = useState(name);
-  const [lastSavedName, setLastSavedName] = useState<any>(currentName);
-  const [isShow, setIsShow] = useState(false);
+  const [currentName, setCurrentName] = useState<string>(name);
+  const [lastSavedName, setLastSavedName] = useState<string>(currentName);
+  const [isShow, setIsShow] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -34,7 +32,7 @@ export default function GroupNameButton({
     router.refresh();
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     setCurrentName(e.target.value);
   };
@@ -56,10 +54,7 @@ export default function GroupNameButton({
 
   return (
     <div className="relative">
-      <div
-        onClick={toggleDialog}
-        className="relative cursor-pointer text-sm text-grey-500"
-      >
+      <div onClick={toggleDialog} className="relative cursor-pointer text-sm text-grey-500">
         編輯
       </div>
       <NameModal
@@ -67,7 +62,7 @@ export default function GroupNameButton({
         handleChange={handleChange}
         handleClose={handleClose}
         handleSave={handleSave}
-        TopBarName='群組名稱'
+        TopBarName="群組名稱"
         inputRef={inputRef}
         currentValue={currentName}
       />

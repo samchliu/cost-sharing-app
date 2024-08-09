@@ -644,7 +644,7 @@
                     "sharers": [
                         {
                             "id": "u4",
-                            "amount": 100
+                            "amount": 120
                         }
                     ],
                     "note": ""
@@ -703,22 +703,98 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "u11",
+                    "name": "小阿玲四五六七八九十一二三四五六七八九零",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u12",
+                    "name": "小明1234567890",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u13",
+                    "name": "小阿依",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u14",
+                    "name": "小阿二",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u15",
+                    "name": "小阿三(RRRR CCCC)",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u16",
+                    "name": "小阿四",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u17",
+                    "name": "小阿五",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u18",
+                    "name": "小阿六",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u19",
+                    "name": "小阿七",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u20",
+                    "name": "小阿八",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u21",
+                    "name": "小阿九",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "u22",
+                    "name": "小阿十",
+                    "picture": "",
+                    "adoptable": true
                 }
             ]
         },
@@ -830,32 +906,38 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u5",
                     "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -916,17 +998,20 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1010,17 +1095,20 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1034,52 +1122,62 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u5",
                     "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u7",
                     "name": "g",
-                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u8",
                     "name": "h",
-                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg"
+                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u9",
                     "name": "i",
-                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u10",
                     "name": "j",
-                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
+                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1093,32 +1191,38 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u5",
                     "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1132,17 +1236,20 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u5",
                     "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1156,22 +1263,26 @@
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u8",
                     "name": "h",
-                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg"
+                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1185,32 +1296,38 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u7",
                     "name": "g",
-                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u9",
                     "name": "i",
-                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u10",
                     "name": "j",
-                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
+                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1224,17 +1341,20 @@
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1248,37 +1368,44 @@
                 {
                     "id": "u1",
                     "name": "a",
-                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u3",
                     "name": "c",
-                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u5",
                     "name": "e",
-                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u7",
                     "name": "g",
-                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u8",
                     "name": "h",
-                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg"
+                    "picture": "https://images.dog.ceo/breeds/poodle-medium/WhatsApp_Image_2022-08-06_at_4.48.38_PM.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u9",
                     "name": "i",
-                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg"
+                    "picture": "https://cdn2.thecatapi.com/images/bo5.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u10",
                     "name": "j",
-                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg"
+                    "picture": "https://images.dog.ceo/breeds/hound-english/n02089973_1303.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1292,17 +1419,20 @@
                 {
                     "id": "u2",
                     "name": "b",
-                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg"
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u4",
                     "name": "d",
-                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
                 },
                 {
                     "id": "u6",
                     "name": "f",
-                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg"
+                    "picture": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+                    "adoptable": false
                 }
             ]
         }
@@ -1696,7 +1826,7 @@
             "sharers": [
                 {
                     "id": "u4",
-                    "amount": 100
+                    "amount": 120
                 }
             ],
             "note": "",

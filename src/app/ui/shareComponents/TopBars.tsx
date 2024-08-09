@@ -2,78 +2,136 @@
 import Link from 'next/link';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  ExtendedGroup,
+  ExtendedExpense,
+  Expense,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
-import { HomeIcon, EditIcon, EditTwoIcon } from '@/app/ui/shareComponents/Icons';
+import { HomeIcon, EditIcon, EditTwoIcon, BackArrowIcon } from '@/app/ui/shareComponents/Icons';
 import clsx from 'clsx';
 
-export function TopGroupBar({ groupData, groupName }: { groupData: any; groupName: string }) {
+interface TopGroupBarProps {
+  isBalancePage: boolean;
+  groupData: ExtendedGroup;
+}
+
+interface TopGroupSettingBarProps {
+  isAddPage: boolean;
+  groupData: ExtendedGroup;
+  middleHintword: string;
+  leftHintWord: string | React.ReactNode;
+  rightHintWord: string;
+  leftCancelLink: string;
+  rightCancelLink: string;
+}
+
+interface TopExpenseBarProps {
+  groupData: ExtendedGroup;
+  expenseData: ExtendedExpense;
+}
+
+interface TopExpenseSettingBarProps {
+  isAddPage: boolean;
+  group: ExtendedGroup;
+  expenseData: ExtendedExpense | Expense;
+  phase: number;
+  setPhase: React.Dispatch<React.SetStateAction<number>>;
+  hintword: string;
+  cancelLink: string;
+}
+
+interface TopBarProps {
+  name: string;
+  leftBtnName: string;
+  rightBtnName: string;
+  handleLeftClick: () => void;
+  handleRightClick: () => void;
+}
+
+export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
+  const hasGroupData = Boolean(groupData);
+  const isUserInGroup = hasGroupData && groupData.users?.some((user) => user.id === loginUserId);
+
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href="/groups" className="h-6 w-6">
-        <HomeIcon />
-      </Link>
-      <h1 className="text-lg">
-        {groupData && groupData.users.some((user: any) => user.id === loginUserId)
-          ? groupName
-          : 'no such Page'}
-      </h1>
+      <div className="flex h-6 w-6">
+        {isBalancePage && hasGroupData ? (
+          <Link href={`/group/${groupData.id}`} className="flex">
+            <BackArrowIcon />
+          </Link>
+        ) : hasGroupData ? (
+          <Link href="/groups">
+            <HomeIcon />
+          </Link>
+        ) : null}
+      </div>
+      <h1 className="text-lg">{isUserInGroup ? groupData.name : ''}</h1>
       <div className="h-6 w-6">
-        {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
-          <Link href={`/group/${groupData.id}/edit`} className="h-6 w-6" scroll={false}>
+        {!isBalancePage && isUserInGroup && (
+          <Link href={`/group/${groupData.id}/edit`} scroll={false}>
             <EditIcon />
           </Link>
-        ) : (
-          ''
         )}
       </div>
     </div>
   );
 }
 
-export function TopGroupSettingBar({ groupData }: { groupData: any }) {
+export function TopGroupSettingBar({
+  isAddPage,
+  groupData,
+  middleHintword,
+  leftHintWord,
+  rightHintWord,
+  leftCancelLink,
+  rightCancelLink,
+}: TopGroupSettingBarProps) {
+  const shouldRender =
+    groupData && (isAddPage || groupData.users?.some((user) => user.id === loginUserId));
+
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <div className="h-6 w-8" />
-      <h1 className="text-lg">
-        {groupData && groupData.users.some((user: any) => user.id === loginUserId)
-          ? '群組設定'
-          : 'no such Page'}
-      </h1>
-      <div className="h-6 w-8">
-        {groupData && groupData.users.some((user: any) => user.id === loginUserId) ? (
-          <Link href={`/group/${groupData.id}`} scroll={false}>
-            <p className="">取消</p>
+      <div className="flex h-6 w-8 items-center justify-center">
+        {shouldRender && (
+          <Link href={leftCancelLink} scroll={false}>
+            <div className="">{leftHintWord}</div>
           </Link>
-        ) : (
-          ''
+        )}
+      </div>
+      <h1 className="text-lg">{shouldRender && middleHintword}</h1>
+      <div className="h-6 w-8">
+        {shouldRender && (
+          <Link href={rightCancelLink} scroll={false}>
+            <div className="">{rightHintWord}</div>
+          </Link>
         )}
       </div>
     </div>
   );
 }
 
-export function TopExpenseBar({ expenseData, group }: { expenseData: any; group: any }) {
-  if (!group) return;
-  let groupId = group.id;
+export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
+  const id = groupData ? groupData.id : '';
 
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href={`/group/${groupId}`} className="h-6 w-6">
+      <Link href={`/group/${id}`} className="h-6 w-6">
         <HomeIcon />
       </Link>
       <h1 className="text-lg">
         {expenseData &&
         (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId))
+          expenseData.sharers?.some((sharer) => sharer.id === loginUserId))
           ? '費用明細'
-          : 'no such expense'}
+          : ''}
       </h1>
       <div className="h-6 w-6">
         {expenseData &&
         (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
+          expenseData.sharers?.some((sharer) => sharer.id === loginUserId)) ? (
           <Link
-            href={`/group/${groupId}/expense/${expenseData.id}/edit`}
+            href={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
             scroll={false}
           >
@@ -88,21 +146,26 @@ export function TopExpenseBar({ expenseData, group }: { expenseData: any; group:
 }
 
 export function TopExpenseSettingBar({
+  isAddPage,
   group,
   expenseData,
   phase,
   setPhase,
-}: {
-  group: any;
-  expenseData: any;
-  phase: number;
-  setPhase: any;
-}) {
+  hintword,
+  cancelLink,
+}: TopExpenseSettingBarProps) {
   function handleClick() {
     if (phase === 1) return;
     setPhase(phase - 1);
     console.log(phase);
   }
+
+  const shouldRender =
+    expenseData &&
+    group &&
+    (isAddPage ||
+      expenseData.payerId === loginUserId ||
+      expenseData.sharers?.some((sharer) => sharer.id === loginUserId));
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
@@ -116,23 +179,15 @@ export function TopExpenseSettingBar({
           上一步
         </div>
       </div>
-      <h1 className="text-lg">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId))
-          ? '編輯費用'
-          : 'no such Page'}
-      </h1>
+      <h1 className="text-lg">{shouldRender && hintword}</h1>
       <div className="flex h-6 w-12 items-center justify-end">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer: any) => sharer.id === loginUserId)) ? (
-          <Link href={`/group/${group.id}/expense/${expenseData.id}`} scroll={false}>
-            <p className="text-sm">取消</p>
-          </Link>
-        ) : (
-          ''
-        )}
+        <>
+          {shouldRender && (
+            <Link href={cancelLink} scroll={false}>
+              <p className="text-sm">取消</p>
+            </Link>
+          )}
+        </>
       </div>
     </div>
   );
@@ -144,13 +199,7 @@ export function TopBar({
   rightBtnName,
   handleLeftClick,
   handleRightClick,
-}: {
-  name: string;
-  leftBtnName: string;
-  rightBtnName: string;
-  handleLeftClick: () => void;
-  handleRightClick: () => void;
-}) {
+}: TopBarProps) {
   return (
     <div className="fixed top-0 z-50 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="h-6 w-8">

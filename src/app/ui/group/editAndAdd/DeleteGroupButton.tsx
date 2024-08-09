@@ -2,25 +2,25 @@
 import { useId, useRef, useState } from 'react';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
 
-export default function DeleteGroupButton({
-  groupData,
-  setCurrentGroup,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-}) {
-  const isAdmin = groupData.creatorId === loginUserId;
+interface Props {
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+}
 
-  const [GroupUsers, setGroupUsers] = useState(groupData.users);
-  const [lastSavedGroupUsers, setLastSavedGroupUsers] = useState<any>(GroupUsers);
-  const [isShow, setIsShow] = useState(false);
+export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props) {
+  const isAdmin = groupData.creatorId === loginUserId;
+  const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
   const headerId = useId();
+  const users = groupData.users
+    ? groupData.users
+    : [{ id: '', name: '', picture: '', adoptable: false }];
 
   const handleToggle = () => {
     dialogRef.current?.showModal();
@@ -30,7 +30,6 @@ export default function DeleteGroupButton({
   };
 
   const handleClose = () => {
-    setGroupUsers(lastSavedGroupUsers);
     setIsShow(false);
     setTimeout(() => {
       dialogRef.current?.close();
@@ -38,22 +37,6 @@ export default function DeleteGroupButton({
   };
 
   const handleDeleteGroup = () => {
-    // let currentGroupUsers = [...GroupUsers];
-
-    // const userIndex = currentGroupUsers.findIndex(
-    //   (user: any) => user.id === userData.id,
-    // );
-
-    // if (userIndex !== -1) {
-    //   currentGroupUsers.splice(userIndex, 1);
-    // }
-
-    // setGroupUsers(currentGroupUsers);
-    // setLastSavedGroupUsers(currentGroupUsers);
-    // setCurrentGroup({
-    //   ...groupData,
-    //   users: currentGroupUsers,
-    // });
     console.log('delete Group!');
 
     setIsShow(false);
@@ -63,16 +46,13 @@ export default function DeleteGroupButton({
   };
 
   const handleLeaveGroup = (id: string) => {
-    let currentGroupUsers = [...GroupUsers];
+    let currentGroupUsers = [...users];
 
-    const userIndex = currentGroupUsers.findIndex((user: any) => user.id === id);
+    const userIndex = currentGroupUsers.findIndex((user: GroupUser) => user.id === id);
 
     if (userIndex !== -1) {
       currentGroupUsers.splice(userIndex, 1);
     }
-
-    setGroupUsers(currentGroupUsers);
-    setLastSavedGroupUsers(currentGroupUsers);
     setCurrentGroup({
       ...groupData,
       users: currentGroupUsers,
@@ -81,7 +61,6 @@ export default function DeleteGroupButton({
     setTimeout(() => {
       dialogRef.current?.close();
     }, 100);
-    console.log(groupData);
     console.log('leave Group!');
   };
 
@@ -104,6 +83,7 @@ export default function DeleteGroupButton({
           handleClose={handleClose}
           handleSave={handleDeleteGroup}
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
+          idx={`deleteGroup${loginUserId}`}
         />
       ) : (
         <DeleteModal
@@ -114,6 +94,7 @@ export default function DeleteGroupButton({
           handleClose={handleClose}
           handleSave={() => handleLeaveGroup(loginUserId)}
           hintWord="確定要離開群組嗎？"
+          idx={`leaveGroup${loginUserId}`}
         />
       )}
     </>
