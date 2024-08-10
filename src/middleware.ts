@@ -15,6 +15,7 @@ export async function middleware(request: NextRequest) {
       name: 'token',
       value: await encrypt(parsed),
       // httpOnly: true,
+      sameSite: 'none',
       expires: parsed.expires,
     });
     return response;
