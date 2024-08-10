@@ -2,36 +2,15 @@
 //import from next
 import Link from 'next/link';
 import Image from 'next/image';
+//import data
+import { Group } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { groupIconMap } from '@/app/ui/shareComponents/Icons';
 import CopyLinkButton from '@/app/ui/shareComponents/CopyLinkButton';
 import ShareButton from '@/app/ui/shareComponents/ShareButton';
 
-export default function GroupButton({ groupData }: { groupData: any }) {
-  const {
-    id,
-    picture,
-    name,
-  }: {
-    id: string;
-    picture:
-      | 'groupIcon01'
-      | 'groupIcon02'
-      | 'groupIcon03'
-      | 'groupIcon04'
-      | 'groupIcon05'
-      | 'groupIcon06'
-      | 'groupIcon07'
-      | 'groupIcon08'
-      | 'groupIcon09'
-      | 'groupIcon10'
-      | 'groupIcon11'
-      | 'groupIcon12'
-      | 'groupIcon13'
-      | 'groupIcon14'
-      | 'groupIcon15';
-    name: string;
-  } = groupData;
+export default function GroupButton({ groupData }: { groupData: Group }) {
+  const { id, picture, name } = groupData;
 
   const Icon = groupIconMap[picture];
 
@@ -53,8 +32,8 @@ export default function GroupButton({ groupData }: { groupData: any }) {
         <p className="pl-3 font-normal">{name}</p>
       </div>
       <div className="flex items-center gap-2">
-        <ShareButton id={id} name={name} inGroupPage={false} />
-        <CopyLinkButton id={id} name={name} inGroupPage={false} />
+        <ShareButton id={id || ''} name={name} inGroupPage={false} />
+        <CopyLinkButton id={id || ''} name={name} inGroupPage={false} />
       </div>
     </Link>
   );

@@ -1,62 +1,80 @@
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  Expense,
+  Debts,
+  TotalDebts,
+  ExtendedExpense,
+} from '@/app/_components/frontendData/sharedFunction/types';
 
-function filterExpense(expenses: any) {
-  let newExpenses = expenses.map((expense: any) => ({ ...expense }));
+interface SplitExpenseResult {
+  debts: Debts;
+  totalDebts: TotalDebts;
+  expensesWithDebts: ExtendedExpense[];
+}
 
-  //every one's debt save in to new object
-  const debts = newExpenses.reduce(calculateDebt, {});
-  function calculateDebt(acc: any, expense: any) {
-    if (!(expense.payerId in acc)) {
-      acc[expense.payerId] = {};
+function filterExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
+  if (!expenses) {
+    return {
+      debts: {},
+      totalDebts: {},
+      expensesWithDebts: [],
+    };
+  }
+
+  const newExpenses: ExtendedExpense[] = expenses.map((expense) => ({
+    ...expense,
+  }));
+
+  // Calculate debts
+  const debts: Debts = newExpenses.reduce((acc: Debts, expense: Expense) => {
+    if (!acc[expense.payerId]) {
+      acc[expense.payerId] = { totalDebt: 0 };
     }
     acc[expense.payerId][expense.name] = expense.amount;
 
-    expense.sharers.forEach((sharer: any) => {
+    expense.sharers.forEach((sharer) => {
       if (sharer.id === expense.payerId) {
-        acc[sharer.id][expense.name] -= sharer.amount;
-      } else if (sharer.id in acc) {
-        acc[sharer.id][expense.name] = -sharer.amount;
+        acc[sharer.id][expense.name] -= Number(sharer.amount);
+      } else if (acc[sharer.id]) {
+        acc[sharer.id][expense.name] = -Number(sharer.amount);
       } else {
-        acc[sharer.id] = {};
-        acc[sharer.id][expense.name] = -sharer.amount;
+        acc[sharer.id] = {
+          [expense.name]: -Number(sharer.amount),
+          totalDebt: 0,
+        };
       }
     });
+
     return acc;
-  }
+  }, {} as Debts);
 
-  //added totalDebt to every one's debt object
-  for (let member in debts) {
-    debts[member]['totalDebt'] = Object.entries(debts[member]).reduce(calculateTotalDebt, 0);
-  }
+  // Add totalDebt to each user's debt object
+  Object.keys(debts).forEach((member) => {
+    debts[member]['totalDebt'] = Object.values(debts[member]).reduce(
+      (acc, debt) => acc + (debt ?? 0),
+      0
+    );
+  });
 
-  function calculateTotalDebt(acc: any, debt: any) {
-    if (debt[0] !== 'totalDebt') {
-      return acc + debt[1];
-    } else {
-      return acc;
-    }
-  }
-
-  //clear detail data, only save total debt to new object
-  let totalDebts = Object.entries(debts).reduce((acc: any, debt: any) => {
-    acc[debt[0]] = debt[1].totalDebt;
+  // Calculate totalDebts
+  const totalDebts: TotalDebts = Object.keys(debts).reduce((acc, userId) => {
+    acc[userId] = debts[userId].totalDebt;
     return acc;
-  }, {});
+  }, {} as TotalDebts);
 
-  //map expenses with added debts
-  let userDebts: any = debts[loginUserId];
-  let expensesWithDebts: any = newExpenses.map((expense: any) => {
-    let newExpense = { ...expense };
+  // Map expenses with added debts
+  const expensesWithDebts: ExtendedExpense[] = newExpenses.map((expense) => {
+    const newExpense = { ...expense };
+    const userDebts = debts[loginUserId];
+    newExpense.expenseDebt = userDebts?.[expense.name]?.toFixed(2) || '0.00';
     return newExpense;
   });
 
-  for (let expense in expensesWithDebts) {
-    if (!userDebts) break;
-
-    expensesWithDebts[expense].expenseDebt = userDebts[expensesWithDebts[expense].name]?.toFixed(2);
-  }
-
-  return { debts, totalDebts, expensesWithDebts };
+  return {
+    debts,
+    totalDebts,
+    expensesWithDebts,
+  };
 }
 
 export { filterExpense };

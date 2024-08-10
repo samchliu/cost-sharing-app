@@ -31,8 +31,11 @@ import homeIcon from '../../../../public/icons/home.svg';
 import editIcon from '../../../../public/icons/edit.svg';
 import editTwoIcon from '../../../../public/icons/editTwo.svg';
 import greaterThanIcon from '../../../../public/icons/greaterThan.svg';
+import cameraIcon from '../../../../public/icons/camera.svg';
+import leaveIcon from '../../../../public/icons/leave.svg';
+import backArrowIcon from '../../../../public/icons/backArrow.svg';
 
-function FoodIcon({ strokeWidth }: { strokeWidth: any }) {
+function FoodIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={21} height={22} fill="none">
@@ -48,7 +51,7 @@ function FoodIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function DrinkIcon({ strokeWidth }: { strokeWidth: any }) {
+function DrinkIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={16} height={22} fill="none">
@@ -64,7 +67,7 @@ function DrinkIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function TransportIcon({ strokeWidth }: { strokeWidth: any }) {
+function TransportIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={27} height={22} fill="none">
@@ -87,7 +90,7 @@ function TransportIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function StayIcon({ strokeWidth }: { strokeWidth: any }) {
+function StayIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={25} height={22} fill="none">
@@ -117,7 +120,7 @@ function StayIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function ShoppingIcon({ strokeWidth }: { strokeWidth: any }) {
+function ShoppingIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} fill="none">
@@ -140,7 +143,7 @@ function ShoppingIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function EntertainmentIcon({ strokeWidth }: { strokeWidth: any }) {
+function EntertainmentIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} fill="none">
@@ -163,7 +166,7 @@ function EntertainmentIcon({ strokeWidth }: { strokeWidth: any }) {
   );
 }
 
-function OtherIcon({ strokeWidth }: { strokeWidth: any }) {
+function OtherIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
     <div className="flex h-5 items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" width={23} height={7} fill="none">
@@ -235,7 +238,7 @@ function GreaterThanIcon() {
   return <Image src={greaterThanIcon} alt="" />;
 }
 
-function NextstepIcon({ currentColor }: { currentColor: any }) {
+function NextstepIcon({ currentColor }: { currentColor: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={9} height={8} fill="none">
       <path
@@ -250,6 +253,18 @@ function NextstepIcon({ currentColor }: { currentColor: any }) {
 
 function CloseIcon() {
   return <Image src={closeIcon} alt="" />;
+}
+
+function CameraIcon() {
+  return <Image src={cameraIcon} alt="" />;
+}
+
+function LeaveIcon() {
+  return <Image src={leaveIcon} alt="" />;
+}
+
+function BackArrowIcon() {
+  return <Image src={backArrowIcon} alt="" />;
 }
 
 const expenseIconMap = {
@@ -299,4 +314,7 @@ export {
   EditIcon,
   EditTwoIcon,
   GreaterThanIcon,
+  CameraIcon,
+  LeaveIcon,
+  BackArrowIcon,
 };

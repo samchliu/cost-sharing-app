@@ -21,8 +21,8 @@ export default function SharersAmountButton({
   expenseData: any;
   updatedSharers: any;
   setUpdatedSharers: any;
-  sharers:any;
-  setSharers:any;
+  sharers: any;
+  setSharers: any;
   // addedAmount: any;
 }) {
   // const [sharers, setSharers] = useState<any>(updatedSharers);
@@ -39,7 +39,7 @@ export default function SharersAmountButton({
   useEffect(() => {
     const handleResize: any = () => {
       if (window.visualViewport) {
-        const newTop = `${window.visualViewport.height-93}px`;
+        const newTop = `${window.visualViewport.height - 93}px`;
         setBarTop(newTop);
       }
     };
@@ -73,7 +73,7 @@ export default function SharersAmountButton({
       const sharerExists = prevSharers.some((sharer: any) => sharer.id === id);
       if (sharerExists) {
         return prevSharers.map((sharer: any) =>
-          sharer.id === id ? { ...sharer, amount: Number(newAmount) } : sharer,
+          sharer.id === id ? { ...sharer, amount: Number(newAmount) } : sharer
         );
       } else {
         return [...prevSharers, { id, amount: Number(newAmount) }];
@@ -91,8 +91,7 @@ export default function SharersAmountButton({
 
   const handleSave = () => {
     const filteredSharers = sharers.filter(
-      (sharer: any) =>
-        sharer.amount !== 0 && sharer.amount !== '' && sharer.amount !== '0',
+      (sharer: any) => sharer.amount !== 0 && sharer.amount !== '' && sharer.amount !== '0'
     ); // Filter out sharers with amount 0
     setUpdatedSharers(filteredSharers); // Update the parent state with the new sharers
     setIsShow(false);
@@ -116,7 +115,7 @@ export default function SharersAmountButton({
             {
               'top-16 z-50 transform opacity-100': isShow,
               'top-20 -z-50 transform opacity-0': !isShow,
-            },
+            }
           )}
         >
           <div className="flex items-center justify-between rounded-t-lg bg-highlight-60 px-7 py-2">
@@ -145,10 +144,7 @@ export default function SharersAmountButton({
                   };
 
               return (
-                <div
-                  key={user.id}
-                  className="relative flex items-center justify-between"
-                >
+                <div key={user.id} className="relative flex items-center justify-between">
                   <div className="relative flex items-center gap-4">
                     <Image
                       className="bg-grey-200 flex h-[45px] w-[45px] items-center justify-center rounded-full"
@@ -161,7 +157,7 @@ export default function SharersAmountButton({
                   </div>
                   <div className="absolute right-8">
                     <input
-                      className="ml-[0px] w-20 border-0 border-b-[1px] border-black focus:border-black focus:outline-none focus:ring-0"
+                      className=" w-20 border-0 border-b-[1px] border-black bg-transparent text-neutrals-70 focus:border-black focus:border-highlight-40 focus:outline-none focus:ring-0"
                       type="number"
                       pattern="[0-9]*"
                       inputMode="numeric"
@@ -177,21 +173,35 @@ export default function SharersAmountButton({
                           });
                         }
                       }}
-                      onBlur={() => {
+                      onBlur={(e: any) => {
                         setOnFocus(false);
+                        let value = e.target.value.replace(/^0+/, '');
+                        if (value === '' || Number(value) < 0) {
+                          value = '0';
+                        }
+                        updateAmount(user.id, value);
+                        sharer =
+                          sharer && String(sharer.amount).replace(/^0+/, '') !== ''
+                            ? sharer
+                            : {
+                                id: user.id,
+                                amount: 0,
+                              };
+
+                        console.log(sharer.amount);
                       }}
                       onChange={(e: any) => {
-                        let value = e.target.value.replace(/^0+/, ''); // Remove leading zeros
+                        let value = e.target.value;
                         if (value === '' || Number(value) < 0) {
                           value = '0';
                         }
                         updateAmount(user.id, value);
                         setCurrentSharer({
                           ...sharer,
-                          amount: Number(value),
+                          amount: value,
                         });
                       }}
-                      value={sharer.amount === 0 ? '' : sharer.amount} // Prevent display of 0
+                      value={sharer.amount === 0 && !onFocus ? 0 : sharer.amount} // Prevent display of 0
                     />
                   </div>
                 </div>
@@ -210,16 +220,16 @@ export default function SharersAmountButton({
           className={clsx(
             'fixed left-[0%] top-[0%] z-0 w-screen bg-[#000] transition-all duration-200',
             {
-              'z-30 transform opacity-80 h-screen': isShow,
+              'z-30 h-screen transform opacity-80': isShow,
               'z-[-100] transform opacity-20': !isShow,
-            },
+            }
           )}
         ></div>
         <div
-          className={clsx(
-            'fixed left-0 z-100 h-fit w-full bg-grey-keyBoard p-6 text-center',
-            { hidden: !onFocus, block: onFocus },
-          )}
+          className={clsx('fixed left-0 z-100 h-fit w-full bg-grey-keyBoard p-6 text-center', {
+            hidden: !onFocus,
+            block: onFocus,
+          })}
           style={{ top: barTop }}
         >
           <div className="text-black">
@@ -234,12 +244,8 @@ export default function SharersAmountButton({
           <div className="text-sm text-neutrals-60">
             {Number(expenseData.amount) - Number(addedAmount) > 0 ||
             Number(expenseData.amount) - Number(addedAmount) === 0
-              ? `還剩下$${
-                  Number(expenseData.amount) - Number(addedAmount)
-                }還沒被分帳`
-              : `目前分帳金額多出$${Math.abs(
-                  Number(expenseData.amount) - Number(addedAmount),
-                )}`}
+              ? `還剩下$${Number(expenseData.amount) - Number(addedAmount)}還沒被分帳`
+              : `目前分帳金額多出$${Math.abs(Number(expenseData.amount) - Number(addedAmount))}`}
           </div>
         </div>
       </div>

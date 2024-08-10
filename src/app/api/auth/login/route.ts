@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       path: '/',
     });
-    return NextResponse.json({ message: 'Login Success' });
+    return NextResponse.json({ userId: user.id });
   } catch (error) {
     console.error(error);
     return NextResponse.error();

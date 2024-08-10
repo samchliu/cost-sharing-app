@@ -2,7 +2,7 @@
 //import from next
 import { useRouter } from 'next/navigation';
 //import ui
-import { CheckIcon, CloseIcon } from '@/app/ui/shareComponents/Icons';
+import { CheckIcon } from '@/app/ui/shareComponents/Icons';
 //import other
 import clsx from 'clsx';
 
@@ -20,7 +20,7 @@ export default function SuccessAlert({
   inGroupPage: boolean;
 }) {
   const router = useRouter();
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.SyntheticEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsShow(false);
@@ -56,9 +56,6 @@ export default function SuccessAlert({
               <br />
               {name}
             </div>
-            {/* <button onClick={e => handleClick(e)}>
-              <CloseIcon />
-            </button> */}
           </div>
         </div>
       </div>

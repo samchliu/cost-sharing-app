@@ -20,7 +20,7 @@ export default function CopyLinkButton({
   const base = 'https://cost-sharing-app.vercel.app/group/';
   const links = base + id;
 
-  const handleCopyLink = (e: any) => {
+  const handleCopyLink = (e: React.SyntheticEvent) => {
     e.preventDefault();
     navigator.clipboard.writeText(links);
     setIsShow(true);

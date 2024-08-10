@@ -1,44 +1,61 @@
 'use client';
 //import from next & react
 import Link from 'next/link';
-import { useState, useRef, useEffect, Fragment } from 'react';
+import { useState, useRef, useEffect, Fragment, FC } from 'react';
+//import data
+import {
+  ExpenseCategory,
+  ExtendedExpense,
+  Expense,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
 //import other
 import clsx from 'clsx';
 
+interface ExpenseCategoryButtonProps {
+  expenseData: ExtendedExpense | Expense;
+  setCurrentExpense: React.Dispatch<React.SetStateAction<ExtendedExpense | Expense>>;
+}
+
+interface DisplayProps {
+  category: string;
+  display: string | number;
+  setDisplay: React.Dispatch<React.SetStateAction<string | number>>;
+  handleKeyboardFocus: () => void;
+  handleKeyboardBlur: () => void;
+  inputRef: React.RefObject<HTMLAnchorElement>;
+}
+
+interface KeyboardProps {
+  showKeyboard: boolean;
+  handleKeyboardBlur: () => void;
+  handleInputFocus: () => void;
+  setDisplay: React.Dispatch<React.SetStateAction<string | number>>;
+  expenseData: ExtendedExpense | Expense;
+  setCurrentExpense: React.Dispatch<React.SetStateAction<ExtendedExpense | Expense>>;
+}
+
+interface CategoryButtonProps {
+  Icon: FC<{ strokeWidth: number }>;
+  category: { category: ExpenseCategory; title: string };
+  setDisplay: React.Dispatch<React.SetStateAction<string | number>>;
+  expenseData: ExtendedExpense | Expense;
+  setCurrentExpense: React.Dispatch<React.SetStateAction<ExtendedExpense | Expense>>;
+}
+
 export default function ExpenseCategoryButton({
   expenseData,
-  setCurrentExpense
-}: {
-  expenseData: any;
-  setCurrentExpense: any;
-}) {
-  const [display, setDisplay] = useState('');
-  const [showKeyboard, setShowKeyboard] = useState(false);
-  const inputRef = useRef<any>(null);
-  const {
-    category,
-  }: {
-    category:
-      | 'food'
-      | 'drink'
-      | 'transport'
-      | 'stay'
-      | 'shopping'
-      | 'entertainment'
-      | 'other';
-  } = expenseData;
-
-  if (!expenseData) return;
+  setCurrentExpense,
+}: ExpenseCategoryButtonProps) {
+  const [display, setDisplay] = useState<string | number>('');
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
+  const inputRef = useRef<HTMLAnchorElement>(null);
+  const { category } = expenseData;
 
   const handleInputFocus = () => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
     setShowKeyboard(true);
-  };
-
-  const handleInputBlur = () => {
-    inputRef.current.blur();
   };
 
   const handleKeyboardFocus = () => {
@@ -46,7 +63,6 @@ export default function ExpenseCategoryButton({
   };
 
   const handleKeyboardBlur = () => {
-    //To check if the input element referenced by inputRef is currently focused
     if (inputRef.current && document.activeElement === inputRef.current) {
       return;
     }
@@ -82,14 +98,7 @@ function Display({
   handleKeyboardFocus,
   handleKeyboardBlur,
   inputRef,
-}: {
-  category: string;
-  display: any;
-  setDisplay: any;
-  handleKeyboardFocus: any;
-  handleKeyboardBlur: any;
-  inputRef: any;
-}) {
+}: DisplayProps) {
   useEffect(() => {
     if (category) {
       setDisplay(category);
@@ -98,30 +107,29 @@ function Display({
 
   const SelectIcon = expenseIconMap[display as keyof typeof expenseIconMap];
 
-  return ( <>
-    <Link 
-    href="#"
-    ref={inputRef}
-    type="button"
-    className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60 focus:border-0 focus:ring-0 outline-none"
-    onClick={handleKeyboardFocus}
-    onBlur={() => {
-      //setTimeout to make sure handleKeyboardBlur function happened after inputRef is focus by keyboard
-      setTimeout(() => {
-        handleKeyboardBlur();
-      }, 0);
-    }}
-    onMouseOut={() => {
-      //setTimeout to make sure handleKeyboardBlur function happened after inputRef is focus by keyboard
-      setTimeout(() => {
-        handleKeyboardBlur();
-      }, 0);
-    }}
-    id="display"
-    >
-    {SelectIcon ? <SelectIcon strokeWidth={1.2} /> : null}
-    </Link>
-   </>
+  return (
+    <>
+      <Link
+        href="#"
+        ref={inputRef}
+        type="button"
+        className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60 outline-none focus:border-0 focus:ring-0"
+        onClick={handleKeyboardFocus}
+        onBlur={() => {
+          setTimeout(() => {
+            handleKeyboardBlur();
+          }, 0);
+        }}
+        onMouseOut={() => {
+          setTimeout(() => {
+            handleKeyboardBlur();
+          }, 0);
+        }}
+        id="display"
+      >
+        {SelectIcon ? <SelectIcon strokeWidth={1.2} /> : null}
+      </Link>
+    </>
   );
 }
 
@@ -132,16 +140,9 @@ const Keyboard = ({
   setDisplay,
   expenseData,
   setCurrentExpense,
-}: {
-  showKeyboard: any;
-  handleKeyboardBlur: any;
-  handleInputFocus: any;
-  setDisplay: any;
-  expenseData: any;
-  setCurrentExpense: any;
-}) => {
+}: KeyboardProps) => {
   const keyboardRef = useRef<HTMLDivElement>(null);
-  const allCategory = [
+  const allCategory: { category: ExpenseCategory; title: string }[] = [
     {
       category: 'food',
       title: '吃的',
@@ -174,19 +175,15 @@ const Keyboard = ({
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent | TouchEvent): void => {
-      if (
-        keyboardRef.current &&
-        !keyboardRef.current.contains(e.target as Node)
-      ) {
+      if (keyboardRef.current && !keyboardRef.current.contains(e.target as Node)) {
         handleKeyboardBlur();
       }
     };
 
     const eventType = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
-    // Bind the event listener
+
     document.addEventListener(eventType, handleClickOutside);
 
-    // Cleanup the event listener on unmount
     return () => {
       document.removeEventListener(eventType, handleClickOutside);
     };
@@ -200,13 +197,13 @@ const Keyboard = ({
         {
           'bottom-0 z-50 transform opacity-100': showKeyboard,
           'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
-        },
+        }
       )}
     >
       <div className="mb-8 mt-5 text-center text-white">選擇類別</div>
       <div className="flex flex-wrap items-center justify-start gap-y-3 px-4">
-        {allCategory.map((category: any, idx: any) => {
-          const Icon =
+        {allCategory.map((category, idx) => {
+          const Icon: FC<{ strokeWidth: number }> =
             expenseIconMap[category['category'] as keyof typeof expenseIconMap];
 
           return (
@@ -232,13 +229,7 @@ const CategoryButton = ({
   setDisplay,
   expenseData,
   setCurrentExpense,
-}: {
-  Icon: any;
-  category: any;
-  setDisplay: any;
-  expenseData: any;
-  setCurrentExpense: any;
-}) => {
+}: CategoryButtonProps) => {
   return (
     <button
       type="button"

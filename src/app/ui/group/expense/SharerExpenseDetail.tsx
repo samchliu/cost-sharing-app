@@ -2,21 +2,24 @@
 import Image from 'next/image';
 //import data
 import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  ExtendedExpense,
+  GroupUser,
+  Sharer,
+} from '@/app/_components/frontendData/sharedFunction/types';
 
-export default function SharerExpenseDetail({
-  expenseData,
-  sharer,
-  users,
-}: {
-  expenseData: any;
-  sharer: any;
-  users: any;
-}) {
-  const { payerId }: { payerId: string } = expenseData;
+interface Props {
+  expenseData: ExtendedExpense;
+  sharer: Sharer;
+  users: GroupUser[];
+}
+
+export default function SharerExpenseDetail({ expenseData, sharer, users }: Props) {
+  const { payerId } = expenseData;
   const { id, amount } = sharer;
 
-  let payerData = users.filter((user: any) => user.id === payerId)[0];
-  let sharerData = users.filter((user: any) => user.id === id)[0];
+  let payerData = users.filter((user) => user.id === payerId)[0];
+  let sharerData = users.filter((user) => user.id === id)[0];
 
   let nf = new Intl.NumberFormat('en-US');
   let shareAmount: any = Number(amount).toFixed(2);
