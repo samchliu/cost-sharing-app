@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       name: 'token',
       value: token,
       expires: new Date(Date.now() + 900 * 1000),
-      httpOnly: true,
+      // httpOnly: true,
       path: '/',
     });
     return NextResponse.json({ userId: user.id });

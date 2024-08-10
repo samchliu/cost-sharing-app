@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     response.cookies.set({
       name: 'token',
       value: await encrypt(parsed),
-      httpOnly: true,
+      // httpOnly: true,
       expires: parsed.expires,
     });
     return response;
