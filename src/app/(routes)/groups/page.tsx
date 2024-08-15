@@ -31,29 +31,30 @@ export default function Page() {
   const context = useContext(AllContext);
   
   useEffect(() => {
-
+    console.log(context?.userId);
     async function login() {
-        // await liff.init({ liffId, withLoginOnExternalBrowser: true });     
-        // const loginRes = await fetch('/api/auth/login', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({ accessToken: liff.getAccessToken() }),
-        // });
-          
-        // const { userId } = await loginRes.json();
+      // await liff.init({ liffId, withLoginOnExternalBrowser: true });
+      // const loginRes = await fetch('/api/auth/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ accessToken: liff.getAccessToken() }),
+      // });
 
-        const userRes = await fetch(`api/user/${context?.userId}`, {
-          method: 'GET',
-          cache: 'no-store',
-        });
-        const data = await userRes.json();
-        console.log(data);
-      }
+      // const { userId } = await loginRes.json();
 
-    login();
-  },[]);
+      const userRes = await fetch(`api/user/${context?.userId}`, {
+        method: 'GET',
+        cache: 'no-store',
+      });
+      const data = await userRes.json();
+      console.log(data);
+    }
+    if (context?.userId !== null) {
+      login();
+    }
+  }, [context?.userId]);
   return (
     <div className="flex min-h-screen flex-col bg-highlight-50">
       <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-highlight-50 pt-7 text-center text-2xl font-semibold tracking-wide text-white">
