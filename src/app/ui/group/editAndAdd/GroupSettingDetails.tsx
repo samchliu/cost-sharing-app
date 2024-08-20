@@ -2,8 +2,8 @@
 import { Fragment, useEffect } from 'react';
 //import data
 import { Group, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
+import { addGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
-import { groupIconMap } from '@/app/ui/shareComponents/Icons';
 import DeleteGroupButton from '@/app/ui/group/editAndAdd/DeleteGroupButton';
 import { GroupUserButton } from '@/app/ui/group/editAndAdd/GroupUserButton';
 import GroupPictureButton from '@/app/ui/group/editAndAdd/GroupPictureButton';
@@ -32,30 +32,45 @@ interface GroupOtherSettingProps {
   setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
 }
 
-export function GroupNameSetting({ groupData, setCurrentGroup, isAddPage }: GroupNameSettingProps) {
-  const { picture, name } = groupData;
-  const Icon = groupIconMap[picture];
+export function GroupNameSetting({
+  groupData,
+  setCurrentGroup,
+  isAddPage
+}: GroupNameSettingProps) {
+  const {
+    picture,
+    name,
+  } = groupData;
+ 
 
   return (
     <>
       <div className="m-6 mt-16 flex items-center justify-between pt-6">
-        <div
-          className={clsx('flex items-center gap-4', {
-            'w-full': isAddPage,
-          })}
-        >
-          {Icon ? (
-            <GroupPictureButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
+        <div className={clsx("flex items-center gap-4", {
+          "w-full": isAddPage,
+        })}>
+          {picture ? (
+            <GroupPictureButton
+              groupData={groupData}
+              setCurrentGroup={setCurrentGroup}
+            />
           ) : null}
-          {isAddPage ? (
-            <AddGroupNameButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
-          ) : (
+          {isAddPage ?
+            <AddGroupNameButton
+              groupData={groupData}
+              setCurrentGroup={setCurrentGroup}
+            />
+            :
             <p className="text-xl">{name}</p>
-          )}
+          }
+
         </div>
-        {isAddPage ? null : (
-          <EditGroupNameButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
-        )}
+        {isAddPage ?
+          null :
+          <EditGroupNameButton
+            groupData={groupData}
+            setCurrentGroup={setCurrentGroup}
+          />}
       </div>
     </>
   );
@@ -65,11 +80,11 @@ export function GroupUsersSetting({
   groupData,
   setCurrentGroup,
   isAddPage,
-  loginUserData,
+  loginUserData
 }: GroupUsersSettingProps) {
   useEffect(() => {
     console.log('group Data change!');
-    console.log(groupData);
+    console.log(groupData)
   }, [groupData]);
 
   return (
@@ -77,13 +92,16 @@ export function GroupUsersSetting({
       <div className="mx-6 flex flex-col">
         <p className="text-sm text-grey-500">群組成員</p>
         <div className="mb-4 mt-4 flex items-center justify-between">
-          <AddUserButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
+          <AddUserButton
+            groupData={groupData}
+            setCurrentGroup={setCurrentGroup}
+          />
         </div>
         <div>
           {isAddPage ? (
             <>
               <GroupUserButton
-                idx={loginUserData?.id}
+                idx={loginUserData?.id || ''}
                 userData={loginUserData}
                 groupData={groupData}
                 setCurrentGroup={setCurrentGroup}
@@ -135,21 +153,71 @@ export function GroupUsersSetting({
   );
 }
 
-export function GroupOtherSetting({ groupData, setCurrentGroup }: GroupOtherSettingProps) {
+export function GroupOtherSetting({
+  groupData,
+  setCurrentGroup,
+}: GroupOtherSettingProps) {
+
   return (
     <>
       <div className="mx-6 mt-4 flex flex-col">
         <p className="text-sm text-grey-500">其他設定</p>
-        <DeleteGroupButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
+        <DeleteGroupButton
+          groupData={groupData}
+          setCurrentGroup={setCurrentGroup}
+        />
       </div>
     </>
   );
 }
 
-export function GroupSave({ groupData }: { groupData: Group }) {
-  function handleClick() {
-    console.log(`group ${groupData.id} has changed and saved`);
-    console.log(groupData);
+export function GroupSave({
+  groupData,
+  formRef,
+}: {
+  groupData: Group;
+  formRef: React.RefObject<HTMLFormElement>;
+}) {
+  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
+    try {
+      await addGroup({
+        name: "Let's Chill5",
+        picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+        users: [
+          {
+            name: '成員1',
+            picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+          },
+          {
+            name: '成員2',
+            picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+          },
+        ],
+      });
+      // addGroup({
+      //   name: "Let's Chill3",
+      //   picture: '/images/icons/groupIcon09.svg',
+      //   users: [
+      //     {
+      //       name: 'Clare',
+      //       picture: '/images/icons/newUserBG.svg',
+      //     },
+      //     {
+      //       name: 'Alex',
+      //       picture: '/images/icons/newUserBG.svg',
+      //     },
+      //   ],
+      // });
+      // addGroup(groupData);
+      console.log(groupData);
+      if (formRef.current) {
+        formRef.current.submit();
+      }
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
+    }
   }
 
   return (

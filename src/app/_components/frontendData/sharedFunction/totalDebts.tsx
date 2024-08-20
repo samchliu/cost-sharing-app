@@ -1,4 +1,3 @@
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
 import {
   Expense,
   Debts,
@@ -12,7 +11,7 @@ interface SplitExpenseResult {
   expensesWithDebts: ExtendedExpense[];
 }
 
-function filterExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
+function filterExpense(expenses: ExtendedExpense[], loginUserId: string): SplitExpenseResult {
   if (!expenses) {
     return {
       debts: {},
@@ -25,7 +24,6 @@ function filterExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
     ...expense,
   }));
 
-  // Calculate debts
   const debts: Debts = newExpenses.reduce((acc: Debts, expense: Expense) => {
     if (!acc[expense.payerId]) {
       acc[expense.payerId] = { totalDebt: 0 };
@@ -48,7 +46,6 @@ function filterExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
     return acc;
   }, {} as Debts);
 
-  // Add totalDebt to each user's debt object
   Object.keys(debts).forEach((member) => {
     debts[member]['totalDebt'] = Object.values(debts[member]).reduce(
       (acc, debt) => acc + (debt ?? 0),
@@ -56,16 +53,14 @@ function filterExpense(expenses: ExtendedExpense[]): SplitExpenseResult {
     );
   });
 
-  // Calculate totalDebts
   const totalDebts: TotalDebts = Object.keys(debts).reduce((acc, userId) => {
     acc[userId] = debts[userId].totalDebt;
     return acc;
   }, {} as TotalDebts);
 
-  // Map expenses with added debts
   const expensesWithDebts: ExtendedExpense[] = newExpenses.map((expense) => {
     const newExpense = { ...expense };
-    const userDebts = debts[loginUserId];
+    const userDebts = debts[loginUserId || ''];
     newExpense.expenseDebt = userDebts?.[expense.name]?.toFixed(2) || '0.00';
     return newExpense;
   });

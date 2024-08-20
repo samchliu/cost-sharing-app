@@ -2,11 +2,11 @@
 import liff from '@line/liff';
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID!;
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, useContext } from 'react';
-import { AllContext } from './_components/frontendData/fetchData/Providers';
+import { useEffect } from 'react';
+import { useAllContext } from './_components/frontendData/fetchData/Providers';
 
 export default function HomePage() {
-  const context = useContext(AllContext);
+  const { setLoginUserId } = useAllContext();
 
   const router = useRouter();
   useEffect(() => {
@@ -21,8 +21,8 @@ export default function HomePage() {
         body: JSON.stringify({ accessToken: liff.getAccessToken() }),
       });
       const { userId } = await loginRes.json();
-      window.localStorage.setItem('userId', userId);
-      context?.setUserId(userId);
+      window.localStorage.setItem('loginUserId', userId);
+      setLoginUserId(userId);
       router.push('/groups');
     }
 

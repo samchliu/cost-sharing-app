@@ -1,7 +1,7 @@
 //import from next & react
 import Image from 'next/image';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { Debt, User, GroupUser } from '@/app/_components/frontendData/sharedFunction/types'; 
 //import other
 import clsx from "clsx";
@@ -13,6 +13,7 @@ interface Prop {
 }
 
 export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
+  const { loginUserId } = useAllContext();
   const nf = new Intl.NumberFormat('en-US');
 
   const getUserProfile = (userId: string) =>
@@ -22,7 +23,7 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
       picture: '',
     };
 
-  const targetUser: User | GroupUser = getUserProfile(loginUserId);
+  const targetUser: User | GroupUser = getUserProfile(loginUserId || '');
   const UserProfile = ({ user }: { user: User | GroupUser }) => (
     <div className="flex items-center gap-2">
       {user.picture ? (
@@ -32,6 +33,7 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
           width={64}
           height={64}
           alt={`${user.name}'s picture`}
+          priority
         />
       ) : (
         <div className="z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full bg-neutrals-30" />

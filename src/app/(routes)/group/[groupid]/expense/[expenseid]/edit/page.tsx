@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 //import data
-import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useGroup, useExpense, useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   ExtendedGroup,
@@ -18,9 +17,11 @@ import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/Expense
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
   const [phase, setPhase] = useState<number>(1);
   const [isNotEqual, setIsNotEqual] = useState<boolean>(false);
+  const [isIncorrectTotalNum, setisIncorrectTotalNum] = useState<boolean>(false);
 
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);
@@ -46,7 +47,7 @@ export default function Page() {
         />
         {expense &&
         (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
-          expense.payerId?.includes(loginUserId)) ? (
+          expense.payerId?.includes(loginUserId || '')) ? (
           <>
             <GroupInfoBar expenseData={currentExpense} group={group} />
             <section>
@@ -55,6 +56,7 @@ export default function Page() {
                 expenseData={currentExpense}
                 setCurrentExpense={setCurrentExpense}
                 phase={phase}
+                setisIncorrectTotalNum={setisIncorrectTotalNum}
               />
               <ExpenseSettingStepTwo
                 expenseData={currentExpense}
@@ -73,12 +75,12 @@ export default function Page() {
             <section>
               <NextStepButton
                 expenseData={currentExpense}
-                setCurrentExpense={setCurrentExpense}
                 phase={phase}
                 setPhase={setPhase}
                 isNotEqual={isNotEqual}
                 setIsNotEqual={setIsNotEqual}
                 isNotZero={true}
+                isIncorrectTotalNum={isIncorrectTotalNum}
               />
             </section>
           </>

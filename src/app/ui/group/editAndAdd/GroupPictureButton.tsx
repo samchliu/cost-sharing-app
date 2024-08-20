@@ -6,7 +6,7 @@ import { useState } from 'react';
 //import data
 import { Group, GroupPicture } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
-import { CameraIcon, groupIconMap } from '@/app/ui/shareComponents/Icons';
+import { CameraIcon } from '@/app/ui/shareComponents/Icons';
 //import other
 import clsx from 'clsx';
 import { TopBar } from '@/app/ui/shareComponents/TopBars';
@@ -22,23 +22,22 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
   const [lastSavedPicture, setLastSavedPicture] = useState<GroupPicture>(currentPicture);
   const [isShow, setIsShow] = useState<boolean>(false);
   const router = useRouter();
-  const Icon = groupIconMap[currentPicture];
   const allGroupPicture: GroupPicture[] = [
-    'groupIcon01',
-    'groupIcon02',
-    'groupIcon03',
-    'groupIcon04',
-    'groupIcon05',
-    'groupIcon06',
-    'groupIcon07',
-    'groupIcon08',
-    'groupIcon09',
-    'groupIcon10',
-    'groupIcon11',
-    'groupIcon12',
-    'groupIcon13',
-    'groupIcon14',
-    'groupIcon15',
+    '/images/icons/groupIcon01.svg',
+    '/images/icons/groupIcon02.svg',
+    '/images/icons/groupIcon03.svg',
+    '/images/icons/groupIcon04.svg',
+    '/images/icons/groupIcon05.svg',
+    '/images/icons/groupIcon06.svg',
+    '/images/icons/groupIcon07.svg',
+    '/images/icons/groupIcon08.svg',
+    '/images/icons/groupIcon09.svg',
+    '/images/icons/groupIcon10.svg',
+    '/images/icons/groupIcon11.svg',
+    '/images/icons/groupIcon12.svg',
+    '/images/icons/groupIcon13.svg',
+    '/images/icons/groupIcon14.svg',
+    '/images/icons/groupIcon15.svg',
   ];
 
   const toggleDialog = () => {
@@ -71,11 +70,12 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
     <div className="relative grow-0">
       <div onClick={toggleDialog} className="relative">
         <Image
-          src={Icon}
+          src={currentPicture}
           className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg bg-highlight-60"
           width={200}
           height={200}
           alt={picture}
+          priority
         />
         <div className="absolute bottom-0 right-0 h-7 w-7 translate-x-[5px] translate-y-[5px] rounded-full bg-white p-[7px] shadow">
           <CameraIcon />
@@ -99,7 +99,6 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
         />
         <div className="relative top-[60px] flex max-h-[calc(100vh-56px)] w-full flex-wrap items-start gap-y-0 overflow-scroll">
           {allGroupPicture.map((picture, idx) => {
-            const Icon = groupIconMap[picture as keyof typeof groupIconMap];
             return (
               <div
                 className={clsx(
@@ -119,11 +118,12 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
                   onChange={() => handleChange(picture)}
                 />
                 <Image
-                  src={Icon}
+                  src={picture}
                   className="z-0 flex items-center justify-center bg-black"
                   width={200}
                   height={200}
                   alt={picture}
+                  priority
                 />
               </div>
             );

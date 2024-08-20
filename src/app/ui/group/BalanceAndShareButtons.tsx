@@ -1,18 +1,18 @@
 //import from next
 import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { DollarTwoIcon } from '@/app/ui/shareComponents/Icons';
 import ShareButton from '@/app/ui/shareComponents/ShareButton';
-import CopyLinkButton from '@/app/ui/shareComponents/CopyLinkButton';
 
 interface Props {
   groupData: ExtendedGroup;
 }
 
 export default function BalanceAndShareButtons({ groupData }: Props) {
+  const { loginUserId } = useAllContext();
   const { id, users } = groupData;
 
   return (
@@ -29,7 +29,6 @@ export default function BalanceAndShareButtons({ groupData }: Props) {
           </Link>
           <div className="flex items-center gap-2">
             <ShareButton id={id || ''} name={groupData.name} inGroupPage={true} />
-            <CopyLinkButton id={id || ''} name={groupData.name} inGroupPage={true} />
           </div>
         </div>
       ) : null}

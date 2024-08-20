@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedExpense, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
@@ -19,6 +19,7 @@ interface ExpenseDetailExtendProps extends ExpenseDetailProps {
 }
 
 export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProps) {
+  const { loginUserId } = useAllContext();
   const { category, amount, name, creatorId, createAt, updateAt, payerId, sharers } = expenseData;
   let creatorIdUser = users.filter((user) => user.id === creatorId)[0];
 
@@ -56,6 +57,7 @@ export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProp
 }
 
 export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProps) {
+  const { loginUserId } = useAllContext();
   const { amount, payerId, sharers } = expenseData;
 
   let payerData = users.filter((user) => user.id === payerId)[0];
@@ -74,6 +76,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
                 width={64}
                 height={64}
                 alt="sharer image"
+                priority
               />
             ) : null}
             <div className="flex grow items-center justify-between">
@@ -107,6 +110,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
 }
 
 export function ExpenseDetailThree({ expenseData }: ExpenseDetailProps) {
+  const { loginUserId } = useAllContext();
   const { payerId, sharers, note } = expenseData;
 
   return (

@@ -2,11 +2,20 @@
 import Image from 'next/image';
 import { useId, useRef, useState } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
+
+interface Props {
+  idx: string;
+  userData: GroupUser;
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+  isAddPage: boolean;
+  loginUserData: GroupUser;
+}
 
 export function GroupUserButton({
   idx,
@@ -15,14 +24,8 @@ export function GroupUserButton({
   setCurrentGroup,
   isAddPage,
   loginUserData,
-}: {
-  idx: string;
-  userData: GroupUser;
-  groupData: ExtendedGroup;
-  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
-  isAddPage: boolean;
-  loginUserData: GroupUser;
-}) {
+}: Props) {
+  const { loginUserId } = useAllContext();
   const [lastSavedGroup, setLastSavedGroup] = useState<ExtendedGroup>(groupData);
   const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -85,17 +88,24 @@ export function GroupUserButton({
   return (
     <div className="mb-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        {(userData?.adoptable === false || userData?.id === loginUserId) &&
-        userData.picture !== '' ? (
+        {userData?.adoptable === false || userData?.id === loginUserId ? (
           <Image
             className="h-11 w-11 rounded-full bg-neutrals-20"
             src={userData.picture}
             width={32}
             height={32}
             alt="user's image"
+            priority
           />
         ) : (
-          <div className="h-11 w-11 rounded-full bg-neutrals-20"></div>
+          <Image
+            className="h-11 w-11 rounded-full bg-neutrals-20"
+            src="/images/icons/newUserBG.svg"
+            width={32}
+            height={32}
+            alt="user's image"
+            priority
+          />
         )}
         <p className="w-56 truncate">{userData?.name}</p>
       </div>

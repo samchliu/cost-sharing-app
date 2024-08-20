@@ -1,7 +1,7 @@
 //import from next & react
 import { useId, useRef, useState } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedExpense } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
@@ -11,6 +11,7 @@ interface Props {
 }
 
 export default function DeleteExpenseButton({ expenseData }: Props) {
+  const { loginUserId } = useAllContext();
   const { id, payerId, sharers } = expenseData;
 
   const [isShow, setIsShow] = useState(false);

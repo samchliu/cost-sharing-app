@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   picture: string;
 }
@@ -10,7 +10,7 @@ export interface LoginUser extends User {
 }
 
 export interface GroupUser extends User {
-  adoptable: boolean;
+  adoptable?: boolean;
 }
 
 export interface Group {
@@ -26,21 +26,21 @@ export interface ExtendedGroup extends Group {
 }
 
 export type GroupPicture =
-  | 'groupIcon01'
-  | 'groupIcon02'
-  | 'groupIcon03'
-  | 'groupIcon04'
-  | 'groupIcon05'
-  | 'groupIcon06'
-  | 'groupIcon07'
-  | 'groupIcon08'
-  | 'groupIcon09'
-  | 'groupIcon10'
-  | 'groupIcon11'
-  | 'groupIcon12'
-  | 'groupIcon13'
-  | 'groupIcon14'
-  | 'groupIcon15';
+  | '/images/icons/groupIcon01.svg'
+  | '/images/icons/groupIcon02.svg'
+  | '/images/icons/groupIcon03.svg'
+  | '/images/icons/groupIcon04.svg'
+  | '/images/icons/groupIcon05.svg'
+  | '/images/icons/groupIcon06.svg'
+  | '/images/icons/groupIcon07.svg'
+  | '/images/icons/groupIcon08.svg'
+  | '/images/icons/groupIcon09.svg'
+  | '/images/icons/groupIcon10.svg'
+  | '/images/icons/groupIcon11.svg'
+  | '/images/icons/groupIcon12.svg'
+  | '/images/icons/groupIcon13.svg'
+  | '/images/icons/groupIcon14.svg'
+  | '/images/icons/groupIcon15.svg';
 
 export interface Debt {
   [expenseName: string]: number;

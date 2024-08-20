@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { Suspense, useState, useEffect } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
-import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
+import { useAllContext, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopGroupBar } from '@/app/ui/shareComponents/TopBars';
@@ -18,6 +17,7 @@ import AlertModal from '@/app/ui/group/AlertModal';
 import { UsersBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const { groupid } = useParams<{ groupid: string }>();
   const group: ExtendedGroup = useGroup(groupid);
   const [currentGroup, setCurrentGroup] = useState<ExtendedGroup>(group);

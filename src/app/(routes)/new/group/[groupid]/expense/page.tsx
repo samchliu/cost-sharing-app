@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 //import data
-import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 import { Expense } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
@@ -17,10 +16,13 @@ import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/Expense
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const params = useParams<{ groupid: string }>();
   const [phase, setPhase] = useState(1);
   const [isNotEqual, setIsNotEqual] = useState(false);
   const [isNotZero, setIsNotZero] = useState(false);
+  const [isIncorrectTotalNum, setisIncorrectTotalNum] = useState<boolean>(false);
+
   const group = useGroup(params.groupid);
   const [currentExpense, setCurrentExpense] = useState<Expense>({
     name: '未命名費用',
@@ -28,7 +30,7 @@ export default function Page() {
     amount: 0,
     date: new Date().toISOString(),
     note: '',
-    payerId: loginUserId,
+    payerId: loginUserId || '',
     sharers: [],
   });
 
@@ -57,6 +59,7 @@ export default function Page() {
             expenseData={currentExpense}
             setCurrentExpense={setCurrentExpense}
             phase={phase}
+            setisIncorrectTotalNum={setisIncorrectTotalNum}
           />
           <ExpenseSettingStepTwo
             expenseData={currentExpense}
@@ -75,12 +78,12 @@ export default function Page() {
         <section>
           <NextStepButton
             expenseData={currentExpense}
-            setCurrentExpense={setCurrentExpense}
             phase={phase}
             setPhase={setPhase}
             isNotEqual={isNotEqual}
             setIsNotEqual={setIsNotEqual}
-            isNotZero={isNotZero}
+            isNotZero={true}
+            isIncorrectTotalNum={isIncorrectTotalNum}
           />
         </section>
       </div>

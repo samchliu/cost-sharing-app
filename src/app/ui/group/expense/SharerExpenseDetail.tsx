@@ -1,7 +1,7 @@
 //import from next
 import Image from 'next/image';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   GroupUser,
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export default function SharerExpenseDetail({ expenseData, sharer, users }: Props) {
+  const { loginUserId } = useAllContext();
   const { payerId } = expenseData;
   const { id, amount } = sharer;
 
@@ -38,6 +39,7 @@ export default function SharerExpenseDetail({ expenseData, sharer, users }: Prop
               width={32}
               height={32}
               alt="sharer image"
+              priority
             />
           ) : null}
           <div className="ml-3">

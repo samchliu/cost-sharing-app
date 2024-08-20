@@ -1,7 +1,7 @@
 //import from next & react
 import { useId, useRef, useState } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props) {
+  const { loginUserId } = useAllContext();
   const isAdmin = groupData.creatorId === loginUserId;
   const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -92,7 +93,7 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           isShow={isShow}
           headerId={headerId}
           handleClose={handleClose}
-          handleSave={() => handleLeaveGroup(loginUserId)}
+          handleSave={() => handleLeaveGroup(loginUserId || '')}
           hintWord="確定要離開群組嗎？"
           idx={`leaveGroup${loginUserId}`}
         />
