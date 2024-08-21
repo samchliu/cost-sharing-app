@@ -38,9 +38,7 @@ export default function Page() {
       <Suspense fallback={<ExpenseSkeleton />}>
         <TopExpenseBar groupData={group} expenseData={expense} />
         {group &&
-        expense &&
-        (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
-          expense.payerId?.includes(loginUserId || '')) ? (
+        expense ? (
           <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
             <ExpenseDetailOne expenseData={expense} users={users} />
             <ExpenseDetailTwo expenseData={expense} users={users} />

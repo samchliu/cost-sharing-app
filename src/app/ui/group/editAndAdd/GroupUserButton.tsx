@@ -1,12 +1,15 @@
+'use client';
 //import from next & react
 import Image from 'next/image';
 import { useId, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TrashcanIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
+import { deleteUser } from '@/app/_components/frontendData/fetchData/API';
 
 interface Props {
   idx: string;
@@ -26,6 +29,7 @@ export function GroupUserButton({
   loginUserData,
 }: Props) {
   const { loginUserId } = useAllContext();
+  const router = useRouter();
   const [lastSavedGroup, setLastSavedGroup] = useState<ExtendedGroup>(groupData);
   const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -47,38 +51,47 @@ export function GroupUserButton({
     }, 100);
   };
 
-  const handleSave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    let currentGroupUsers = groupData.users
-      ? [...groupData.users]
-      : [
-          {
-            id: '',
-            name: '',
-            picture: '',
-            adoptable: false,
-          },
-        ];
-    const userIndex = currentGroupUsers.findIndex(
-      (user: GroupUser) => user.name === userData.name && e.currentTarget.id === idx
-    );
+  async function handleSave(
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    groupId: string,
+    userId: string,
+    isAddPage: boolean
+  ) {
+    try {
+      let currentGroupUsers = groupData.users
+        ? [...groupData.users]
+        : [
+            {
+              id: '',
+              name: '',
+              picture: '',
+              adoptable: false,
+            },
+          ];
+      const userIndex = currentGroupUsers.findIndex(
+        (user: GroupUser) => user.name === userData.name && e.currentTarget.id === idx
+      );
 
-    if (userIndex !== -1) {
-      currentGroupUsers.splice(userIndex, 1);
+      if (userIndex !== -1) {
+        currentGroupUsers.splice(userIndex, 1);
+      }
+
+      setLastSavedGroup({
+        ...groupData,
+        users: currentGroupUsers,
+      });
+      setCurrentGroup({
+        ...groupData,
+        users: currentGroupUsers,
+      });
+      if (!isAddPage) {
+        await deleteUser(groupId, userId);
+        router.push(`/group/${groupId}/edit`);
+      }
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
     }
-
-    setLastSavedGroup({
-      ...groupData,
-      users: currentGroupUsers,
-    });
-    setCurrentGroup({
-      ...groupData,
-      users: currentGroupUsers,
-    });
-    setIsShow(false);
-    setTimeout(() => {
-      dialogRef.current?.close();
-    }, 100);
-  };
+  }
 
   const isAdmin = groupData.creatorId === loginUserId;
   const isMemberAdmin = groupData.creatorId === userData?.id && groupData.creatorId !== undefined;
@@ -123,7 +136,7 @@ export function GroupUserButton({
             isShow={isShow}
             headerId={headerId}
             handleClose={handleClose}
-            handleSave={handleSave}
+            handleSave={(e) => handleSave(e, groupData.id || '', userData.id || '', isAddPage)}
             hintWord="確定要刪除成員嗎？"
             idx={idx}
           />

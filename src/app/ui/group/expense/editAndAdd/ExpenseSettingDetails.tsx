@@ -7,6 +7,7 @@ import {
   ExtendedGroup,
   Expense,
 } from '@/app/_components/frontendData/sharedFunction/types';
+import { addExpense, changeExpense } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { NextstepIcon } from '@/app/ui/shareComponents/Icons';
 import clsx from 'clsx';
@@ -17,8 +18,11 @@ interface GroupInfoBarProps {
 }
 
 interface NextStepButtonProps {
+  isAddExpensePage: boolean;
+  formRef: React.RefObject<HTMLFormElement>;
   phase: number;
   setPhase: (phase: number) => void;
+  groupid: string;
   expenseData: ExtendedExpense | Expense;
   isNotEqual: boolean;
   setIsNotEqual: (isNotEqual: boolean) => void;
@@ -54,8 +58,11 @@ export function GroupInfoBar({ expenseData, group }: GroupInfoBarProps) {
 }
 
 export function NextStepButton({
+  isAddExpensePage,
+  formRef,
   phase,
   setPhase,
+  groupid,
   expenseData,
   isNotEqual,
   setIsNotEqual,
@@ -83,8 +90,40 @@ export function NextStepButton({
     console.log(expenseData);
   }
 
-  function handleSubmit(expense: ExtendedExpense | Expense) {
-    // console.log(expenseData);
+  async function handleSubmit(
+    event: React.MouseEvent<HTMLButtonElement>,
+    expense: ExtendedExpense | Expense,
+    groupid: string,
+    expenseid: string
+  ) {
+    event.preventDefault();
+
+    let payload = {
+      groupId: groupid,
+      name: expense.name,
+      category: expense.category,
+      amount: expense.amount,
+      date: expense.date,
+      note: expense.note,
+      payerId: expense.payerId,
+      sharers: expense.sharers,
+    };
+
+    try {
+      if (isAddExpensePage) {
+        await addExpense(payload);
+      } else {
+        await changeExpense({ ...payload, id: expenseid });
+        console.log('expense page edited!');
+      }
+
+      console.log(expense);
+      if (formRef.current) {
+        formRef.current.submit();
+      }
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
+    }
   }
 
   return (
@@ -95,7 +134,7 @@ export function NextStepButton({
             <button
               disabled={isIncorrectTotalNum}
               type="button"
-              onClick={(e: React.SyntheticEvent) => handleClick(e, expenseId)}
+              onClick={(e: React.SyntheticEvent) => handleClick(e, expenseId || '')}
               className="flex w-[180px] items-center justify-between rounded-full bg-highlight-20 px-4 py-2 disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
             >
               <div className="text-[10px]">{phase}/3</div>
@@ -108,12 +147,10 @@ export function NextStepButton({
             <>
               <button
                 disabled={isNotEqual && isNotZero}
-                type="button"
-                onClick={() => {
-                  console.log('click submit');
-                  console.log(expenseData);
-                }}
-                onSubmit={() => handleSubmit(expenseData)}
+                type="submit"
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  handleSubmit(e, expenseData, groupid, expenseId || '')
+                }
                 className="relative flex w-[180px] items-center justify-between rounded-full bg-highlight-20 px-4 py-2 disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
               >
                 <div

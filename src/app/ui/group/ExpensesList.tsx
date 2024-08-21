@@ -56,7 +56,11 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
   );
 
   const renderExpensesByDate = () => {
-    return Object.keys(groupedExpenses).map((date, index) => {
+    const sortedDates: string[] = Object.keys(groupedExpenses).sort(
+      (a: string, b: string) => new Date(a).getTime() - new Date(b).getTime()
+    );
+
+    return sortedDates.map((date, index) => {
       let formateDate: Date | string = new Date(date);
       formateDate = format(formateDate, 'yyyy/MM/dd');
 
@@ -69,10 +73,7 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
           ) : null}
           {groupedExpenses[date].map((expense: ExtendedExpense) => (
             <Fragment key={expense.id}>
-              {expense.sharers.some((sharer: Sharer) => sharer.id === loginUserId) ||
-              expense.payerId.includes(loginUserId || '') ? (
-                <ExpenseButton users={users} expense={expense} groupId={groupId} />
-              ) : null}
+              <ExpenseButton users={users} expense={expense} groupId={groupId} />
             </Fragment>
           ))}
         </div>

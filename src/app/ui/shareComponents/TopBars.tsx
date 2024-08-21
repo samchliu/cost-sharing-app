@@ -125,16 +125,11 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
         <HomeIcon />
       </Link>
       <h1 className="text-lg">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId))
-          ? '費用明細'
+        {expenseData ? '費用明細'
           : ''}
       </h1>
       <div className="h-6 w-6">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+        {expenseData ? (
           <Link
             href={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
@@ -167,12 +162,7 @@ export function TopExpenseSettingBar({
     console.log(phase);
   }
 
-  const shouldRender =
-    expenseData &&
-    group &&
-    (isAddPage ||
-      expenseData.payerId === loginUserId ||
-      expenseData.sharers?.some((sharer) => sharer.id === loginUserId));
+  const shouldRender = expenseData && group;
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useState } from 'react';
 //import data
-import { Group, GroupPicture } from '@/app/_components/frontendData/sharedFunction/types';
+import { Group } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { CameraIcon } from '@/app/ui/shareComponents/Icons';
 //import other
@@ -18,11 +18,11 @@ interface Props {
 
 export default function GroupPictureButton({ groupData, setCurrentGroup }: Props) {
   const { picture } = groupData;
-  const [currentPicture, setCurrentPicture] = useState<GroupPicture>(picture);
-  const [lastSavedPicture, setLastSavedPicture] = useState<GroupPicture>(currentPicture);
+  const [currentPicture, setCurrentPicture] = useState<string>(picture);
+  const [lastSavedPicture, setLastSavedPicture] = useState<string>(currentPicture);
   const [isShow, setIsShow] = useState<boolean>(false);
   const router = useRouter();
-  const allGroupPicture: GroupPicture[] = [
+  const allGroupPicture: string[] = [
     '/images/icons/groupIcon01.svg',
     '/images/icons/groupIcon02.svg',
     '/images/icons/groupIcon03.svg',
@@ -47,7 +47,7 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
     router.refresh();
   };
 
-  const handleChange = (picture: GroupPicture) => {
+  const handleChange = (picture: string) => {
     setCurrentPicture(picture);
   };
 

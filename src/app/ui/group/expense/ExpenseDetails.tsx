@@ -28,8 +28,7 @@ export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProp
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+      {expenseData ? (
         <div className="flex w-full justify-between pl-2 pr-3">
           <div className="flex gap-5">
             <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
@@ -65,8 +64,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+      {expenseData ? (
         <div className="mt-7 w-full px-3">
           <div className="flex gap-4">
             {payerData ? (
@@ -115,8 +113,7 @@ export function ExpenseDetailThree({ expenseData }: ExpenseDetailProps) {
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+      {expenseData ? (
         <div className="mx-1 w-full">
           <div className="text-sm">備註</div>
           <div className="mt-2 min-h-[101px] rounded-lg bg-white p-3 text-base">{note}</div>

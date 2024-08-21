@@ -2,9 +2,17 @@
 //import next and react
 import { useState, useEffect } from 'react';
 //import data
-import { Expense, ExtendedExpense, GroupUser, Sharer } from '@/app/_components/frontendData/sharedFunction/types';
+import {
+  Expense,
+  ExtendedExpense,
+  GroupUser,
+  Sharer,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
-import { TotalAmountCalculator, SharerAmountCalculator } from '@/app/ui/group/expense/editAndAdd/CalculatorDetail';
+import {
+  TotalAmountCalculator,
+  SharerAmountCalculator,
+} from '@/app/ui/group/expense/editAndAdd/CalculatorDetail';
 //import other
 import { evaluate } from 'mathjs';
 
@@ -32,6 +40,7 @@ export const TotalCalculator = ({
   setisIncorrectTotalNum,
 }: TotalProps) => {
   const [display, setDisplay] = useState<string>('');
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
 
   const updateDisplay = (updateDisplayString: string) => {
     setDisplay(updateDisplayString);
@@ -81,7 +90,7 @@ export const TotalCalculator = ({
   const buttonClick = (num: string) => {
     if (num === 'Backspace') {
       let myString = String(display);
-      // console.log(typeof num)
+
       myString = myString.split('').reverse().slice(1).reverse().join('');
       updateDisplay(myString);
     } else {
@@ -94,7 +103,6 @@ export const TotalCalculator = ({
       if (display.length > 0) {
         const result = evaluate(display.replaceAll(',', ''));
 
-        // Determine whether there are non-zero digits after the decimal point
         const hasDecimal = result % 1 !== 0;
 
         function hasTwoZeroesAfterDecimal(num: number) {
@@ -140,7 +148,7 @@ export const TotalCalculator = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (allowedKeys.includes(e.key)) {
+    if (allowedKeys.includes(e.key) && showKeyboard) {
       switch (e.key) {
         case 'Backspace':
           !focusDisplay && backspace();
@@ -175,6 +183,8 @@ export const TotalCalculator = ({
   return (
     <>
       <TotalAmountCalculator
+        showKeyboard={showKeyboard}
+        setShowKeyboard={setShowKeyboard}
         expenseData={expenseData}
         display={display}
         setDisplay={setDisplay}
@@ -201,6 +211,7 @@ export const SharerCalculator = ({
   currentSharer,
 }: SharerProps) => {
   const [display, setDisplay] = useState<string>('');
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
 
   const updateDisplay = (updateDisplayString: string) => {
     setDisplay(updateDisplayString);
@@ -267,7 +278,6 @@ export const SharerCalculator = ({
       if (display.length > 0) {
         const result = evaluate(display.replaceAll(',', ''));
 
-        // Determine whether there are non-zero digits after the decimal point
         const hasDecimal = result % 1 !== 0;
 
         function hasTwoZeroesAfterDecimal(num: number) {
@@ -313,7 +323,7 @@ export const SharerCalculator = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (allowedKeys.includes(e.key)) {
+    if (allowedKeys.includes(e.key) && showKeyboard) {
       switch (e.key) {
         case 'Backspace':
           !focusDisplay && backspace();
@@ -342,6 +352,8 @@ export const SharerCalculator = ({
   return (
     <>
       <SharerAmountCalculator
+        showKeyboard={showKeyboard}
+        setShowKeyboard={setShowKeyboard}
         isChecked={isChecked}
         sharer={sharer}
         expenseData={expenseData}

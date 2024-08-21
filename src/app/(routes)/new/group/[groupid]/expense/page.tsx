@@ -1,15 +1,15 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 //import data
 import { useAllContext, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 import { Expense } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
 import {
-    GroupInfoBar,
-    NextStepButton,
+  GroupInfoBar,
+  NextStepButton,
 } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingDetails';
 import { ExpenseSettingStepOne } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepOne';
 import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepTwo';
@@ -17,13 +17,13 @@ import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/Expen
 
 export default function Page() {
   const { loginUserId } = useAllContext();
-  const params = useParams<{ groupid: string }>();
+  const { groupid } = useParams<{ groupid: string }>();
   const [phase, setPhase] = useState(1);
   const [isNotEqual, setIsNotEqual] = useState(false);
   const [isNotZero, setIsNotZero] = useState(false);
   const [isIncorrectTotalNum, setisIncorrectTotalNum] = useState<boolean>(false);
 
-  const group = useGroup(params.groupid);
+  const group = useGroup(groupid);
   const [currentExpense, setCurrentExpense] = useState<Expense>({
     name: '未命名費用',
     category: 'food',
@@ -33,6 +33,7 @@ export default function Page() {
     payerId: loginUserId || '',
     sharers: [],
   });
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (currentExpense.amount !== 0) {
@@ -41,7 +42,7 @@ export default function Page() {
   }, [currentExpense?.amount, isNotZero]);
 
   return (
-    <form method="post" action={`/group/${params.groupid}`}>
+    <form ref={formRef} method="post" action={`/group/${groupid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           isAddPage={true}
@@ -50,7 +51,7 @@ export default function Page() {
           phase={phase}
           setPhase={setPhase}
           hintword="新增費用"
-          cancelLink={`/group/${params.groupid}`}
+          cancelLink={`/group/${groupid}`}
         />
         <GroupInfoBar expenseData={currentExpense} group={group} />
         <section>
@@ -77,6 +78,9 @@ export default function Page() {
         </section>
         <section>
           <NextStepButton
+            isAddExpensePage={true}
+            formRef={formRef}
+            groupid={groupid}
             expenseData={currentExpense}
             phase={phase}
             setPhase={setPhase}

@@ -1,9 +1,13 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 //import data
-import { useGroup, useExpense, useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
+import {
+  useGroup,
+  useExpense,
+  useAllContext,
+} from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   ExtendedGroup,
@@ -11,7 +15,10 @@ import {
 } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopExpenseSettingBar } from '@/app/ui/shareComponents/TopBars';
-import { GroupInfoBar, NextStepButton } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingDetails';
+import {
+  GroupInfoBar,
+  NextStepButton,
+} from '@/app/ui/group/expense/editAndAdd/ExpenseSettingDetails';
 import { ExpenseSettingStepOne } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepOne';
 import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepTwo';
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
@@ -26,6 +33,7 @@ export default function Page() {
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);
   const [currentExpense, setCurrentExpense] = useState<ExtendedExpense | Expense>(expense);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (expense) {
@@ -34,7 +42,7 @@ export default function Page() {
   }, [expense]);
 
   return (
-    <form method="post" action={`/group/${groupid}/expense/${expenseid}`}>
+    <form ref={formRef} method="post" action={`/group/${groupid}/expense/${expenseid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           isAddPage={false}
@@ -45,9 +53,7 @@ export default function Page() {
           hintword="編輯費用"
           cancelLink={`/group/${groupid}/expense/${expenseid}`}
         />
-        {expense &&
-        (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
-          expense.payerId?.includes(loginUserId || '')) ? (
+        {expense ? (
           <>
             <GroupInfoBar expenseData={currentExpense} group={group} />
             <section>
@@ -74,9 +80,12 @@ export default function Page() {
             </section>
             <section>
               <NextStepButton
-                expenseData={currentExpense}
+                isAddExpensePage={false}
+                formRef={formRef}
                 phase={phase}
                 setPhase={setPhase}
+                groupid={groupid}
+                expenseData={currentExpense}
                 isNotEqual={isNotEqual}
                 setIsNotEqual={setIsNotEqual}
                 isNotZero={true}

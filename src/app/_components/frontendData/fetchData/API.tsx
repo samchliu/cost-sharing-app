@@ -1,3 +1,5 @@
+import { ExtendedExpense, Group } from "../sharedFunction/types";
+
 //login
 async function login(accessToken: string) {
   let body = {
@@ -21,9 +23,9 @@ async function login(accessToken: string) {
   return data;
 }
 
-//new group API
-async function getGroup(id: any) {
-  const res = await fetch(`/api/group/${id}`, {
+//get user
+async function getUser(id: string) {
+  const res = await fetch(`/api/user/${id}`, {
     method: 'GET',
     cache: 'no-store',
   });
@@ -33,12 +35,12 @@ async function getGroup(id: any) {
   return data;
 }
 
-//new user API
-async function getUser(id: string) {
-  const res = await fetch(`/api/user/${id}`,  {
-        method: 'GET',
-        cache: 'no-store',
-      });
+//get group
+async function getGroup(id: string) {
+  const res = await fetch(`/api/group/${id}`, {
+    method: 'GET',
+    cache: 'no-store',
+  });
 
   const data = await res.json();
 
@@ -58,7 +60,7 @@ async function getExpense(groupId: string, expenseId: string) {
 }
 
 //add group
-async function addGroup(payload: any) {
+async function addGroup(payload: Group) {
   const { name, picture, users } = payload;
 
   let url = `/api/group`;
@@ -84,38 +86,110 @@ async function addGroup(payload: any) {
     throw new Error(errorText);
   }
 
-  console.log('建立成功！')
+  console.log('建立成功！');
 }
 
-// delete group
-async function deleteGroup(id: any) {
-  let url = `/api/group/${id}`;
+//add expense
+async function addExpense(payload: ExtendedExpense) {
+  const { groupId, name, category, amount, date, note, payerId, sharers } = payload;
 
-  const res = await fetch(url, { method: 'DELETE' });
+  let url = `/api/group/${groupId}/expense`;
 
-  if (!res.ok) throw Error;
+  let body = {
+    name: name,
+    category: category,
+    amount: amount,
+    date: date,
+    note: note,
+    payerId: payerId,
+    sharers: sharers,
+  };
+
+  console.log('Request Body:', JSON.stringify(body));
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('建立成功！');
 }
 
 // change group
-// async function changeGroup(payload: any) {
-//   const { id, users } = payload;
-//   let url = `http://localhost:3001/group/${id}`;
 
-//   let body = {
-//     ...payload,
-//     users: users,
-//   };
 
-//   const res = await fetch(url, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(body),
-//     cache: 'no-store',
-//   });
+//change expense
+async function changeExpense(payload: ExtendedExpense) {
+  const { groupId, id, name, category, amount, date, note, payerId, sharers } = payload;
+  let url = `/api/group/${groupId}/expense/${id}`;
 
-//   if (!res.ok) throw Error;
-// }
+  let body = {
+    name: name,
+    category: category,
+    amount: amount,
+    date: date,
+    note: note,
+    payerId: payerId,
+    sharers: sharers,
+  };
 
-export { login, getGroup, getUser, getExpense, addGroup };
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('更改成功！');
+}
+
+// delete user
+async function deleteUser(groupId: string, userId:string) {
+  let url = `/api/group/${groupId}/user/${userId}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+// delete group
+async function deleteGroup(id: string) {
+  let url = `/api/group/${id}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+// delete expense
+async function deleteExpense(groupId: string, expenseId: string) {
+  let url = `/api/group/${groupId}/expense/${expenseId}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+export {
+  login,
+  getUser,
+  getGroup,
+  getExpense,
+  addGroup,
+  addExpense,
+  changeExpense,
+  deleteUser,
+  deleteGroup,
+  deleteExpense,
+};
