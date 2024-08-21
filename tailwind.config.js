@@ -91,7 +91,7 @@ module.exports = {
         100: '100',
       },
       content: {
-        checkWhiteIcon: 'url("../../../public/icons/checkWhite.svg")',
+        checkWhiteIcon: 'url("../../../public/images/icons/checkWhite.svg")',
       },
     },
     screens: {

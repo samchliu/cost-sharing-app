@@ -5,20 +5,14 @@ import { useState, useRef } from 'react';
 //import ui
 import { AddUserIcon } from '@/app/ui/shareComponents/Icons';
 import NameModal from '@/app/ui/shareComponents/NameModal';
+import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 
-export default function AddUserButton({
-  groupData,
-  setCurrentGroup,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-}) {
-  const {
-    users,
-  }: {
-    users: any;
-  } = groupData;
+interface Props {
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+}
 
+export default function AddUserButton({ groupData, setCurrentGroup }: Props) {
   const [currentGroupUserName, setCurrentGroupUserName] = useState('');
   const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
   const [isShow, setIsShow] = useState(false);
@@ -50,10 +44,10 @@ export default function AddUserButton({
     let newGroup = {
       ...groupData,
       users: [
-        ...users,
+        ...(groupData.users as []),
         {
           name: currentGroupUserName,
-          picture: '',
+          picture: '/images/icons/newUserBG.svg',
         },
       ],
     };
@@ -65,7 +59,10 @@ export default function AddUserButton({
 
   return (
     <>
-      <div onClick={toggleDialog} className="flex cursor-pointer items-center gap-4">
+      <div
+        onClick={toggleDialog}
+        className="flex cursor-pointer items-center gap-4"
+      >
         <div className="relative flex h-11 w-11 items-center justify-center rounded-full">
           <div className="absolute left-[13px]">
             <AddUserIcon />

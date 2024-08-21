@@ -2,6 +2,16 @@
 import clsx from 'clsx';
 import { TopBar } from '@/app/ui/shareComponents/TopBars';
 
+interface Prop {
+  isShow: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClose: () => void;
+  handleSave: () => void;
+  TopBarName: string;
+  inputRef: React.Ref<HTMLInputElement>;
+  currentValue: string;
+}
+
 export default function NameModal({
   isShow,
   handleChange,
@@ -10,15 +20,7 @@ export default function NameModal({
   TopBarName,
   inputRef,
   currentValue,
-}: {
-  isShow: boolean;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClose: () => void;
-  handleSave: () => void;
-  TopBarName: string;
-  inputRef: React.Ref<HTMLInputElement>;
-  currentValue: string;
-}) {
+}: Prop) {
   return (
     <>
       <div

@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 //import data
-import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
@@ -16,6 +15,7 @@ import {
 import { BackArrowIcon } from '@/app/ui/shareComponents/Icons';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const { groupid } = useParams<{ groupid: string }>();
   const group = useGroup(groupid);
   const [currentGroup, setCurrentGroup] = useState<ExtendedGroup>(group);

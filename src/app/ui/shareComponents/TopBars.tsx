@@ -1,7 +1,7 @@
 //import from next
 import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedGroup,
   ExtendedExpense,
@@ -50,12 +50,14 @@ interface TopBarProps {
 }
 
 export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
+  const { loginUserId } = useAllContext();
+
   const hasGroupData = Boolean(groupData);
   const isUserInGroup = hasGroupData && groupData.users?.some((user) => user.id === loginUserId);
 
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <div className="flex h-6 w-6">
+      <div className="flex h-6 w-6 items-center justify-center">
         {isBalancePage && hasGroupData ? (
           <Link href={`/group/${groupData.id}`} className="flex">
             <BackArrowIcon />
@@ -87,6 +89,8 @@ export function TopGroupSettingBar({
   leftCancelLink,
   rightCancelLink,
 }: TopGroupSettingBarProps) {
+  const { loginUserId } = useAllContext();
+
   const shouldRender =
     groupData && (isAddPage || groupData.users?.some((user) => user.id === loginUserId));
 
@@ -112,6 +116,7 @@ export function TopGroupSettingBar({
 }
 
 export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
+  const { loginUserId } = useAllContext();
   const id = groupData ? groupData.id : '';
 
   return (
@@ -120,16 +125,11 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
         <HomeIcon />
       </Link>
       <h1 className="text-lg">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId))
-          ? '費用明細'
+        {expenseData ? '費用明細'
           : ''}
       </h1>
       <div className="h-6 w-6">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+        {expenseData ? (
           <Link
             href={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
@@ -154,30 +154,28 @@ export function TopExpenseSettingBar({
   hintword,
   cancelLink,
 }: TopExpenseSettingBarProps) {
+  const { loginUserId } = useAllContext();
+
   function handleClick() {
     if (phase === 1) return;
     setPhase(phase - 1);
     console.log(phase);
   }
 
-  const shouldRender =
-    expenseData &&
-    group &&
-    (isAddPage ||
-      expenseData.payerId === loginUserId ||
-      expenseData.sharers?.some((sharer) => sharer.id === loginUserId));
+  const shouldRender = expenseData && group;
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="flex h-6 w-12 items-center justify-start">
-        <div
+        <button
+          type="button"
           onClick={handleClick}
           className={clsx('cursor-pointer text-sm', {
             hidden: phase === 1,
           })}
         >
           上一步
-        </div>
+        </button>
       </div>
       <h1 className="text-lg">{shouldRender && hintword}</h1>
       <div className="flex h-6 w-12 items-center justify-end">

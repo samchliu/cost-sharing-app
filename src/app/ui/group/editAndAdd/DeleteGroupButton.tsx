@@ -1,8 +1,11 @@
+'use client'
 //import from next & react
 import { useId, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
+import { deleteGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
@@ -13,6 +16,8 @@ interface Props {
 }
 
 export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props) {
+  const { loginUserId } = useAllContext();
+  const router = useRouter();
   const isAdmin = groupData.creatorId === loginUserId;
   const [isShow, setIsShow] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -36,14 +41,14 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
     }, 100);
   };
 
-  const handleDeleteGroup = () => {
-    console.log('delete Group!');
-
-    setIsShow(false);
-    setTimeout(() => {
-      dialogRef.current?.close();
-    }, 100);
-  };
+  async function handleDeleteGroup(id: string) {
+    try {
+      await deleteGroup(id);
+      router.push(`/groups`);
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
+    }
+  }
 
   const handleLeaveGroup = (id: string) => {
     let currentGroupUsers = [...users];
@@ -81,7 +86,7 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           isShow={isShow}
           headerId={headerId}
           handleClose={handleClose}
-          handleSave={handleDeleteGroup}
+          handleSave={() => handleDeleteGroup(groupData.id || '')}
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
           idx={`deleteGroup${loginUserId}`}
         />
@@ -92,7 +97,7 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           isShow={isShow}
           headerId={headerId}
           handleClose={handleClose}
-          handleSave={() => handleLeaveGroup(loginUserId)}
+          handleSave={() => handleLeaveGroup(loginUserId || '')}
           hintWord="確定要離開群組嗎？"
           idx={`leaveGroup${loginUserId}`}
         />

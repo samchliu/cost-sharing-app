@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
 import {
   Sharer,
@@ -16,22 +16,20 @@ import { GreaterThanIcon, expenseIconMap } from '@/app/ui/shareComponents/Icons'
 import { format } from 'date-fns';
 
 export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }) {
-  let { expensesWithDebts } = filterExpense(
-    groupData.expenses
-      ? groupData.expenses
-      : [
-          {
-            id: '',
-            name: '',
-            amount: 0,
-            date: '',
-            category: 'food',
-            payerId: '',
-            sharers: [],
-            note: '',
-          },
-        ]
-  );
+  const { loginUserId } = useAllContext();
+  const fetchExpenses = groupData.expenses || [
+    {
+      id: '',
+      name: '',
+      amount: 0,
+      date: '',
+      category: 'food',
+      payerId: '',
+      sharers: [],
+      note: '',
+    },
+  ];
+  let { expensesWithDebts } = filterExpense(fetchExpenses, loginUserId);
   let groupId = groupData?.id ? groupData?.id : '';
   let users = groupData?.users
     ? groupData?.users
@@ -44,7 +42,7 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
         },
       ];
   let expenses = expensesWithDebts;
-  // Step 1: Group expenses by date
+
   const groupedExpenses = expenses.reduce(
     (acc: { [date: string]: ExtendedExpense[] }, expense: ExtendedExpense) => {
       const date = expense.date;
@@ -57,9 +55,12 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
     {}
   );
 
-  // Step 2: Render expenses grouped by date
   const renderExpensesByDate = () => {
-    return Object.keys(groupedExpenses).map((date, index) => {
+    const sortedDates: string[] = Object.keys(groupedExpenses).sort(
+      (a: string, b: string) => new Date(a).getTime() - new Date(b).getTime()
+    );
+
+    return sortedDates.map((date, index) => {
       let formateDate: Date | string = new Date(date);
       formateDate = format(formateDate, 'yyyy/MM/dd');
 
@@ -72,10 +73,7 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
           ) : null}
           {groupedExpenses[date].map((expense: ExtendedExpense) => (
             <Fragment key={expense.id}>
-              {expense.sharers.some((sharer: Sharer) => sharer.id === loginUserId) ||
-              expense.payerId.includes(loginUserId) ? (
-                <ExpenseButton users={users} expense={expense} groupId={groupId} />
-              ) : null}
+              <ExpenseButton users={users} expense={expense} groupId={groupId} />
             </Fragment>
           ))}
         </div>
@@ -95,6 +93,7 @@ function ExpenseButton({
   expense: ExtendedExpense;
   groupId: string;
 }) {
+  const { loginUserId } = useAllContext();
   const { id, name, amount, category, payerId, expenseDebt } = expense;
 
   const payerData = users.filter((user: GroupUser) => user.id === payerId)[0];

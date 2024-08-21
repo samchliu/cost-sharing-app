@@ -2,10 +2,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 
 export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
+  const { loginUserId } = useAllContext();
   let frontUsers = [];
 
   if (groupData.users && groupData.users.length > 5) {
@@ -65,6 +66,7 @@ function UserBarImage({ user }: { user: GroupUser }) {
               height={200}
               alt={user.name}
               className="h-11 w-11 max-w-full rounded-full border-none object-cover align-middle shadow"
+              priority
             />
           ) : (
             <div className="h-11 w-11 max-w-full rounded-full border-none bg-neutrals-20 object-cover align-middle shadow"></div>

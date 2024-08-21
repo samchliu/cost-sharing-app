@@ -1,23 +1,11 @@
-
-//new group API
-async function getGroup(id: any) {
-  const res = await fetch(`http://localhost:3001/group/${id}`, {
-    cache: 'no-store',
-  });
-
-  if (!res.ok) throw Error;
-
-  const data = await res.json();
-
-  return data;
-}
+import { ExtendedExpense, Group } from "../sharedFunction/types";
 
 //login
 async function login(accessToken: string) {
   let body = {
-    accessToken: accessToken
+    accessToken: accessToken,
   };
-  
+
   const res = await fetch(`/api/auth/login`, {
     method: 'POST',
     headers: {
@@ -27,7 +15,7 @@ async function login(accessToken: string) {
     body: JSON.stringify(body),
     cache: 'no-store',
   });
-console.log(accessToken);
+  console.log(accessToken);
   if (!res.ok) throw Error;
 
   const data = await res.json();
@@ -35,26 +23,24 @@ console.log(accessToken);
   return data;
 }
 
-//new user API
-// async function getUser(id: string) {
-//   const res = await fetch(`/api/user/${id}`, {
-//     method: 'GET',
-//     // cache: 'no-store',
-//   });
-
-//   if (!res.ok) throw Error;
-
-//   const data = await res.json();
-
-//   return data;
-// }
-
-async function getUser(id: any) {
-  const res = await fetch(`http://localhost:3001/user/${id}`, {
+//get user
+async function getUser(id: string) {
+  const res = await fetch(`/api/user/${id}`, {
+    method: 'GET',
     cache: 'no-store',
   });
 
-  if (!res.ok) throw Error;
+  const data = await res.json();
+
+  return data;
+}
+
+//get group
+async function getGroup(id: string) {
+  const res = await fetch(`/api/group/${id}`, {
+    method: 'GET',
+    cache: 'no-store',
+  });
 
   const data = await res.json();
 
@@ -62,12 +48,11 @@ async function getUser(id: any) {
 }
 
 //get expense
-async function getExpense(id: any) {
-  const res = await fetch(`http://localhost:3001/expense/${id}`, {
+async function getExpense(groupId: string, expenseId: string) {
+  const res = await fetch(`/api/group/${groupId}/expense/${expenseId}`, {
+    method: 'GET',
     cache: 'no-store',
   });
-
-  if (!res.ok) throw Error;
 
   const data = await res.json();
 
@@ -75,16 +60,17 @@ async function getExpense(id: any) {
 }
 
 //add group
-async function addGroup(payload: any) {
-  const { id, users, expense } = payload;
-  let url = `http://localhost:3001/group/`;
+async function addGroup(payload: Group) {
+  const { name, picture, users } = payload;
+
+  let url = `/api/group`;
 
   let body = {
-    id: id,
+    name: name,
+    picture: picture,
     users: users,
-    expense: expense,
   };
-
+  console.log('Request Body:', JSON.stringify(body));
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -94,26 +80,66 @@ async function addGroup(payload: any) {
     cache: 'no-store',
   });
 
-  if (!res.ok) throw Error;
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('建立成功！');
 }
 
-// delete group
-async function deleteGroup(id: any) {
-  let url = `http://localhost:3001/group/${id}`;
+//add expense
+async function addExpense(payload: ExtendedExpense) {
+  const { groupId, name, category, amount, date, note, payerId, sharers } = payload;
 
-  const res = await fetch(url, { method: 'DELETE' });
+  let url = `/api/group/${groupId}/expense`;
 
-  if (!res.ok) throw Error;
+  let body = {
+    name: name,
+    category: category,
+    amount: amount,
+    date: date,
+    note: note,
+    payerId: payerId,
+    sharers: sharers,
+  };
+
+  console.log('Request Body:', JSON.stringify(body));
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('建立成功！');
 }
 
 // change group
-async function changeGroup(payload: any) {
-  const { id, users } = payload;
-  let url = `http://localhost:3001/group/${id}`;
+
+
+//change expense
+async function changeExpense(payload: ExtendedExpense) {
+  const { groupId, id, name, category, amount, date, note, payerId, sharers } = payload;
+  let url = `/api/group/${groupId}/expense/${id}`;
 
   let body = {
-    ...payload,
-    users: users,
+    name: name,
+    category: category,
+    amount: amount,
+    date: date,
+    note: note,
+    payerId: payerId,
+    sharers: sharers,
   };
 
   const res = await fetch(url, {
@@ -125,7 +151,45 @@ async function changeGroup(payload: any) {
     cache: 'no-store',
   });
 
-  if (!res.ok) throw Error;
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('更改成功！');
 }
 
-export { getGroup, getUser, getExpense, login };
+// delete user
+async function deleteUser(groupId: string, userId:string) {
+  let url = `/api/group/${groupId}/user/${userId}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+// delete group
+async function deleteGroup(id: string) {
+  let url = `/api/group/${id}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+// delete expense
+async function deleteExpense(groupId: string, expenseId: string) {
+  let url = `/api/group/${groupId}/expense/${expenseId}`;
+
+  const res = await fetch(url, { method: 'DELETE' });
+}
+
+export {
+  login,
+  getUser,
+  getGroup,
+  getExpense,
+  addGroup,
+  addExpense,
+  changeExpense,
+  deleteUser,
+  deleteGroup,
+  deleteExpense,
+};

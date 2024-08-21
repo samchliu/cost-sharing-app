@@ -3,8 +3,7 @@
 import { useParams } from 'next/navigation';
 import { Suspense } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
-import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
+import { useGroup, useExpense, useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   ExtendedGroup,
@@ -21,6 +20,7 @@ import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
 import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);
@@ -38,9 +38,7 @@ export default function Page() {
       <Suspense fallback={<ExpenseSkeleton />}>
         <TopExpenseBar groupData={group} expenseData={expense} />
         {group &&
-        expense &&
-        (expense.sharers?.some((sharer) => sharer.id === loginUserId) ||
-          expense.payerId?.includes(loginUserId)) ? (
+        expense ? (
           <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
             <ExpenseDetailOne expenseData={expense} users={users} />
             <ExpenseDetailTwo expenseData={expense} users={users} />
