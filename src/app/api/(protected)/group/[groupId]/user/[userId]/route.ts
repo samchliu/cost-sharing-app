@@ -69,7 +69,7 @@ export async function DELETE(
       where: { groupId: params.groupId, userId: params.userId },
     });
     if (count === 0) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
-    return NextResponse.json(undefined, { status: 204 });
+    return new NextResponse(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.error();
