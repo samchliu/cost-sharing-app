@@ -13,7 +13,7 @@ const LoginSchema = z.object({
 const UserProfileSchema = z.object({
   userId: z.string(),
   displayName: z.string(),
-  pictureUrl: z.string().url(),
+  pictureUrl: z.string(),
 });
 
 export async function POST(request: NextRequest) {
