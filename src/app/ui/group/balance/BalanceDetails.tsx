@@ -38,19 +38,19 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
       ) : (
         <div className="z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full bg-neutrals-30" />
       )}
-      <div>{user.name}</div>
+      <div className="max-w-[70px] truncate text-sm">{user.name}</div>
     </div>
   );
 
   return (
-    <div className="mx-6 mt-9 flex items-start gap-6">
+    <div className="mx-6 mt-9 flex items-start gap-3">
       <div className="flex grow-0 items-center gap-2">
         <UserProfile user={targetUser} />
       </div>
-      <div className="flex h-[36px] grow-0 items-center justify-center">
-        <span>{totalAmount >= 0 ? '應收款' : '要付給'}</span>
-      </div>
       <div className="flex grow flex-col gap-3">
+        <div className="flex h-[36px] grow-0 items-center text-sm text-neutrals-60">
+          <span>{totalAmount >= 0 ? '應收款' : '要付給'}</span>
+        </div>
         {ownerDebt &&
           Object.entries(ownerDebt).map(([debtUserId, debtAmount]) => {
             const debtUser = getUserProfile(debtUserId);
@@ -60,7 +60,7 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
                 <UserProfile user={debtUser} />
                 <div
                   className={clsx({
-                    'text-highlight-50': debtAmount >= 0,
+                    'text-highlight-35': debtAmount >= 0,
                     'text-highlight-30': debtAmount < 0,
                   })}
                 >

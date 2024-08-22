@@ -42,13 +42,14 @@ export default function SharerExpenseDetail({ expenseData, sharer, users }: Prop
               priority
             />
           ) : null}
-          <div className="ml-3">
-            {id === loginUserId ? '你' : sharerData?.name}
-            &nbsp;要給&nbsp;
-            {payerId === loginUserId ? '你' : payerData?.name}
+          <div className="ml-3 flex">
+            <div className="max-w-[68px] truncate">
+              {id === loginUserId ? '你' : sharerData?.name}
+            </div>
+            <div>&nbsp;應付</div>
           </div>
         </div>
-        <div>${nf.format(shareAmount)}</div>
+        <div className="text-highlight-30">${nf.format(shareAmount)}</div>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { HomeIcon, EditIcon, EditTwoIcon, BackArrowIcon } from '@/app/ui/shareComponents/Icons';
+//import other
 import clsx from 'clsx';
 
 interface TopGroupBarProps {
@@ -68,7 +69,7 @@ export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
           </Link>
         ) : null}
       </div>
-      <h1 className="text-lg">{isUserInGroup ? groupData.name : ''}</h1>
+      <h1 className="max-w-52 truncate text-lg">{isUserInGroup ? groupData.name : ''}</h1>
       <div className="h-6 w-6">
         {!isBalancePage && isUserInGroup && (
           <Link href={`/group/${groupData.id}/edit`} scroll={false}>
@@ -120,14 +121,11 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
   const id = groupData ? groupData.id : '';
 
   return (
-    <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href={`/group/${id}`} className="h-6 w-6">
-        <HomeIcon />
+    <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
+      <Link href={`/group/${id}`} className="flex h-6 w-6 items-center justify-center">
+        <BackArrowIcon />
       </Link>
-      <h1 className="text-lg">
-        {expenseData ? '費用明細'
-          : ''}
-      </h1>
+      <h1 className="text-lg">{expenseData ? '費用明細' : ''}</h1>
       <div className="h-6 w-6">
         {expenseData ? (
           <Link

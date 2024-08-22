@@ -3,7 +3,11 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 //import data
-import { useAllContext, useGroup } from '@/app/_components/frontendData/fetchData/Providers';
+import {
+  useGroup,
+  useAllContext,
+  useUser,
+} from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
@@ -17,8 +21,10 @@ import { BackArrowIcon } from '@/app/ui/shareComponents/Icons';
 export default function Page() {
   const { loginUserId } = useAllContext();
   const { groupid } = useParams<{ groupid: string }>();
+  const loginUserData = useUser(loginUserId || '');
   const group = useGroup(groupid);
   const [currentGroup, setCurrentGroup] = useState<ExtendedGroup>(group);
+  const [groupNameExist, setGroupNameExist] = useState(false);
 
   useEffect(() => {
     if (group) {
@@ -44,20 +50,18 @@ export default function Page() {
         {isUserInGroup && (
           <>
             <GroupNameSetting
+              loginUserData={loginUserData}
               groupData={currentGroup}
               setCurrentGroup={setCurrentGroup}
               isAddPage={false}
+              nameExist={groupNameExist}
+              setNameExist={setGroupNameExist}
             />
             <GroupUsersSetting
               groupData={currentGroup}
               setCurrentGroup={setCurrentGroup}
               isAddPage={false}
-              loginUserData={{
-                id: '',
-                name: '',
-                picture: '',
-                adoptable: false,
-              }}
+              loginUserData={null}
             />
             <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
           </>
