@@ -61,7 +61,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { group
     if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
 
     await prisma.group.delete({ where: { id: params.groupId } });
-    return NextResponse.json(undefined, { status: 204 });
+    return new NextResponse(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
     return NextResponse.error();

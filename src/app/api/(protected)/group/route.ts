@@ -4,11 +4,11 @@ import { z } from 'zod';
 
 const RequestSchema = z.object({
   name: z.string(),
-  picture: z.string().url(),
+  picture: z.string(),
   users: z
     .object({
       name: z.string(),
-      picture: z.string().url(),
+      picture: z.string(),
     })
     .array(),
 });
