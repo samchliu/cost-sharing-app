@@ -3,7 +3,6 @@
 import { useId, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 //import data
-import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedExpense } from '@/app/_components/frontendData/sharedFunction/types';
 import { deleteExpense } from '@/app/_components/frontendData/fetchData/API';
 //import ui
@@ -14,9 +13,8 @@ interface Props {
 }
 
 export default function DeleteExpenseButton({ expenseData }: Props) {
-  const { loginUserId } = useAllContext();
   const router = useRouter();
-  const { id, payerId, sharers, groupId } = expenseData;
+  const { id, groupId } = expenseData;
 
   const [isShow, setIsShow] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -52,7 +50,7 @@ export default function DeleteExpenseButton({ expenseData }: Props) {
         <>
           <div
             onClick={handleToggle}
-            className="mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-neutrals-60"
+            className="mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-sm text-neutrals-60"
           >
             刪除費用
           </div>

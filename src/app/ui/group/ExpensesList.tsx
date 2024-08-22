@@ -5,7 +5,6 @@ import { Fragment } from 'react';
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { filterExpense } from '@/app/_components/frontendData/sharedFunction/totalDebts';
 import {
-  Sharer,
   ExtendedExpense,
   GroupUser,
   ExtendedGroup,
@@ -69,7 +68,7 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
           {groupedExpenses[date].find(
             (expense: ExtendedExpense) => expense.expenseDebt !== undefined
           ) ? (
-            <p className="mx-8 mb-3 text-sm text-grey-500">{formateDate}</p>
+            <div className="mx-8 mb-3 text-sm text-grey-500">{formateDate}</div>
           ) : null}
           {groupedExpenses[date].map((expense: ExtendedExpense) => (
             <Fragment key={expense.id}>
@@ -111,22 +110,24 @@ function ExpenseButton({
           {Icon ? <Icon strokeWidth={1} /> : null}
         </div>
         <div className="leading-[20px]">
-          <p className="font-normal">{name}</p>
-          <p className="font-base text-sm text-grey-500">
-            <span>{loginUserId === payerId ? '你' : payerData?.name}</span>
-            付了
-            <span>${nf.format(Number(amount))}</span>
-          </p>
+          <div className="max-w-[150px] truncate font-normal">{name}</div>
+          <div className="font-base flex text-sm text-grey-500">
+            <div className="max-w-[60px] truncate">
+              {loginUserId === payerId ? '你' : payerData?.name}
+            </div>
+            <div>付了</div>
+            <div>${nf.format(Number(amount))}</div>
+          </div>
         </div>
       </div>
 
       <div className="flex items-center gap-2">
         {expenseDebt?.includes('-') ? (
-          <p className="text-[15px] text-highlight-30">
+          <div className="text-[15px] text-highlight-30">
             -${nf.format(Math.abs(Number(expenseDebt)))}
-          </p>
+          </div>
         ) : (
-          <p className="text-[15px] text-highlight-50">+${nf.format(Number(expenseDebt))}</p>
+          <div className="text-highlight-35 text-[15px]">+${nf.format(Number(expenseDebt))}</div>
         )}
         <GreaterThanIcon />
       </div>

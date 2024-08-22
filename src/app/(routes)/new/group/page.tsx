@@ -20,7 +20,8 @@ export default function Page() {
     picture: '/images/icons/groupIcon01.svg',
     users: [],
   });
-const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [nameExist, setNameExist] = useState(false);
 
   return (
     <form ref={formRef} method="post" action={`/groups`}>
@@ -35,9 +36,12 @@ const formRef = useRef<HTMLFormElement>(null);
           rightCancelLink={`/groups`}
         />
         <GroupNameSetting
+          loginUserData={data}
           groupData={currentGroup}
           setCurrentGroup={setCurrentGroup}
           isAddPage={true}
+          nameExist={nameExist}
+          setNameExist={setNameExist}
         />
         <GroupUsersSetting
           groupData={currentGroup}
@@ -45,7 +49,7 @@ const formRef = useRef<HTMLFormElement>(null);
           isAddPage={true}
           loginUserData={data}
         />
-        <GroupSave groupData={currentGroup} formRef={formRef} />
+        <GroupSave groupData={currentGroup} formRef={formRef} nameExist={nameExist} />
       </div>
     </form>
   );

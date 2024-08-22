@@ -22,6 +22,8 @@ export default function Page() {
   const [isNotEqual, setIsNotEqual] = useState(false);
   const [isNotZero, setIsNotZero] = useState(false);
   const [isIncorrectTotalNum, setisIncorrectTotalNum] = useState<boolean>(false);
+  const [nameExist, setNameExist] = useState<boolean>(false);
+  const [hasNameLength, setHasNameLength] = useState<boolean>(true);
 
   const group = useGroup(groupid);
   const [currentExpense, setCurrentExpense] = useState<Expense>({
@@ -61,6 +63,10 @@ export default function Page() {
             setCurrentExpense={setCurrentExpense}
             phase={phase}
             setisIncorrectTotalNum={setisIncorrectTotalNum}
+            nameExist={nameExist}
+            setNameExist={setNameExist}
+            hasNameLength={hasNameLength}
+            setHasNameLength={setHasNameLength}
           />
           <ExpenseSettingStepTwo
             expenseData={currentExpense}
@@ -88,6 +94,8 @@ export default function Page() {
             setIsNotEqual={setIsNotEqual}
             isNotZero={true}
             isIncorrectTotalNum={isIncorrectTotalNum}
+            nameExist={nameExist}
+            hasNameLength={hasNameLength}
           />
         </section>
       </div>

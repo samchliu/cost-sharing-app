@@ -2,20 +2,24 @@
 //import from next & react
 import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
+//import data
+import { ExtendedGroup, LoginUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { AddUserIcon } from '@/app/ui/shareComponents/Icons';
 import NameModal from '@/app/ui/shareComponents/NameModal';
-import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 
 interface Props {
   groupData: ExtendedGroup;
   setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+  loginUserData: LoginUser | null;
 }
 
-export default function AddUserButton({ groupData, setCurrentGroup }: Props) {
+export default function AddUserButton({ groupData, setCurrentGroup, loginUserData }: Props) {
   const [currentGroupUserName, setCurrentGroupUserName] = useState('');
-  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
-  const [isShow, setIsShow] = useState(false);
+  const [lastSavedGroup, setLastSavedGroup] = useState<ExtendedGroup>(groupData);
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const [nameExist, setNameExist] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -29,40 +33,63 @@ export default function AddUserButton({ groupData, setCurrentGroup }: Props) {
     router.refresh();
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    groupData: ExtendedGroup,
+    loginUserData: LoginUser | null
+  ) => {
+    const userExists =
+      groupData.users?.some((user) => user.name === e.target.value) ||
+      loginUserData?.name === e.target.value;
+
+    if (userExists) {
+      setNameExist(true);
+    } else {
+      setNameExist(false);
+    }
+
     console.log(e.target.value);
     setCurrentGroupUserName(e.target.value);
   };
 
   const handleClose = () => {
-    setCurrentGroup(lastSavedGroup);
+    setCurrentGroupUserName('');
     setIsShow(false);
+    setNameExist(false);
     router.refresh();
   };
 
-  const handleSave = () => {
-    let newGroup = {
-      ...groupData,
-      users: [
-        ...(groupData.users as []),
-        {
-          name: currentGroupUserName,
-          picture: '/images/icons/newUserBG.svg',
-        },
-      ],
-    };
-    setCurrentGroup(newGroup);
-    setLastSavedGroup(newGroup);
-    setIsShow(false);
-    setCurrentGroupUserName('');
+  const handleSave = (
+    targetUserName: string,
+    groupData: ExtendedGroup,
+    loginUserData: LoginUser | null
+  ) => {
+    const userExists =
+      groupData.users?.some((user) => user.name === targetUserName) ||
+      loginUserData?.name === targetUserName;
+    if (userExists) {
+      return;
+    } else {
+      let newGroup = {
+        ...groupData,
+        users: [
+          ...(groupData.users as []),
+          {
+            name: currentGroupUserName,
+            picture: '/images/icons/newUserBG.svg',
+          },
+        ],
+      };
+      setCurrentGroup(newGroup);
+      setLastSavedGroup(newGroup);
+      setIsShow(false);
+      setCurrentGroupUserName('');
+    }
   };
 
   return (
     <>
-      <div
-        onClick={toggleDialog}
-        className="flex cursor-pointer items-center gap-4"
-      >
+      <div onClick={toggleDialog} className="flex cursor-pointer items-center gap-4">
         <div className="relative flex h-11 w-11 items-center justify-center rounded-full">
           <div className="absolute left-[13px]">
             <AddUserIcon />
@@ -72,12 +99,13 @@ export default function AddUserButton({ groupData, setCurrentGroup }: Props) {
       </div>
       <NameModal
         isShow={isShow}
-        handleChange={handleChange}
+        handleChange={(e) => handleChange(e, groupData, loginUserData || null)}
         handleClose={handleClose}
-        handleSave={handleSave}
+        handleSave={() => handleSave(currentGroupUserName, groupData, loginUserData || null)}
         TopBarName="成員名稱"
         inputRef={inputRef}
         currentValue={currentGroupUserName}
+        nameExist={nameExist}
       />
     </>
   );

@@ -3,22 +3,35 @@
 import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 //import data
-import { Group } from '@/app/_components/frontendData/sharedFunction/types';
+import {
+  ExtendedGroup,
+  Group,
+  LoginUser,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
-export default function EditGroupNameButton({
-  groupData,
-  setCurrentGroup,
-}: {
+interface Props {
+  loginUserData: LoginUser;
   groupData: Group;
   setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
-}) {
+  nameExist: boolean;
+  setNameExist: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function EditGroupNameButton({
+  loginUserData,
+  groupData,
+  setCurrentGroup,
+  nameExist,
+  setNameExist,
+}: Props) {
   const { name } = groupData;
 
   const [currentName, setCurrentName] = useState<string>(name);
   const [lastSavedName, setLastSavedName] = useState<string>(currentName);
   const [isShow, setIsShow] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -32,7 +45,21 @@ export default function EditGroupNameButton({
     router.refresh();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    loginUserData: LoginUser,
+    groupData: ExtendedGroup
+  ) => {
+    const groupExists =
+      groupData.name !== e.target.value &&
+      loginUserData.groups.some((group) => group.name === e.target.value);
+
+    if (groupExists) {
+      setNameExist(true);
+    } else {
+      setNameExist(false);
+    }
+
     console.log(e.target.value);
     setCurrentName(e.target.value);
   };
@@ -40,16 +67,31 @@ export default function EditGroupNameButton({
   const handleClose = () => {
     setCurrentName(lastSavedName);
     setIsShow(false);
+    setNameExist(false);
     router.refresh();
   };
 
-  const handleSave = () => {
-    setLastSavedName(currentName);
-    setCurrentGroup({
-      ...groupData,
-      name: currentName,
-    });
-    setIsShow(false);
+  const handleSave = (
+    targetUserName: string,
+    loginUserData: LoginUser,
+    groupData: ExtendedGroup
+  ) => {
+    const groupExists =
+      groupData.name !== targetUserName &&
+      loginUserData.groups.some((group) => group.name === targetUserName);
+
+    if (groupExists) {
+      setNameExist(true);
+      return;
+    } else {
+      setNameExist(false);
+      setLastSavedName(targetUserName);
+      setCurrentGroup({
+        ...groupData,
+        name: targetUserName,
+      });
+      setIsShow(false);
+    }
   };
 
   return (
@@ -59,12 +101,13 @@ export default function EditGroupNameButton({
       </div>
       <NameModal
         isShow={isShow}
-        handleChange={handleChange}
+        handleChange={(e) => handleChange(e, loginUserData, groupData)}
         handleClose={handleClose}
-        handleSave={handleSave}
+        handleSave={() => handleSave(currentName, loginUserData, groupData)}
         TopBarName="群組名稱"
         inputRef={inputRef}
         currentValue={currentName}
+        nameExist={nameExist}
       />
     </div>
   );

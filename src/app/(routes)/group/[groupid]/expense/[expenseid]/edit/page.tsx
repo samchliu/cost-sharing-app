@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from 'react';
 import {
   useGroup,
   useExpense,
-  useAllContext,
 } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
@@ -24,11 +23,12 @@ import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/Expense
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
 
 export default function Page() {
-  const { loginUserId } = useAllContext();
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
   const [phase, setPhase] = useState<number>(1);
   const [isNotEqual, setIsNotEqual] = useState<boolean>(false);
   const [isIncorrectTotalNum, setisIncorrectTotalNum] = useState<boolean>(false);
+  const [nameExist, setNameExist] = useState<boolean>(false);
+  const [hasNameLength, setHasNameLength] = useState<boolean>(true);
 
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);
@@ -63,6 +63,10 @@ export default function Page() {
                 setCurrentExpense={setCurrentExpense}
                 phase={phase}
                 setisIncorrectTotalNum={setisIncorrectTotalNum}
+                nameExist={nameExist}
+                setNameExist={setNameExist}
+                hasNameLength={hasNameLength}
+                setHasNameLength={setHasNameLength}
               />
               <ExpenseSettingStepTwo
                 expenseData={currentExpense}
@@ -90,6 +94,8 @@ export default function Page() {
                 setIsNotEqual={setIsNotEqual}
                 isNotZero={true}
                 isIncorrectTotalNum={isIncorrectTotalNum}
+                nameExist={nameExist}
+                hasNameLength={hasNameLength}
               />
             </section>
           </>
