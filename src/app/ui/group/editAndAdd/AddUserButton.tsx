@@ -4,19 +4,25 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 //import data
 import { ExtendedGroup, LoginUser } from '@/app/_components/frontendData/sharedFunction/types';
+import { addGroupUser } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { AddUserIcon } from '@/app/ui/shareComponents/Icons';
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
 interface Props {
+  isAddPage: boolean;
   groupData: ExtendedGroup;
   setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
   loginUserData: LoginUser | null;
 }
 
-export default function AddUserButton({ groupData, setCurrentGroup, loginUserData }: Props) {
+export default function AddUserButton({
+  isAddPage,
+  groupData,
+  setCurrentGroup,
+  loginUserData,
+}: Props) {
   const [currentGroupUserName, setCurrentGroupUserName] = useState('');
-  const [lastSavedGroup, setLastSavedGroup] = useState<ExtendedGroup>(groupData);
   const [isShow, setIsShow] = useState<boolean>(false);
   const [nameExist, setNameExist] = useState<boolean>(false);
 
@@ -48,7 +54,6 @@ export default function AddUserButton({ groupData, setCurrentGroup, loginUserDat
       setNameExist(false);
     }
 
-    console.log(e.target.value);
     setCurrentGroupUserName(e.target.value);
   };
 
@@ -59,7 +64,7 @@ export default function AddUserButton({ groupData, setCurrentGroup, loginUserDat
     router.refresh();
   };
 
-  const handleSave = (
+  const handleSave = async (
     targetUserName: string,
     groupData: ExtendedGroup,
     loginUserData: LoginUser | null
@@ -70,7 +75,7 @@ export default function AddUserButton({ groupData, setCurrentGroup, loginUserDat
     if (userExists) {
       return;
     } else {
-      let newGroup = {
+      let newGroupData = {
         ...groupData,
         users: [
           ...(groupData.users as []),
@@ -80,8 +85,20 @@ export default function AddUserButton({ groupData, setCurrentGroup, loginUserDat
           },
         ],
       };
-      setCurrentGroup(newGroup);
-      setLastSavedGroup(newGroup);
+      setCurrentGroup(newGroupData);
+
+      if (!isAddPage) {
+        try {
+          let newGroupUserData = {
+            name: currentGroupUserName,
+            picture: '/images/icons/newUserBG.svg',
+          };
+          await addGroupUser({ ...newGroupUserData, groupId: groupData.id || '' });
+        } catch (error) {
+          console.error('API 呼叫失敗:', error);
+        }
+      }
+
       setIsShow(false);
       setCurrentGroupUserName('');
     }

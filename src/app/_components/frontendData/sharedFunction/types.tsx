@@ -58,6 +58,10 @@ export interface ExtendedExpense extends Expense {
   creatorId?: string;
   createAt?: string;
   updateAt?: string;
+  historys?: {
+    editedAt: string;
+    editorId: string;
+  }[];
 }
 
 export interface Sharer {

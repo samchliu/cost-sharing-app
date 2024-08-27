@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 //import data
 import { Group } from '@/app/_components/frontendData/sharedFunction/types';
+import { changeGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { CameraIcon } from '@/app/ui/shareComponents/Icons';
 //import other
@@ -14,9 +15,10 @@ import { TopBar } from '@/app/ui/shareComponents/TopBars';
 interface Props {
   groupData: Group;
   setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
+  isAddPage: boolean;
 }
 
-export default function GroupPictureButton({ groupData, setCurrentGroup }: Props) {
+export default function GroupPictureButton({ groupData, setCurrentGroup, isAddPage }: Props) {
   const { picture } = groupData;
   const [currentPicture, setCurrentPicture] = useState<string>(picture);
   const [lastSavedPicture, setLastSavedPicture] = useState<string>(currentPicture);
@@ -57,12 +59,26 @@ export default function GroupPictureButton({ groupData, setCurrentGroup }: Props
     router.refresh();
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setLastSavedPicture(currentPicture);
     setCurrentGroup({
       ...groupData,
       picture: currentPicture,
     });
+
+    if (!isAddPage) {
+      try {
+        let newGroupData = {
+          id: groupData.id,
+          name: groupData.name,
+          picture: currentPicture,
+        };
+        await changeGroup(newGroupData);
+      } catch (error) {
+        console.error('API 呼叫失敗:', error);
+      }
+    }
+
     setIsShow(false);
   };
 

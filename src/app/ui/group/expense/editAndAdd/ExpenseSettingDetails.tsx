@@ -71,7 +71,7 @@ export function NextStepButton({
   isNotZero,
   isIncorrectTotalNum,
   nameExist,
-  hasNameLength,
+  hasNameLength
 }: NextStepButtonProps) {
   const expenseId = expenseData && 'id' in expenseData ? expenseData.id : '';
 
@@ -89,9 +89,6 @@ export function NextStepButton({
   function handleClick(e: React.SyntheticEvent, expenseId: string) {
     e.preventDefault();
     setPhase(phase + 1);
-    console.log(`phase ${phase} of expense ${expenseId}`);
-
-    console.log(expenseData);
   }
 
   async function handleSubmit(
@@ -118,10 +115,8 @@ export function NextStepButton({
         await addExpense(payload);
       } else {
         await changeExpense({ ...payload, id: expenseid });
-        console.log('expense page edited!');
       }
 
-      console.log(expense);
       if (formRef.current) {
         formRef.current.submit();
       }

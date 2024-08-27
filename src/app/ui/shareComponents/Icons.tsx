@@ -249,7 +249,9 @@ function LeaveIcon() {
 }
 
 function BackArrowIcon() {
-  return <Image className="h-6 w-[8px]" width={20} height={20} src={backArrowIcon} alt="" />;
+  return (
+    <Image className="h-6 w-[8px]" width={20} height={20} src={backArrowIcon} alt="" priority />
+  );
 }
 
 const expenseIconMap = {

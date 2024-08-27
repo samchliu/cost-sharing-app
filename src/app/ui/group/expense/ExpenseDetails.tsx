@@ -18,7 +18,7 @@ interface ExpenseDetailExtendProps extends ExpenseDetailProps {
   users: GroupUser[];
 }
 
-export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProps) {
+export function ExpenseDetailOne({ expenseData }: ExpenseDetailProps) {
   const { category, amount, name, date } = expenseData;
 
   const Icon = expenseIconMap[category];
@@ -28,12 +28,12 @@ export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProp
     <>
       {expenseData ? (
         <div className="flex w-full justify-between gap-4 pl-2 pr-3">
-          <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
+          <div className="z-0 flex h-[72px] w-[72px] grow-0 items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
             <div className="scale-[1.4]">{Icon ? <Icon strokeWidth={1.6} /> : null}</div>
           </div>
           <div className="flex grow justify-between pt-4">
             <div className="h-fit">
-              <div className="w-32 truncate text-xl leading-6">{name}</div>
+              <div className="w-48 truncate text-xl leading-6">{name}</div>
               <div className="text-sm leading-4 text-grey-500">
                 {date && format(date, 'yyyy/MM/dd')}
               </div>

@@ -11,6 +11,8 @@ interface Prop {
   setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
   nameExist: boolean;
   setNameExist: React.Dispatch<React.SetStateAction<boolean>>;
+  hasNameLength: boolean;
+  setHasNameLength: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AddGroupNameButton({
@@ -19,6 +21,8 @@ export default function AddGroupNameButton({
   setCurrentGroup,
   nameExist,
   setNameExist,
+  hasNameLength,
+  setHasNameLength,
 }: Prop) {
   const {
     name,
@@ -35,11 +39,15 @@ export default function AddGroupNameButton({
       loginUserData?.groups.some((group) => group.name === e.target.value) &&
       groupData.name !== e.target.value;
 
-    if (groupExist) {
+    if (groupExist && e.target.value.length !== 0) {
       setNameExist(true);
-      return;
-    } else {
+      setHasNameLength(true);
+    } else if (!groupExist && e.target.value.length === 0) {
       setNameExist(false);
+      setHasNameLength(false);
+    } else if (!groupExist && e.target.value.length !== 0) {
+      setNameExist(false);
+      setHasNameLength(true);
       setCurrentGroup({
         ...groupData,
         name: e.target.value,
@@ -57,6 +65,14 @@ export default function AddGroupNameButton({
         })}
       >
         該群組名稱已存在，請重新輸入
+      </div>
+      <div
+        className={clsx('absolute top-[160px] text-sm text-neutrals-50', {
+          block: !hasNameLength,
+          hidden: hasNameLength,
+        })}
+      >
+        群組名稱不可為空值
       </div>
       <input
         className="w-full border-0 border-b border-highlight-50 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0"

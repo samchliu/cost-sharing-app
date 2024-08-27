@@ -36,7 +36,6 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   }, [loginUserId]);
 
   const fetchUser = async (userId: string) => {
-    if (!users[userId]) {
       try {
         const user = await getUser(userId);
 
@@ -47,11 +46,9 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
-    }
   };
 
   const fetchGroup = async (groupId: string) => {
-    if (!groups[groupId]) {
       try {
         const group = await getGroup(groupId);
 
@@ -62,11 +59,9 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.error('Error fetching group data:', error);
       }
-    }
   };
 
   const fetchExpense = async (groupId: string, expenseId: string) => {
-    if (!expenses[expenseId]) {
       try {
         const expense = await getExpense(groupId, expenseId);
         setExpenses((prevExpenses) => ({
@@ -76,7 +71,6 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.error('Error fetching expense data:', error);
       }
-    }
   };
 
   const value = useMemo(
@@ -103,7 +97,6 @@ export const useUser = (userId: string) => {
   }
 
   useEffect(() => {
-    if (userId === '') return;
     context.fetchUser(userId);
   }, [userId]);
 
@@ -118,7 +111,7 @@ export const useGroup = (groupId: string) => {
 
   useEffect(() => {
     context.fetchGroup(groupId);
-  }, [groupId]);
+  }, []);
 
   return context.groups[groupId];
 };
@@ -131,7 +124,7 @@ export const useExpense = (groupId: string, expenseId: string) => {
 
   useEffect(() => {
     context.fetchExpense(groupId, expenseId);
-  }, [expenseId]);
+  }, []);
 
   return context.expenses[expenseId];
 };
