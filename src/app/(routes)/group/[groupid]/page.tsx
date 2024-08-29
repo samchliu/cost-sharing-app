@@ -12,7 +12,7 @@ import BalanceAndShareButtons from '@/app/ui/group/BalanceAndShareButtons';
 import ExpensesList from '@/app/ui/group/ExpensesList';
 import AddExpenseButton from '@/app/ui/group/AddExpenseButton';
 import JoinGroupModal from '@/app/ui/group/JoinGroupModal';
-import AlertModal from '@/app/ui/group/AlertModal';
+import PageLoadAlertModal from '@/app/ui/group/PageLoadAlertModal';
 //import ui loading fallback
 import { UsersBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
@@ -48,7 +48,7 @@ export default function Page() {
           <JoinGroupModal groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
         )}
         {isGroupFull && !isUserInGroup && (
-          <AlertModal
+          <PageLoadAlertModal
             url={`/groups`}
             hintWord="目前群組中無成員空位，請聯絡群組成員新增空位"
             buttonHintWord="確定"

@@ -161,7 +161,7 @@ async function changeGroup(payload: Group) {
 
   let body = {
     name: name,
-    picture: picture
+    picture: picture,
   };
 
   const res = await fetch(url, {
@@ -182,6 +182,26 @@ async function changeGroup(payload: Group) {
   console.log('更改成功！');
 }
 
+//Adopt a user in the group
+async function adoptGroupUser(groupId: string, userId:string) {
+  let url = `/api/group/${groupId}/user/${userId}`;
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('更改成功！');
+}
 
 //change expense
 async function changeExpense(payload: ExtendedExpense) {
@@ -245,6 +265,7 @@ export {
   addGroup,
   addGroupUser,
   addExpense,
+  adoptGroupUser,
   changeGroup,
   changeExpense,
   deleteUser,
