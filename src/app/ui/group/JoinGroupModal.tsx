@@ -1,9 +1,11 @@
 //import next & react
 import { useEffect, useId, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 //import data
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import other
 import clsx from 'clsx';
+import { adoptGroupUser } from '@/app/_components/frontendData/fetchData/API';
 
 interface Prop {
   groupData: ExtendedGroup;
@@ -11,6 +13,7 @@ interface Prop {
 }
 
 export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
+  const router = useRouter();
   const [tempUsers, setTempUsers] = useState<GroupUser[]>([]);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [isShow, setIsShow] = useState<boolean>(true);
@@ -51,18 +54,25 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
     setSelectedUserId(userId);
   };
 
-  const handleSave = () => {
-    const updatedUsers = tempUsers.map((user: GroupUser) => ({
-      ...user,
-      adoptable: user.adoptable === false ? false : user.adoptable,
-    }));
+  const handleSave = async (groupId: string, userId: string) => {
+    // const updatedUsers = tempUsers.map((user: GroupUser) => ({
+    //   ...user,
+    //   adoptable: user.adoptable === false ? false : user.adoptable,
+    // }));
+    // setCurrentGroup({ ...groupData, users: updatedUsers });
 
-    setCurrentGroup({ ...groupData, users: updatedUsers });
+    try {
+      await adoptGroupUser(groupId, userId);
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
+    }
+
     setIsShow(false);
     setTimeout(() => {
       dialogRef.current?.close();
       document.body.style.overflow = '';
     }, 100);
+    router.push(`/groups`);
   };
 
   return (
@@ -124,7 +134,7 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
             type="button"
             disabled={selectedUserId === null}
             className="mt-5 w-full rounded-full bg-highlight-60 py-3 text-center text-sm disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
-            onClick={handleSave}
+            onClick={() => handleSave(groupData.id || '', selectedUserId || '')}
           >
             加入群組
           </button>

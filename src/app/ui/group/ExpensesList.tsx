@@ -16,7 +16,7 @@ import { format } from 'date-fns';
 
 export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }) {
   const { loginUserId } = useAllContext();
-  const fetchExpenses = groupData.expenses || [
+  const fetchExpenses = groupData?.expenses || [
     {
       id: '',
       name: '',
@@ -60,7 +60,7 @@ export default function ExpensesList({ groupData }: { groupData: ExtendedGroup }
     );
 
     return sortedDates.map((date, index) => {
-      let formateDate: Date | string = new Date(date);
+      let formateDate: Date | string = date ? new Date(date) : new Date();
       formateDate = format(formateDate, 'yyyy/MM/dd');
 
       return (

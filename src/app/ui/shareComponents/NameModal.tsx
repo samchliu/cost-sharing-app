@@ -64,8 +64,8 @@ export default function NameModal({
         </div>
         <button
           type="button"
-          disabled={currentValue === ''}
-          className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center"
+          disabled={currentValue === '' || nameExist}
+          className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
           onClick={handleSave}
         >
           儲存

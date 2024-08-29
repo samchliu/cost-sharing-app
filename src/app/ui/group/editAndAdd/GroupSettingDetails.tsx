@@ -1,7 +1,12 @@
 //import from next & react
 import { Fragment, useEffect } from 'react';
 //import data
-import { Group, GroupUser, LoginUser } from '@/app/_components/frontendData/sharedFunction/types';
+import {
+  Group,
+  ExtendedGroup,
+  GroupUser,
+  LoginUser,
+} from '@/app/_components/frontendData/sharedFunction/types';
 import { addGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import DeleteGroupButton from '@/app/ui/group/editAndAdd/DeleteGroupButton';
@@ -21,11 +26,13 @@ interface GroupNameSettingProps {
   isAddPage: boolean;
   nameExist: boolean;
   setNameExist: React.Dispatch<React.SetStateAction<boolean>>;
+  hasNameLength: boolean;
+  setHasNameLength: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface GroupUsersSettingProps {
-  groupData: Group;
-  setCurrentGroup: React.Dispatch<React.SetStateAction<Group>>;
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
   isAddPage: boolean;
   loginUserData: LoginUser | null;
 }
@@ -42,6 +49,8 @@ export function GroupNameSetting({
   isAddPage,
   nameExist,
   setNameExist,
+  hasNameLength,
+  setHasNameLength,
 }: GroupNameSettingProps) {
   const { picture, name } = groupData;
 
@@ -54,7 +63,11 @@ export function GroupNameSetting({
           })}
         >
           {picture ? (
-            <GroupPictureButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
+            <GroupPictureButton
+              groupData={groupData}
+              setCurrentGroup={setCurrentGroup}
+              isAddPage={isAddPage}
+            />
           ) : null}
           {isAddPage ? (
             <AddGroupNameButton
@@ -63,6 +76,8 @@ export function GroupNameSetting({
               setCurrentGroup={setCurrentGroup}
               nameExist={nameExist}
               setNameExist={setNameExist}
+              hasNameLength={hasNameLength}
+              setHasNameLength={setHasNameLength}
             />
           ) : (
             <p className="w-52 truncate text-xl">{name}</p>
@@ -88,10 +103,17 @@ export function GroupUsersSetting({
   isAddPage,
   loginUserData,
 }: GroupUsersSettingProps) {
-  useEffect(() => {
-    console.log('group Data change!');
-    console.log(groupData);
-  }, [groupData]);
+  useEffect(() => {}, [groupData]);
+
+  const creatorId = groupData.creatorId || '';
+  const sortedUsers = groupData.users?.slice() || [];
+  const creatorUserIndex = sortedUsers.findIndex((user) => user.id === creatorId);
+
+  if (creatorUserIndex !== -1) {
+    const [creatorUser] = sortedUsers.splice(creatorUserIndex, 1);
+
+    sortedUsers.unshift(creatorUser);
+  }
 
   return (
     <>
@@ -99,6 +121,7 @@ export function GroupUsersSetting({
         <p className="text-sm text-grey-500">群組成員</p>
         <div className="mb-4 mt-4 flex items-center justify-between">
           <AddUserButton
+            isAddPage={isAddPage}
             groupData={groupData}
             setCurrentGroup={setCurrentGroup}
             loginUserData={loginUserData || null}
@@ -136,9 +159,8 @@ export function GroupUsersSetting({
           ) : (
             <>
               {groupData.users &&
-                groupData.users.map((user: GroupUser) => {
+                sortedUsers.map((user: GroupUser) => {
                   let idx = uuidv4();
-
                   return (
                     <Fragment key={idx}>
                       <GroupUserButton
@@ -175,30 +197,40 @@ export function GroupSave({
   groupData,
   formRef,
   nameExist,
+  hasNameLength,
 }: {
   groupData: Group;
   formRef: React.RefObject<HTMLFormElement>;
   nameExist: boolean;
+  hasNameLength: boolean;
 }) {
   async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     if (nameExist) return;
-
+    if (!hasNameLength) return;
+    let groupUsers = groupData.users ? groupData.users : [];
+    let GroupBody = {
+      name: groupData.name,
+      picture:
+        'https://fastly.picsum.photos/id/367/256/256.jpg?hmac=GFExwvM7nIfoKXED6XmqT0-t0dGgDY36Ry2ZyslQlMk',
+      users: groupUsers,
+    };
     try {
-      await addGroup({
-        name: "Let's Chill7",
-        picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-        users: [
-          {
-            name: '成員1',
-            picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-          },
-          {
-            name: '成員2',
-            picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-          },
-        ],
-      });
+      // await addGroup({
+      //   name: "Let's Chill8",
+      //   picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+      //   users: [
+      //     {
+      //       name: '成員1',
+      //       picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+      //     },
+      //     {
+      //       name: '成員2',
+      //       picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
+      //     },
+      //   ],
+      // });
+
       // addGroup({
       //   name: "Let's Chill3",
       //   picture: '/images/icons/groupIcon09.svg',
@@ -213,8 +245,8 @@ export function GroupSave({
       //     },
       //   ],
       // });
-      // addGroup(groupData);
-      console.log(groupData);
+      await addGroup(GroupBody);
+      console.log(GroupBody);
       if (formRef.current) {
         formRef.current.submit();
       }
@@ -226,10 +258,10 @@ export function GroupSave({
   return (
     <div className="flex w-full items-center justify-center">
       <button
-        disabled={nameExist}
+        disabled={nameExist || !hasNameLength}
         type="submit"
         onClick={handleClick}
-        className="mb-6 mt-3 w-[80%] rounded-full bg-highlight-20 py-3 text-center"
+        className="mb-6 mt-3 w-[80%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
       >
         儲存
       </button>

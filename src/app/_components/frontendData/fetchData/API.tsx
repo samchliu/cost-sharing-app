@@ -1,4 +1,4 @@
-import { ExtendedExpense, Group } from "../sharedFunction/types";
+import { ExtendedExpense, Group, GroupUser } from '../sharedFunction/types';
 
 //login
 async function login(accessToken: string) {
@@ -89,6 +89,36 @@ async function addGroup(payload: Group) {
   console.log('建立成功！');
 }
 
+//add group user
+async function addGroupUser(payload: { groupId: string; name: string; picture: string }) {
+  const { groupId, name, picture } = payload;
+
+  let url = `/api/group/${groupId}/user`;
+
+  let body = {
+    name: name,
+    picture: picture,
+  };
+
+  console.log('Request Body:', JSON.stringify(body));
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('建立成功！');
+}
+
 //add expense
 async function addExpense(payload: ExtendedExpense) {
   const { groupId, name, category, amount, date, note, payerId, sharers } = payload;
@@ -125,7 +155,53 @@ async function addExpense(payload: ExtendedExpense) {
 }
 
 // change group
+async function changeGroup(payload: Group) {
+  const { id, name, picture } = payload;
+  let url = `/api/group/${id}`;
 
+  let body = {
+    name: name,
+    picture: picture,
+  };
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('更改成功！');
+}
+
+//Adopt a user in the group
+async function adoptGroupUser(groupId: string, userId:string) {
+  let url = `/api/group/${groupId}/user/${userId}`;
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error('Error Response:', errorText);
+    throw new Error(errorText);
+  }
+
+  console.log('更改成功！');
+}
 
 //change expense
 async function changeExpense(payload: ExtendedExpense) {
@@ -161,7 +237,7 @@ async function changeExpense(payload: ExtendedExpense) {
 }
 
 // delete user
-async function deleteUser(groupId: string, userId:string) {
+async function deleteUser(groupId: string, userId: string) {
   let url = `/api/group/${groupId}/user/${userId}`;
 
   const res = await fetch(url, { method: 'DELETE' });
@@ -187,7 +263,10 @@ export {
   getGroup,
   getExpense,
   addGroup,
+  addGroupUser,
   addExpense,
+  adoptGroupUser,
+  changeGroup,
   changeExpense,
   deleteUser,
   deleteGroup,

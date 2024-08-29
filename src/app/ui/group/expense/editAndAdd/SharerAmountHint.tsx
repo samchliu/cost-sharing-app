@@ -102,7 +102,9 @@ export function SharerAmountHint({ users, expenseData, setIsNotEqual, currentSha
         {!isNaN(Number(addedAmount)) && (!isNaN(Number(display)) && String(Number(display)) !== "") ? <>
           {adjustedRemainingAmount > 0
             ? `還剩下$${adjustedRemainingAmount}還沒被分帳`
-            : `目前分帳金額多出$${Math.abs(adjustedRemainingAmount)}`}
+            : adjustedRemainingAmount === 0 ? '分帳完畢!':
+              `目前分帳金額多出$${Math.abs(adjustedRemainingAmount)}`
+            }
         </> : '計算中'}
 
       </div>

@@ -8,8 +8,10 @@ import {
   Group,
   LoginUser,
 } from '@/app/_components/frontendData/sharedFunction/types';
+import { changeGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import NameModal from '@/app/ui/shareComponents/NameModal';
+
 
 interface Props {
   loginUserData: LoginUser;
@@ -60,7 +62,6 @@ export default function EditGroupNameButton({
       setNameExist(false);
     }
 
-    console.log(e.target.value);
     setCurrentName(e.target.value);
   };
 
@@ -71,7 +72,7 @@ export default function EditGroupNameButton({
     router.refresh();
   };
 
-  const handleSave = (
+  const handleSave = async(
     targetUserName: string,
     loginUserData: LoginUser,
     groupData: ExtendedGroup
@@ -90,6 +91,19 @@ export default function EditGroupNameButton({
         ...groupData,
         name: targetUserName,
       });
+
+      let newGroupData = {
+        id: groupData.id,
+        name: targetUserName,
+        picture: groupData.picture
+      };
+
+      try {
+        await changeGroup(newGroupData);
+      } catch (error) {
+        console.error('API 呼叫失敗:', error);
+      }
+
       setIsShow(false);
     }
   };

@@ -9,9 +9,9 @@ export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
   const { loginUserId } = useAllContext();
   let frontUsers = [];
 
-  if (groupData.users && groupData.users.length > 5) {
+  if (groupData?.users && groupData.users.length > 5) {
     frontUsers = groupData.users.slice(0, 5);
-  } else if (groupData.users) {
+  } else if (groupData?.users) {
     frontUsers = groupData.users;
   } else return;
 

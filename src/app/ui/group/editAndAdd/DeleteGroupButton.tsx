@@ -1,14 +1,19 @@
-'use client'
+'use client';
 //import from next & react
 import { useId, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
-import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
-import { deleteGroup } from '@/app/_components/frontendData/fetchData/API';
+import {
+  ExtendedGroup,
+  GroupUser,
+  ExtendedExpense,
+} from '@/app/_components/frontendData/sharedFunction/types';
+import { deleteGroup, deleteUser } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
+import AlertModal from '../AlertModal';
 
 interface Props {
   groupData: ExtendedGroup;
@@ -50,24 +55,34 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
     }
   }
 
-  const handleLeaveGroup = (id: string) => {
-    let currentGroupUsers = [...users];
+  const handleLeaveGroup = async (groupId: string, loginUserId: string) => {
+    // let currentGroupUsers = [...users];
 
-    const userIndex = currentGroupUsers.findIndex((user: GroupUser) => user.id === id);
+    // const userIndex = currentGroupUsers.findIndex((user: GroupUser) => user.id === loginUserId);
 
-    if (userIndex !== -1) {
-      currentGroupUsers.splice(userIndex, 1);
+    // if (userIndex !== -1) {
+    //   currentGroupUsers.splice(userIndex, 1);
+    // }
+    // setCurrentGroup({
+    //   ...groupData,
+    //   users: currentGroupUsers,
+    // });
+
+    try {
+      await deleteUser(groupId, loginUserId);
+      router.push(`/groups`);
+    } catch (error) {
+      console.error('API 呼叫失敗:', error);
     }
-    setCurrentGroup({
-      ...groupData,
-      users: currentGroupUsers,
-    });
-    setIsShow(false);
-    setTimeout(() => {
-      dialogRef.current?.close();
-    }, 100);
-    console.log('leave Group!');
   };
+
+  const isUserInGroupExpense = groupData.expenses
+    ? groupData.expenses.some(
+        (expense: ExtendedExpense) =>
+          expense.sharers.some((sharer) => sharer.id === loginUserId) ||
+          expense.payerId === loginUserId
+      )
+    : false;
 
   return (
     <>
@@ -90,6 +105,18 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
           idx={`deleteGroup${loginUserId}`}
         />
+      ) : isUserInGroupExpense ? (
+        <AlertModal
+          dialogRef={dialogRef}
+          dialogId={dialogId}
+          isShow={isShow}
+          headerId={headerId}
+          url={`/group/${groupData.id}/edit`}
+          handleClose={handleClose}
+          isSamePage={true}
+          hintWord="您目前存在於費用中，請先調整費用再離開。"
+          buttonHintWord="確定"
+        />
       ) : (
         <DeleteModal
           dialogRef={dialogRef}
@@ -97,7 +124,7 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           isShow={isShow}
           headerId={headerId}
           handleClose={handleClose}
-          handleSave={() => handleLeaveGroup(loginUserId || '')}
+          handleSave={() => handleLeaveGroup(groupData.id || '', loginUserId || '')}
           hintWord="確定要離開群組嗎？"
           idx={`leaveGroup${loginUserId}`}
         />

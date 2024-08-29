@@ -13,7 +13,9 @@ interface Props {
 
 export default function BalanceAndShareButtons({ groupData }: Props) {
   const { loginUserId } = useAllContext();
-  const { id, users } = groupData;
+
+  let id = groupData?.id ? groupData.id : '';
+  let users = groupData?.users ? groupData.users : [];
 
   return (
     <>

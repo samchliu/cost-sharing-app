@@ -59,6 +59,7 @@ export default function Page() {
             <section>
               <ExpenseSettingStepOne
                 group={group}
+                oldExpenseData={expense}
                 expenseData={currentExpense}
                 setCurrentExpense={setCurrentExpense}
                 phase={phase}
