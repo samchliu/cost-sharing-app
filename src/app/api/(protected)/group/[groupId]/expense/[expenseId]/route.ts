@@ -80,11 +80,11 @@ export async function PUT(
   const userIds = [
     ...new Set([validatedBody.payerId, ...validatedBody.sharers.map((sharer) => sharer.id)]),
   ];
-  const users = await prisma.groupUser.findMany({
-    where: { userId: { in: userIds } },
-  });
-  if (users.length !== userIds.length)
-    return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+  const users = await prisma.user.findMany({
+    where: {id: {in: userIds}}
+  })
+  const isAllUserExist = userIds.length === users.length
+  if (!isAllUserExist) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
   try {
     const clientId = request.headers.get('client-id')!;

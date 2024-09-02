@@ -33,7 +33,6 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
   const userIds = [
     ...new Set([validatedBody.payerId, ...validatedBody.sharers.map((sharer) => sharer.id)]),
   ];
-
   const groupUsers = await prisma.groupUser.findMany({
     where: {
       groupId: params.groupId,
@@ -42,10 +41,9 @@ export async function POST(request: NextRequest, { params }: { params: { groupId
       },
     },
   });
-  const groupUserIds = groupUsers.map(groupUser => groupUser.userId)
-  const isAllUserExist = userIds.every(userId=>groupUserIds.includes(userId))
-  if (!isAllUserExist)
-    return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+  const groupUserIds = groupUsers.map((groupUser) => groupUser.userId);
+  const isAllUserExist = userIds.every((userId) => groupUserIds.includes(userId));
+  if (!isAllUserExist) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
   try {
     const clientId = request.headers.get('client-id')!;
