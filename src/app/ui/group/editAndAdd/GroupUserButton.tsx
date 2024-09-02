@@ -149,6 +149,8 @@ export function GroupUserButton({
               isShow={isShow}
               headerId={headerId}
               url={`/group/${groupData.id}/edit`}
+              handleClose={handleClose}
+              isSamePage={true}
               hintWord="該成員存在於費用中，請先調整費用再刪除。"
               buttonHintWord="確定"
             />

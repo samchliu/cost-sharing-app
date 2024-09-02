@@ -105,7 +105,8 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
           idx={`deleteGroup${loginUserId}`}
         />
-      ) : isUserInGroupExpense ? (
+      ) : 
+      isUserInGroupExpense ? (
         <AlertModal
           dialogRef={dialogRef}
           dialogId={dialogId}
@@ -128,7 +129,8 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           hintWord="確定要離開群組嗎？"
           idx={`leaveGroup${loginUserId}`}
         />
-      )}
+      )
+      }
     </>
   );
 }

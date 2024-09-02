@@ -211,40 +211,10 @@ export function GroupSave({
     let groupUsers = groupData.users ? groupData.users : [];
     let GroupBody = {
       name: groupData.name,
-      picture:
-        'https://fastly.picsum.photos/id/367/256/256.jpg?hmac=GFExwvM7nIfoKXED6XmqT0-t0dGgDY36Ry2ZyslQlMk',
+      picture: groupData.picture,
       users: groupUsers,
     };
     try {
-      // await addGroup({
-      //   name: "Let's Chill8",
-      //   picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-      //   users: [
-      //     {
-      //       name: '成員1',
-      //       picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-      //     },
-      //     {
-      //       name: '成員2',
-      //       picture: 'https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg',
-      //     },
-      //   ],
-      // });
-
-      // addGroup({
-      //   name: "Let's Chill3",
-      //   picture: '/images/icons/groupIcon09.svg',
-      //   users: [
-      //     {
-      //       name: 'Clare',
-      //       picture: '/images/icons/newUserBG.svg',
-      //     },
-      //     {
-      //       name: 'Alex',
-      //       picture: '/images/icons/newUserBG.svg',
-      //     },
-      //   ],
-      // });
       await addGroup(GroupBody);
       console.log(GroupBody);
       if (formRef.current) {
