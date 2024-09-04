@@ -41,3 +41,32 @@ export function ExpenseSkeleton() {
     </>
   );
 }
+
+export function GroupsSkeleton() {
+  const divArray = Array(10).fill(0);
+  return (
+    <>
+      <div className={`${shimmer} flex min-h-screen flex-col bg-highlight-50`}>
+        <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-highlight-50 pt-7 text-center text-2xl font-semibold tracking-wide text-white">
+          群組列表
+        </h1>
+        <div className="mt-[6.5rem]">
+          {divArray.map((_, index) => (
+            <div
+              key={index}
+              className="mx-6 my-4 flex justify-between rounded-[20px] bg-white px-3 py-2"
+            >
+              <div className="z-0 flex items-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-neutrals-20" />
+              </div>
+              <div className="flex items-center">
+                <div className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-neutrals-20" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mb-16"></div>
+      </div>
+    </>
+  );
+}

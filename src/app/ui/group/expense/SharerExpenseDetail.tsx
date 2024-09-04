@@ -3,23 +3,19 @@ import Image from 'next/image';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
-  ExtendedExpense,
   GroupUser,
   Sharer,
 } from '@/app/_components/frontendData/sharedFunction/types';
 
 interface Props {
-  expenseData: ExtendedExpense;
   sharer: Sharer;
   users: GroupUser[];
 }
 
-export default function SharerExpenseDetail({ expenseData, sharer, users }: Props) {
+export default function SharerExpenseDetail({ sharer, users }: Props) {
   const { loginUserId } = useAllContext();
-  const { payerId } = expenseData;
   const { id, amount } = sharer;
 
-  let payerData = users.filter((user) => user.id === payerId)[0];
   let sharerData = users.filter((user) => user.id === id)[0];
 
   let nf = new Intl.NumberFormat('en-US');

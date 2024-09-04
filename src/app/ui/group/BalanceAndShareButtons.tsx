@@ -30,7 +30,12 @@ export default function BalanceAndShareButtons({ groupData }: Props) {
             <p className="ml-1 font-medium">結餘</p>
           </Link>
           <div className="flex items-center gap-2">
-            <ShareButton id={id || ''} name={groupData.name} inGroupPage={true} />
+            <ShareButton
+              id={id || ''}
+              name={groupData.name}
+              inGroupPage={true}
+              groupUsers={users}
+            />
           </div>
         </div>
       ) : null}

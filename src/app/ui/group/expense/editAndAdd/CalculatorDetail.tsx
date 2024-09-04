@@ -1,6 +1,6 @@
 'use client';
 //import react
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 //import data
 import {
   ExtendedExpense,

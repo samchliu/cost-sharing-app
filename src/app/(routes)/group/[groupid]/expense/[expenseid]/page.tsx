@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { Suspense } from 'react';
 //import data
-import { useGroup, useExpense, useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
+import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   ExtendedGroup,
@@ -20,7 +20,6 @@ import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
 import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
-  const { loginUserId } = useAllContext();
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);

@@ -55,12 +55,6 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
   };
 
   const handleSave = async (groupId: string, userId: string) => {
-    // const updatedUsers = tempUsers.map((user: GroupUser) => ({
-    //   ...user,
-    //   adoptable: user.adoptable === false ? false : user.adoptable,
-    // }));
-    // setCurrentGroup({ ...groupData, users: updatedUsers });
-
     try {
       await adoptGroupUser(groupId, userId);
     } catch (error) {

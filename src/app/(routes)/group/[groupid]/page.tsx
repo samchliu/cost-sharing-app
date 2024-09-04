@@ -54,6 +54,7 @@ export default function Page() {
             buttonHintWord="確定"
           />
         )}
+        <div className="mb-32"></div>
       </Suspense>
     </div>
   );

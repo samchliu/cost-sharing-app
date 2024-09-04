@@ -15,7 +15,6 @@ async function login(accessToken: string) {
     body: JSON.stringify(body),
     cache: 'no-store',
   });
-  console.log(accessToken);
   if (!res.ok) throw Error;
 
   const data = await res.json();
@@ -70,7 +69,7 @@ async function addGroup(payload: Group) {
     picture: picture,
     users: users,
   };
-  console.log('Request Body:', JSON.stringify(body));
+
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -85,8 +84,6 @@ async function addGroup(payload: Group) {
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('建立成功！');
 }
 
 //add group user
@@ -100,7 +97,6 @@ async function addGroupUser(payload: { groupId: string; name: string; picture: s
     picture: picture,
   };
 
-  console.log('Request Body:', JSON.stringify(body));
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -115,8 +111,6 @@ async function addGroupUser(payload: { groupId: string; name: string; picture: s
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('建立成功！');
 }
 
 //add expense
@@ -135,7 +129,6 @@ async function addExpense(payload: ExtendedExpense) {
     sharers: sharers,
   };
 
-  console.log('Request Body:', JSON.stringify(body));
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -150,8 +143,6 @@ async function addExpense(payload: ExtendedExpense) {
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('建立成功！');
 }
 
 // change group
@@ -178,8 +169,6 @@ async function changeGroup(payload: Group) {
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('更改成功！');
 }
 
 //Adopt a user in the group
@@ -199,8 +188,6 @@ async function adoptGroupUser(groupId: string, userId:string) {
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('更改成功！');
 }
 
 //change expense
@@ -232,8 +219,6 @@ async function changeExpense(payload: ExtendedExpense) {
     console.error('Error Response:', errorText);
     throw new Error(errorText);
   }
-
-  console.log('更改成功！');
 }
 
 // delete user

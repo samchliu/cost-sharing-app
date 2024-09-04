@@ -7,14 +7,12 @@ import { useRouter } from 'next/navigation';
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedGroup,
-  GroupUser,
-  ExtendedExpense,
+  GroupUser
 } from '@/app/_components/frontendData/sharedFunction/types';
 import { deleteUser } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { TrashcanIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
-import AlertModal from '../AlertModal';
 
 interface Props {
   idx: string;
@@ -102,14 +100,7 @@ export function GroupUserButton({
   const isMemberAdmin = groupData.creatorId === userData?.id && groupData.creatorId !== undefined;
   const showAdminLabel = (isAddPage && loginUserData?.id === idx) || isMemberAdmin;
   const showDeleteButton = (isAddPage && loginUserData?.id !== idx) || (isAdmin && !isMemberAdmin);
-  const isUserInGroupExpense = groupData.expenses
-    ? groupData.expenses.some(
-        (expense: ExtendedExpense) =>
-          expense.sharers.some((sharer) => sharer.id === userData?.id) ||
-          expense.payerId === userData?.id
-      )
-    : false;
-
+ 
   return (
     <div className="mb-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -142,19 +133,6 @@ export function GroupUserButton({
           <div onClick={handleToggle} className="flex h-8 w-8 items-center justify-center">
             <TrashcanIcon />
           </div>
-          {isUserInGroupExpense ? (
-            <AlertModal
-              dialogRef={dialogRef}
-              dialogId={dialogId}
-              isShow={isShow}
-              headerId={headerId}
-              url={`/group/${groupData.id}/edit`}
-              handleClose={handleClose}
-              isSamePage={true}
-              hintWord="該成員存在於費用中，請先調整費用再刪除。"
-              buttonHintWord="確定"
-            />
-          ) : (
             <DeleteModal
               dialogRef={dialogRef}
               dialogId={dialogId}
@@ -165,7 +143,6 @@ export function GroupUserButton({
               hintWord="確定要刪除成員嗎？"
               idx={idx}
             />
-          )}
         </>
       ) : null}
     </div>
