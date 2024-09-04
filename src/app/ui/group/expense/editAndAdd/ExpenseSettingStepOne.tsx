@@ -10,11 +10,12 @@ import {
 import { TotalCalculator } from './Calculator';
 import DatePickerButton from './DatePickerButton';
 import ExpenseCategoryButton from './ExpenseCategoryButton';
+import NoteButton from './NoteButton';
 //other
 import clsx from 'clsx';
-import NoteButton from './NoteButton';
 
 interface ExpenseSettingStepOneProps {
+  isAddPage: boolean;
   group?: ExtendedGroup;
   oldExpenseData?: ExtendedExpense | Expense;
   expenseData?: ExtendedExpense | Expense;
@@ -28,6 +29,7 @@ interface ExpenseSettingStepOneProps {
 }
 
 export function ExpenseSettingStepOne({
+  isAddPage,
   group,
   oldExpenseData,
   expenseData,
@@ -45,24 +47,30 @@ export function ExpenseSettingStepOne({
     if (expenseData?.name) {
       setCurrentValue(expenseData?.name);
     }
-  }, [expenseData?.name]);
+  }, [expenseData?.name, nameExist]);
+
+   useEffect(() => {
+    if (expenseData?.name) {
+   if (isAddPage) {
+     setNameExist(group?.expenses?.some((expense) => expense.name === expenseData?.name) || false);
+   } }
+   
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    expenseData: ExtendedExpense | Expense,
     group: ExtendedGroup
   ) => {
-    const expenseNameExist =
-      group.expenses?.some((expense) => expense.name === e.target.value) &&
-      oldExpenseData?.name !== e.target.value;
-
-    setCurrentValue(e.target.value);
-
-    if (expenseNameExist) {
-      setNameExist(true);
+    if (isAddPage) {
+      setNameExist(group.expenses?.some((expense) => expense.name === e.target.value) || false);
     } else {
-      setNameExist(false);
+      setNameExist(
+        (group.expenses?.some((expense) => expense.name === e.target.value) &&
+          oldExpenseData?.name !== e.target.value) ||
+          false
+      );
     }
+    setCurrentValue(e.target.value);
 
     if (e.target.value.length === 0) {
       setHasNameLength(false);
@@ -109,7 +117,7 @@ export function ExpenseSettingStepOne({
             <div className="relative w-48 border-b border-grey-500">
               <input
                 className="relative w-[80%] border-0 bg-transparent pb-1 pl-0 focus:border-0 focus:outline-none focus:ring-0"
-                onChange={(e) => handleInputChange(e, expenseData, group)}
+                onChange={(e) => handleInputChange(e, group)}
                 onBlur={(e) => handleInputBlur(e, expenseData, group)}
                 type="text"
                 defaultValue={currentValue}

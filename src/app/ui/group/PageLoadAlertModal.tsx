@@ -19,7 +19,6 @@ export default function PageLoadAlertModal({
   const headerId = useId();
 
   useEffect(() => {
-
     const dialog = dialogRef.current;
 
     document.body.style.overflow = 'hidden';
@@ -39,15 +38,18 @@ export default function PageLoadAlertModal({
   return (
     <>
       <AlertModal
+        hasTwoButton={false}
+        isChangePage={true}
         dialogRef={dialogRef}
         dialogId={dialogId}
         isShow={true}
         headerId={headerId}
         url={url}
-        handleClose={() =>{}}
-        isSamePage={false}
+        handleClose={() => {}}
+        handleSave={() => {}}
         hintWord={hintWord}
         buttonHintWord={buttonHintWord}
+        SecondbuttonHintWord=""
       />
     </>
   );

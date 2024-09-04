@@ -1,5 +1,5 @@
 //import from next & react
-import { Fragment, useEffect } from 'react';
+import { useState, useEffect, useId, useRef, Fragment } from 'react';
 //import data
 import {
   Group,
@@ -15,6 +15,7 @@ import GroupPictureButton from '@/app/ui/group/editAndAdd/GroupPictureButton';
 import EditGroupNameButton from '@/app/ui/group/editAndAdd/EditGroupNameButton';
 import AddUserButton from '@/app/ui/group/editAndAdd/AddUserButton';
 import AddGroupNameButton from '@/app/ui/shareComponents/AddGroupNameButton';
+import AlertModal from '@/app/ui/group/AlertModal';
 //import other
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
@@ -187,7 +188,7 @@ export function GroupOtherSetting({ groupData, setCurrentGroup }: GroupOtherSett
     <>
       <div className="mx-6 mt-4 flex flex-col">
         <p className="text-sm text-grey-500">其他設定</p>
-        <DeleteGroupButton groupData={groupData} setCurrentGroup={setCurrentGroup} />
+        <DeleteGroupButton groupData={groupData} />
       </div>
     </>
   );
@@ -204,8 +205,16 @@ export function GroupSave({
   nameExist: boolean;
   hasNameLength: boolean;
 }) {
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+  let groupUsers = groupData.users ? groupData.users : [];
+  let groupId = groupData.id ? groupData.id : '';
+
+  const [isShow, setIsShow] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogId = useId();
+  const headerId = useId();
+
+  async function handleSave(e: React.SyntheticEvent) {
+    e.preventDefault();
     if (nameExist) return;
     if (!hasNameLength) return;
     let groupUsers = groupData.users ? groupData.users : [];
@@ -216,7 +225,6 @@ export function GroupSave({
     };
     try {
       await addGroup(GroupBody);
-      console.log(GroupBody);
       if (formRef.current) {
         formRef.current.submit();
       }
@@ -225,16 +233,70 @@ export function GroupSave({
     }
   }
 
+const handleToggle = (e: React.SyntheticEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  dialogRef.current?.showModal();
+  setTimeout(() => {
+    setIsShow(true);
+  }, 0);
+};
+
+const handleClose = (e: React.SyntheticEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  setIsShow(false);
+  setTimeout(() => {
+    dialogRef.current?.close();
+  }, 100);
+};
+
+const HintWord: React.FC = () => {
+  return (
+    <>
+      <div>- 提醒 - </div>
+      <div>目前群組中無成員空位， 將無法邀請成員加入</div>
+    </>
+  );
+};
+
   return (
     <div className="flex w-full items-center justify-center">
-      <button
-        disabled={nameExist || !hasNameLength}
-        type="submit"
-        onClick={handleClick}
-        className="mb-6 mt-3 w-[80%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
-      >
-        儲存
-      </button>
+      {groupUsers.length === 0 ? (
+        <>
+          <button
+            disabled={nameExist || !hasNameLength}
+            type="submit"
+            onClick={(e) => handleToggle(e)}
+            className="mb-6 mt-3 w-[80%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
+          >
+            儲存
+          </button>
+          <AlertModal
+            hasTwoButton={true}
+            isChangePage={false}
+            dialogRef={dialogRef}
+            dialogId={dialogId}
+            isShow={isShow}
+            headerId={headerId}
+            url={`/group/${groupId}/edit`}
+            handleClose={handleClose}
+            handleSave={handleSave}
+            hintWord={<HintWord />}
+            buttonHintWord="仍要建立群組"
+            SecondbuttonHintWord="新增成員空位"
+          />
+        </>
+      ) : (
+        <button
+          disabled={nameExist || !hasNameLength}
+          type="submit"
+          onClick={handleSave}
+          className="mb-6 mt-3 w-[80%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
+        >
+          儲存
+        </button>
+      )}
     </div>
   );
 }

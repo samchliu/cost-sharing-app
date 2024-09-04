@@ -45,7 +45,6 @@ export default function Page() {
     <form ref={formRef} method="post" action={`/group/${groupid}/expense/${expenseid}`}>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
-          isAddPage={false}
           group={group}
           expenseData={expense}
           phase={phase}
@@ -58,6 +57,7 @@ export default function Page() {
             <GroupInfoBar expenseData={currentExpense} group={group} />
             <section>
               <ExpenseSettingStepOne
+                isAddPage={false}
                 group={group}
                 oldExpenseData={expense}
                 expenseData={currentExpense}

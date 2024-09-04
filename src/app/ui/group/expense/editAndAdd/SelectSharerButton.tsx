@@ -11,14 +11,13 @@ interface Props {
 }
 
 export default function SelectSharerButton({ expenseData, users, setCurrentExpense }: Props) {
+  
   const handleAllSelect = () => {
     const totalAmount = Number(expenseData.amount);
     const numberOfSharers = users.length;
 
-    const baseAmount = (totalAmount / numberOfSharers).toFixed(2); // Keep 2 decimal places
+    const baseAmount = (totalAmount / numberOfSharers).toFixed(2);
     const baseAmountNumber = parseFloat(baseAmount);
-    const totalDistributedAmount = baseAmountNumber * numberOfSharers;
-    const roundingDifference = totalAmount - totalDistributedAmount;
     const updatedSharersCopy = users
       ? users.map((user) => ({
           id: user.id || '',

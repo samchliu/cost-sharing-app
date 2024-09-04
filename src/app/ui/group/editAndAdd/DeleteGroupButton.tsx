@@ -4,23 +4,17 @@ import { useId, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
-import {
-  ExtendedGroup,
-  GroupUser,
-  ExtendedExpense,
-} from '@/app/_components/frontendData/sharedFunction/types';
+import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 import { deleteGroup, deleteUser } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { TrashcanIcon, LeaveIcon } from '@/app/ui/shareComponents/Icons';
 import DeleteModal from '@/app/ui/shareComponents/DeleteModal';
-import AlertModal from '../AlertModal';
 
 interface Props {
   groupData: ExtendedGroup;
-  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
 }
 
-export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props) {
+export default function DeleteGroupButton({ groupData }: Props) {
   const { loginUserId } = useAllContext();
   const router = useRouter();
   const isAdmin = groupData.creatorId === loginUserId;
@@ -28,9 +22,6 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
   const headerId = useId();
-  const users = groupData.users
-    ? groupData.users
-    : [{ id: '', name: '', picture: '', adoptable: false }];
 
   const handleToggle = () => {
     dialogRef.current?.showModal();
@@ -56,18 +47,6 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
   }
 
   const handleLeaveGroup = async (groupId: string, loginUserId: string) => {
-    // let currentGroupUsers = [...users];
-
-    // const userIndex = currentGroupUsers.findIndex((user: GroupUser) => user.id === loginUserId);
-
-    // if (userIndex !== -1) {
-    //   currentGroupUsers.splice(userIndex, 1);
-    // }
-    // setCurrentGroup({
-    //   ...groupData,
-    //   users: currentGroupUsers,
-    // });
-
     try {
       await deleteUser(groupId, loginUserId);
       router.push(`/groups`);
@@ -75,14 +54,6 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
       console.error('API 呼叫失敗:', error);
     }
   };
-
-  const isUserInGroupExpense = groupData.expenses
-    ? groupData.expenses.some(
-        (expense: ExtendedExpense) =>
-          expense.sharers.some((sharer) => sharer.id === loginUserId) ||
-          expense.payerId === loginUserId
-      )
-    : false;
 
   return (
     <>
@@ -104,19 +75,6 @@ export default function DeleteGroupButton({ groupData, setCurrentGroup }: Props)
           handleSave={() => handleDeleteGroup(groupData.id || '')}
           hintWord="若刪除群組，所有的紀錄和成員名單將會被刪除。"
           idx={`deleteGroup${loginUserId}`}
-        />
-      ) : 
-      isUserInGroupExpense ? (
-        <AlertModal
-          dialogRef={dialogRef}
-          dialogId={dialogId}
-          isShow={isShow}
-          headerId={headerId}
-          url={`/group/${groupData.id}/edit`}
-          handleClose={handleClose}
-          isSamePage={true}
-          hintWord="您目前存在於費用中，請先調整費用再離開。"
-          buttonHintWord="確定"
         />
       ) : (
         <DeleteModal
