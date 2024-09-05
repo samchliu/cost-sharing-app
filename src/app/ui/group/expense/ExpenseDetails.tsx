@@ -86,7 +86,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
               <Fragment key={idx}>
                 {sharer.id !== payerId ? (
                   <>
-                    <SharerExpenseDetail expenseData={expenseData} sharer={sharer} users={users} />
+                    <SharerExpenseDetail sharer={sharer} users={users} />
                   </>
                 ) : null}
               </Fragment>
