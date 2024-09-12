@@ -2,6 +2,12 @@
 const shimmer =
   'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
 
+const shimmer2 =
+  'before:h-14 before:w-14 before:absolute before:inset-x-10 before:-translate-x-full  before:animate-[shimmer_1s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent';
+
+const shimmer3 =
+  'before:h-8 before:w-6 before:absolute before:inset-x-0 before:-translate-x-full  before:animate-[shimmer_1s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent';
+
 export function UsersBarSkeleton() {
   return (
     <>
@@ -18,49 +24,57 @@ export function UsersBarSkeleton() {
   );
 }
 
-export function BalanceSkeleton() {
+export function TopBarSkeleton() {
   return (
-    <>
+    <div className="relative flex flex-col">
       <div
-        className={`${shimmer} fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white`}
+        className={`${shimmer} fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white`}
       >
+        <div className="flex h-6 w-8 items-center justify-center" />
         <h1 className="text-lg">loading...</h1>
+        <div className="h-6 w-8" />
       </div>
-    </>
+    </div>
   );
 }
 
-export function ExpenseSkeleton() {
+export function BalanceSkeleton() {
   return (
-    <>
+    <div className="relative flex flex-col">
       <div
-        className={`${shimmer} fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white`}
+        className={`${shimmer} fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white`}
       >
+        <div className="flex h-6 w-8 items-center justify-center" />
         <h1 className="text-lg">loading...</h1>
+        <div className="h-6 w-8" />
       </div>
-    </>
+    </div>
   );
 }
 
 export function GroupsSkeleton() {
-  const divArray = Array(10).fill(0);
+  const divArray = Array(5).fill(0);
   return (
     <>
-      <div className={`${shimmer} flex min-h-screen flex-col bg-highlight-50`}>
-        <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-highlight-50 pt-7 text-center text-2xl font-semibold tracking-wide text-white">
-          群組列表
+      <div className={`flex min-h-screen flex-col bg-highlight-50`}>
+        <h1 className="fixed left-[50%] z-[2] w-full translate-x-[-50%] bg-transparent pt-7 text-center text-2xl font-semibold tracking-wide text-white">
+          Chilling..
         </h1>
         <div className="mt-[6.5rem]">
           {divArray.map((_, index) => (
             <div
               key={index}
-              className="mx-6 my-4 flex justify-between rounded-[20px] bg-white px-3 py-2"
+              className={`mx-6 my-4 flex justify-between rounded-[20px] bg-white px-3 py-2`}
             >
-              <div className="z-0 flex items-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-neutrals-20" />
+              <div className="relative z-0 flex items-center">
+                <div
+                  className={`${shimmer2} flex h-14 w-14 items-center justify-center rounded-full bg-neutrals-20`}
+                />
               </div>
-              <div className="flex items-center">
-                <div className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-neutrals-20" />
+              <div className="relative flex items-center">
+                <div
+                  className={`${shimmer3} relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-neutrals-20`}
+                />
               </div>
             </div>
           ))}

@@ -1,6 +1,6 @@
 //import ui
-import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
+import { TopBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Loading() {
-  return <ExpenseSkeleton />;
+  return <TopBarSkeleton />;
 }

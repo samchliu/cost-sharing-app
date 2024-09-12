@@ -94,6 +94,9 @@ module.exports = {
       content: {
         checkWhiteIcon: 'url("../../../public/images/icons/checkWhite.svg")',
       },
+      flexGrow: {
+        3: '3',
+      },
     },
     screens: {
       '3xl': { max: '2200px' },

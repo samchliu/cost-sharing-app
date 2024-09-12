@@ -28,7 +28,7 @@ export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
               </ul>
               <Link
                 href={`/group/${groupData.id}/edit`}
-                className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500"
+                className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500 active:bg-neutrals-50"
                 scroll={false}
               >
                 <p className="">{groupData.users.length}</p>
