@@ -1,7 +1,6 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
-import { Suspense } from 'react';
 //import data
 import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
 import {
@@ -17,7 +16,7 @@ import {
   ExpenseDetailThree,
 } from '@/app/ui/group/expense/ExpenseDetails';
 import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
-import { ExpenseSkeleton } from '@/app/ui/loading/LoadingSkeletons';
+import { TopBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
 
 export default function Page() {
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
@@ -33,21 +32,20 @@ export default function Page() {
   ];
 
   return (
-    <div className="flex flex-col items-center">
-      <Suspense fallback={<ExpenseSkeleton />}>
-        <TopExpenseBar groupData={group} expenseData={expense} />
-        {group &&
-        expense ? (
+    <>
+      {group && expense ? (
+        <div className="flex flex-col items-center">
+          <TopExpenseBar groupData={group} expenseData={expense} />
           <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
             <ExpenseDetailOne expenseData={expense} />
             <ExpenseDetailTwo expenseData={expense} users={users} />
             <ExpenseDetailThree expenseData={expense} />
             <DeleteExpenseButton expenseData={expense} />
           </div>
-        ) : (
-          <div className="mt-16 pt-6"></div>
-        )}
-      </Suspense>
-    </div>
+        </div>
+      ) : (
+        <TopBarSkeleton />
+      )}
+    </>
   );
 }

@@ -72,7 +72,7 @@ export default function ShareButton({
           <button
             ref={btnRef}
             onClick={(e) => handlesShareLink(e)}
-            className="mr-2 flex scale-[1.17] items-center justify-center rounded-full bg-neutrals-20 p-2"
+            className="mr-2 flex scale-[1.17] items-center justify-center rounded-full bg-neutrals-20 p-2 active:bg-neutrals-30"
           >
             <ShareLinkIcon />
           </button>
@@ -80,7 +80,7 @@ export default function ShareButton({
           <>
             <button
               onClick={(e) => handleToggle(e)}
-              className="mr-2 flex scale-[1.17] items-center justify-center rounded-full bg-neutrals-20 p-2"
+              className="mr-2 flex scale-[1.17] items-center justify-center rounded-full bg-neutrals-20 p-2 active:bg-neutrals-30"
             >
               <ShareLinkIcon />
             </button>
@@ -104,7 +104,7 @@ export default function ShareButton({
         <button
           ref={btnRef}
           onClick={(e) => handlesShareLink(e)}
-          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-highlight-60"
+          className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-highlight-60 active:bg-highlight-20"
         >
           <ShareLinkIcon />
         </button>
@@ -112,7 +112,7 @@ export default function ShareButton({
         <>
           <button
             onClick={(e) => handleToggle(e)}
-            className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-highlight-60"
+            className="relative z-[1] flex h-8 w-8 items-center justify-center rounded-full bg-highlight-60 active:bg-highlight-20"
           >
             <ShareLinkIcon />
           </button>

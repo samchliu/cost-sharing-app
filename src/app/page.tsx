@@ -4,6 +4,7 @@ const liffId = process.env.NEXT_PUBLIC_LIFF_ID!;
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useAllContext } from './_components/frontendData/fetchData/Providers';
+import { KVLoading } from './ui/loading/KVLoading';
 
 export default function HomePage() {
   const { setLoginUserId } = useAllContext();
@@ -30,8 +31,8 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="fixed left-[50%] z-[2] mt-0 w-full translate-x-[-50%] bg-primary-100 py-7 text-center text-3xl">
-      Home Page
+    <main className="relative z-[2] mt-0 w-full text-center text-3xl">
+      <KVLoading />
     </main>
   );
 }

@@ -50,7 +50,7 @@ export default function DeleteExpenseButton({ expenseData }: Props) {
         <>
           <div
             onClick={handleToggle}
-            className="mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-sm text-neutrals-60"
+            className="active:bg-neutrals-50 mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-sm text-neutrals-60"
           >
             刪除費用
           </div>

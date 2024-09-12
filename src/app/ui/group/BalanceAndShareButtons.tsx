@@ -23,7 +23,7 @@ export default function BalanceAndShareButtons({ groupData }: Props) {
         <div className="flex items-center justify-center gap-2 pb-3 pt-6">
           <Link
             href={`/group/${groupData.id}/balance`}
-            className="flex items-center justify-between rounded-full bg-neutrals-20 px-5 py-2 text-sm"
+            className="flex items-center justify-between rounded-full bg-neutrals-20 px-5 py-2 text-sm active:bg-neutrals-30"
             scroll={false}
           >
             <DollarTwoIcon />
