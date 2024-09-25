@@ -17,6 +17,7 @@ import {
 } from '@/app/ui/group/expense/ExpenseDetails';
 import DeleteExpenseButton from '@/app/ui/group/expense/DeleteExpenseButton';
 import { TopBarSkeleton } from '@/app/ui/loading/LoadingSkeletons';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
@@ -36,12 +37,14 @@ export default function Page() {
       {group && expense ? (
         <div className="flex flex-col items-center">
           <TopExpenseBar groupData={group} expenseData={expense} />
-          <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
-            <ExpenseDetailOne expenseData={expense} />
-            <ExpenseDetailTwo expenseData={expense} users={users} />
-            <ExpenseDetailThree expenseData={expense} />
-            <DeleteExpenseButton expenseData={expense} />
-          </div>
+          <FadeIn direction="top">
+            <div className="mt-16 flex w-full flex-col items-center px-4 py-6">
+              <ExpenseDetailOne expenseData={expense} />
+              <ExpenseDetailTwo expenseData={expense} users={users} />
+              <ExpenseDetailThree expenseData={expense} />
+              <DeleteExpenseButton expenseData={expense} />
+            </div>
+          </FadeIn>
         </div>
       ) : (
         <TopBarSkeleton />

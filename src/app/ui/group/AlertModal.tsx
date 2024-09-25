@@ -1,7 +1,8 @@
-//import other
-import Link from 'next/link';
+//import ui
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
+
 
 interface Props {
   hasTwoButton: boolean;
@@ -48,7 +49,7 @@ export default function AlertModal({
         id={dialogId}
         aria-modal
         className={clsx(
-          'z-20 m-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
+          'm-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
           {
             'top-[40%] z-50 transform opacity-100 backdrop:bg-highlight-50/80': isShow,
             'top-[45%] -z-50 transform opacity-0 backdrop:bg-highlight-50/20': !isShow,
@@ -81,7 +82,8 @@ function OneButton({ buttonHintWord, url }: { buttonHintWord: string; url: strin
   return (
     <>
       <div className="mx-4 mb-3 flex items-center justify-center">
-        <Link
+        <LoadingButton
+          url={url}
           className={clsx(
             'flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-60 text-neutrals-90 focus:border-none focus:outline-0 focus:ring-0',
             {
@@ -89,11 +91,9 @@ function OneButton({ buttonHintWord, url }: { buttonHintWord: string; url: strin
               'text-sm': buttonHintWord.length < 5,
             }
           )}
-          href={url}
-          scroll={false}
         >
           {buttonHintWord}
-        </Link>
+        </LoadingButton>
       </div>
     </>
   );

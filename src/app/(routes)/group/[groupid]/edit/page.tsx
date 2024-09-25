@@ -17,6 +17,7 @@ import {
   GroupUsersSetting,
 } from '@/app/ui/group/editAndAdd/GroupSettingDetails';
 import { BackArrowIcon } from '@/app/ui/shareComponents/Icons';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
   const { loginUserId } = useAllContext();
@@ -49,7 +50,7 @@ export default function Page() {
           rightCancelLink=""
         />
         {isUserInGroup && (
-          <>
+          <FadeIn direction="left">
             <GroupNameSetting
               loginUserData={loginUserData}
               groupData={currentGroup}
@@ -67,7 +68,7 @@ export default function Page() {
               loginUserData={null}
             />
             <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
-          </>
+          </FadeIn>
         )}
       </div>
     </form>

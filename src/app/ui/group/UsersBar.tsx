@@ -1,12 +1,14 @@
 //import from next
 import Image from 'next/image';
-import Link from 'next/link';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
+//import ui
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
 
 export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
   const { loginUserId } = useAllContext();
+
   let frontUsers = [];
 
   if (groupData?.users && groupData.users.length > 5) {
@@ -26,14 +28,13 @@ export default function UsersBar({ groupData }: { groupData: ExtendedGroup }) {
                   <UserBarImage user={user} key={user.id} />
                 ))}
               </ul>
-              <Link
-                href={`/group/${groupData.id}/edit`}
+              <LoadingButton
+                url={`/group/${groupData.id}/edit`}
                 className="flex gap-[2px] rounded-full bg-neutrals-30 px-3 py-[5.5px] text-sm text-grey-500 active:bg-neutrals-50"
-                scroll={false}
               >
                 <p className="">{groupData.users.length}</p>
                 <span className="relative bottom-[1px] ml-[1px]">&gt;</span>
-              </Link>
+              </LoadingButton>
             </div>
           ) : (
             <NoneUsersBar text="$0" />

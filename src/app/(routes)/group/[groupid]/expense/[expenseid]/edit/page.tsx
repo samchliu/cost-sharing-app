@@ -3,10 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 //import data
-import {
-  useGroup,
-  useExpense,
-} from '@/app/_components/frontendData/fetchData/Providers';
+import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedExpense,
   ExtendedGroup,
@@ -21,6 +18,7 @@ import {
 import { ExpenseSettingStepOne } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepOne';
 import { ExpenseSettingStepTwo } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepTwo';
 import { ExpenseSettingStepThree } from '@/app/ui/group/expense/editAndAdd/ExpenseSettingStepThree';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
   const { groupid, expenseid } = useParams<{ groupid: string; expenseid: string }>();
@@ -53,7 +51,7 @@ export default function Page() {
           cancelLink={`/group/${groupid}/expense/${expenseid}`}
         />
         {expense ? (
-          <>
+          <FadeIn direction="left">
             <GroupInfoBar expenseData={currentExpense} group={group} />
             <section>
               <ExpenseSettingStepOne
@@ -99,7 +97,7 @@ export default function Page() {
                 hasNameLength={hasNameLength}
               />
             </section>
-          </>
+          </FadeIn>
         ) : (
           <></>
         )}

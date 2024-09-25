@@ -38,6 +38,11 @@ export default function DeleteGroupButton({ groupData }: Props) {
   };
 
   async function handleDeleteGroup(id: string) {
+    setIsShow(false);
+    setTimeout(() => {
+      dialogRef.current?.close();
+    }, 100);
+
     try {
       await deleteGroup(id);
       router.push(`/groups`);
@@ -87,8 +92,7 @@ export default function DeleteGroupButton({ groupData }: Props) {
           hintWord="確定要離開群組嗎？"
           idx={`leaveGroup${loginUserId}`}
         />
-      )
-      }
+      )}
     </>
   );
 }

@@ -1,5 +1,3 @@
-//import from next
-import Link from 'next/link';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
@@ -9,6 +7,7 @@ import {
 } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { HomeIcon, EditIcon, EditTwoIcon, BackArrowIcon } from '@/app/ui/shareComponents/Icons';
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
 
@@ -49,9 +48,9 @@ interface TopBarProps {
   handleRightClick: () => void;
 }
 
+
 export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
   const { loginUserId } = useAllContext();
-
   const hasGroupData = Boolean(groupData);
   const isUserInGroup = hasGroupData && groupData.users?.some((user) => user.id === loginUserId);
 
@@ -59,21 +58,21 @@ export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="flex h-6 w-6 items-center justify-center">
         {isBalancePage && hasGroupData ? (
-          <Link href={`/group/${groupData.id}`} className="flex">
+          <LoadingButton url={`/group/${groupData.id}`} className="flex">
             <BackArrowIcon />
-          </Link>
+          </LoadingButton>
         ) : hasGroupData ? (
-          <Link href="/groups">
+          <LoadingButton url="/groups" className="">
             <HomeIcon />
-          </Link>
+          </LoadingButton>
         ) : null}
       </div>
       <h1 className="max-w-52 truncate text-lg">{isUserInGroup ? groupData.name : ''}</h1>
       <div className="h-6 w-6">
         {!isBalancePage && isUserInGroup && (
-          <Link href={`/group/${groupData.id}/edit`} scroll={false}>
+          <LoadingButton url={`/group/${groupData.id}/edit`} className="">
             <EditIcon />
-          </Link>
+          </LoadingButton>
         )}
       </div>
     </div>
@@ -98,17 +97,17 @@ export function TopGroupSettingBar({
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="flex h-6 w-8 items-center justify-center">
         {shouldRender && (
-          <Link href={leftCancelLink} scroll={false}>
+          <LoadingButton url={leftCancelLink} className="">
             <div className="">{leftHintWord}</div>
-          </Link>
+          </LoadingButton>
         )}
       </div>
       <h1 className="text-lg">{shouldRender && middleHintword}</h1>
       <div className="h-6 w-8">
         {shouldRender && (
-          <Link href={rightCancelLink} scroll={false}>
+          <LoadingButton url={rightCancelLink} className="">
             <div className="">{rightHintWord}</div>
-          </Link>
+          </LoadingButton>
         )}
       </div>
     </div>
@@ -120,19 +119,21 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href={`/group/${id}`} className="flex h-6 w-6 items-center justify-center">
+      <LoadingButton
+        url={`/group/${id}`}
+        className="flex h-6 w-6 items-center justify-center"
+      >
         <BackArrowIcon />
-      </Link>
+      </LoadingButton>
       <h1 className="text-lg">{expenseData ? '費用明細' : ''}</h1>
       <div className="h-6 w-6">
         {expenseData ? (
-          <Link
-            href={`/group/${id}/expense/${expenseData.id}/edit`}
+          <LoadingButton
+            url={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
-            scroll={false}
           >
             <EditTwoIcon />
-          </Link>
+          </LoadingButton>
         ) : (
           ''
         )}
@@ -149,7 +150,6 @@ export function TopExpenseSettingBar({
   hintword,
   cancelLink,
 }: TopExpenseSettingBarProps) {
-
   function handleClick() {
     if (phase === 1) return;
     setPhase(phase - 1);
@@ -174,9 +174,9 @@ export function TopExpenseSettingBar({
       <div className="flex h-6 w-12 items-center justify-end">
         <>
           {shouldRender && (
-            <Link href={cancelLink} scroll={false}>
+            <LoadingButton url={cancelLink} className="">
               <p className="text-sm">取消</p>
-            </Link>
+            </LoadingButton>
           )}
         </>
       </div>

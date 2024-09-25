@@ -3,6 +3,8 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 //import data
 import { ExtendedGroup, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
+//import ui
+import { FullPageLoading } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
 import { adoptGroupUser } from '@/app/_components/frontendData/fetchData/API';
@@ -20,6 +22,7 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const dialogId = useId();
   const headerId = useId();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (groupData?.users) {
@@ -55,22 +58,29 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
   };
 
   const handleSave = async (groupId: string, userId: string) => {
+    setIsShow(false);
+    setTimeout(() => {
+      dialogRef.current?.close();
+      document.body.style.overflow = '';
+    }, 100);
+
     try {
       await adoptGroupUser(groupId, userId);
     } catch (error) {
       console.error('API 呼叫失敗:', error);
     }
 
-    setIsShow(false);
-    setTimeout(() => {
-      dialogRef.current?.close();
-      document.body.style.overflow = '';
-    }, 100);
     router.push(`/groups`);
+  };
+
+  const handleSaveLoading = (groupId: string, userId: string) => {
+    setIsLoading(true);
+    handleSave(groupId, userId);
   };
 
   return (
     <>
+      {isLoading && <FullPageLoading />}
       <dialog
         role="dialog"
         ref={dialogRef}
@@ -128,7 +138,7 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
             type="button"
             disabled={selectedUserId === null}
             className="mt-5 w-full rounded-full bg-highlight-60 py-3 text-center text-sm disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
-            onClick={() => handleSave(groupData.id || '', selectedUserId || '')}
+            onClick={() => handleSaveLoading(groupData.id || '', selectedUserId || '')}
           >
             加入群組
           </button>

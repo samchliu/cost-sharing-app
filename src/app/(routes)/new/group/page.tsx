@@ -11,6 +11,7 @@ import {
   GroupSave,
   GroupUsersSetting,
 } from '@/app/ui/group/editAndAdd/GroupSettingDetails';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
   const { loginUserId } = useAllContext();
@@ -36,28 +37,30 @@ export default function Page() {
           leftCancelLink=""
           rightCancelLink={`/groups`}
         />
-        <GroupNameSetting
-          loginUserData={data}
-          groupData={currentGroup}
-          setCurrentGroup={setCurrentGroup}
-          isAddPage={true}
-          nameExist={nameExist}
-          setNameExist={setNameExist}
-          hasNameLength={hasNameLength}
-          setHasNameLength={setHasNameLength}
-        />
-        <GroupUsersSetting
-          groupData={currentGroup}
-          setCurrentGroup={setCurrentGroup}
-          isAddPage={true}
-          loginUserData={data}
-        />
-        <GroupSave
-          groupData={currentGroup}
-          formRef={formRef}
-          nameExist={nameExist}
-          hasNameLength={hasNameLength}
-        />
+        <FadeIn direction="left">
+          <GroupNameSetting
+            loginUserData={data}
+            groupData={currentGroup}
+            setCurrentGroup={setCurrentGroup}
+            isAddPage={true}
+            nameExist={nameExist}
+            setNameExist={setNameExist}
+            hasNameLength={hasNameLength}
+            setHasNameLength={setHasNameLength}
+          />
+          <GroupUsersSetting
+            groupData={currentGroup}
+            setCurrentGroup={setCurrentGroup}
+            isAddPage={true}
+            loginUserData={data}
+          />
+          <GroupSave
+            groupData={currentGroup}
+            formRef={formRef}
+            nameExist={nameExist}
+            hasNameLength={hasNameLength}
+          />
+        </FadeIn>
       </div>
     </form>
   );
