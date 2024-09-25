@@ -69,6 +69,7 @@ export default function AddUserButton({
     groupData: ExtendedGroup,
     loginUserData: LoginUser | null
   ) => {
+    setIsShow(false);
     const userExists =
       groupData.users?.some((user) => user.name === targetUserName) ||
       loginUserData?.name === targetUserName;

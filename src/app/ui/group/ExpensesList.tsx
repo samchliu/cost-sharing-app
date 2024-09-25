@@ -11,6 +11,7 @@ import {
 } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { GreaterThanIcon, expenseIconMap } from '@/app/ui/shareComponents/Icons';
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
 //import other
 import { format } from 'date-fns';
 
@@ -99,11 +100,11 @@ function ExpenseButton({
 
   const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
+
   return (
-    <Link
-      href={`/group/${groupId}/expense/${id}`}
+    <LoadingButton
+      url={`/group/${groupId}/expense/${id}`}
       className="mx-4 mb-4 flex justify-between rounded-lg bg-white py-3 pl-4 pr-3"
-      scroll={false}
     >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-highlight-60">
@@ -127,10 +128,10 @@ function ExpenseButton({
             -${nf.format(Math.abs(Number(expenseDebt)))}
           </div>
         ) : (
-          <div className="text-highlight-35 text-[15px]">+${nf.format(Number(expenseDebt))}</div>
+          <div className="text-[15px] text-highlight-35">+${nf.format(Number(expenseDebt))}</div>
         )}
         <GreaterThanIcon />
       </div>
-    </Link>
+    </LoadingButton>
   );
 }

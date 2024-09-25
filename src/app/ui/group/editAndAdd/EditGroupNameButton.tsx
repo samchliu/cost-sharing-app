@@ -12,7 +12,6 @@ import { changeGroup } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
-
 interface Props {
   loginUserData: LoginUser;
   groupData: Group;
@@ -72,11 +71,12 @@ export default function EditGroupNameButton({
     router.refresh();
   };
 
-  const handleSave = async(
+  const handleSave = async (
     targetUserName: string,
     loginUserData: LoginUser,
     groupData: ExtendedGroup
   ) => {
+    setIsShow(false);
     const groupExists =
       groupData.name !== targetUserName &&
       loginUserData.groups.some((group) => group.name === targetUserName);
@@ -95,7 +95,7 @@ export default function EditGroupNameButton({
       let newGroupData = {
         id: groupData.id,
         name: targetUserName,
-        picture: groupData.picture
+        picture: groupData.picture,
       };
 
       try {

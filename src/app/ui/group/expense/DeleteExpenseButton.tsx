@@ -36,6 +36,11 @@ export default function DeleteExpenseButton({ expenseData }: Props) {
   };
 
   async function handleDeleteExpense(groupId: string, expenseId: string) {
+    setIsShow(false);
+    setTimeout(() => {
+      dialogRef.current?.close();
+    }, 100);
+
     try {
       await deleteExpense(groupId, expenseId);
       router.push(`/group/${groupId}`);
@@ -50,7 +55,7 @@ export default function DeleteExpenseButton({ expenseData }: Props) {
         <>
           <div
             onClick={handleToggle}
-            className="active:bg-neutrals-50 mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-sm text-neutrals-60"
+            className="mt-8 flex h-9 w-44 cursor-pointer items-center justify-center rounded-full bg-neutrals-30 text-sm text-neutrals-60 active:bg-neutrals-50"
           >
             刪除費用
           </div>

@@ -1,6 +1,10 @@
+//import react
+import { useState } from 'react';
+//impot ui
+import { TopBar } from '@/app/ui/shareComponents/TopBars';
+import { FullPageLoading } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
-import { TopBar } from '@/app/ui/shareComponents/TopBars';
 
 interface Prop {
   isShow: boolean;
@@ -23,8 +27,17 @@ export default function NameModal({
   currentValue,
   nameExist,
 }: Prop) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSaveLoading = () => {
+    setIsLoading(true);
+    handleSave();
+    setIsLoading(false);
+  };
+
   return (
     <>
+      {isLoading && <FullPageLoading />}
       <div
         className={clsx(
           'fixed left-0 m-0 flex h-fit w-full flex-col items-center justify-center rounded-lg bg-transparent transition-all duration-200',
@@ -66,7 +79,7 @@ export default function NameModal({
           type="button"
           disabled={currentValue === '' || nameExist}
           className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
-          onClick={handleSave}
+          onClick={handleSaveLoading}
         >
           儲存
         </button>
