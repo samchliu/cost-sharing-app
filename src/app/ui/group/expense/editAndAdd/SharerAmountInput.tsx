@@ -1,51 +1,110 @@
-import { useEffect, useState } from 'react';
-import clsx from 'clsx';
+//import react
+import { useState } from 'react';
+//import data
+import {
+  ExtendedExpense,
+  Expense,
+  GroupUser,
+  Sharer,
+} from '@/app/_components/frontendData/sharedFunction/types';
+//import ui
+import { SharerCalculator } from '@/app/ui/group/expense/editAndAdd/Calculator';
 
-export default function SharerAmountInput() {
-  const [barTop, setBarTop] = useState('100%');
-  const [onFocus, setOnFocus] = useState(false);
+interface SharerAmountInputProps {
+  isChecked: boolean;
+  users: GroupUser[];
+  sharer: Sharer;
+  user: GroupUser;
+  expenseData: ExtendedExpense | Expense;
+  setIsNotEqual: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentExpense: React.Dispatch<React.SetStateAction<ExtendedExpense | Expense>>;
+}
 
-  useEffect(() => {
-    const handleResize:any = () => {
-      if (window.visualViewport) {
-        const newTop = `${window.visualViewport.height}px`;
-        console.log(newTop);
-        setBarTop(newTop);
-      }
-    };
+export function SharerAmountInput({
+  isChecked,
+  users,
+  sharer,
+  user,
+  expenseData,
+  setIsNotEqual,
+  setCurrentExpense,
+}: SharerAmountInputProps) {
+  const [currentSharer, setCurrentSharer] = useState<Sharer>({
+    id: '',
+    amount: 0,
+  });
 
-    if (typeof window !== 'undefined') {
-      if (window.visualViewport) {
-        handleResize(); // Initial setup
-        window.visualViewport.addEventListener('resize', handleResize);
-        return () => {
-          window.visualViewport?.removeEventListener('resize', handleResize);
-        };
-      }
+  const updateAmount = (id: string, newAmount: number | string) => {
+    let updatedSharersCopy = expenseData.sharers.map((sharer) =>
+      sharer.id === id ? { ...sharer, amount: Number(newAmount) } : sharer
+    );
+
+    if (!expenseData.sharers.some((sharer) => sharer.id === id)) {
+      updatedSharersCopy.push({ id, amount: Number(newAmount) });
     }
-  }, []); // empty dependency array ensures this effect runs only once
+
+    updatedSharersCopy = updatedSharersCopy.filter(
+      (sharer) => sharer.amount !== 0 && sharer.amount !== '' && sharer.amount !== 0
+    );
+
+    setCurrentExpense({
+      ...expenseData,
+      sharers: updatedSharersCopy,
+    });
+  };
+
+  const handleInputFocus = () => {
+    setCurrentSharer(sharer);
+    if (sharer) {
+      setCurrentSharer(sharer);
+    } else {
+      setCurrentSharer({
+        id: user.id || '',
+        amount: 0,
+      });
+    }
+  };
+
+  const handleInputBlur = (newValue: string) => {
+    let value = newValue.replace(/^0+/, '');
+    if (value === '' || Number(value) < 0) {
+      value = '0';
+    }
+    updateAmount(user.id || '', value);
+    sharer =
+      sharer && String(sharer.amount).replace(/^0+/, '') !== ''
+        ? sharer
+        : {
+            id: user.id || '',
+            amount: 0,
+          };
+  };
+
+  const handleInputChange = (newValue: string) => {
+    let value = newValue;
+    if (value === '' || Number(value) < 0) {
+      value = '0';
+    }
+    updateAmount(user.id || '', value);
+    setCurrentSharer({
+      ...sharer,
+      amount: Number(value),
+    });
+  };
 
   return (
     <>
-      <input
-        className="w-20 ml-[0px] border-0 border-b-[1px] border-black focus:border-black focus:ring-0 focus:outline-none"
-        type="number"
-        pattern="[0-9]*"
-        inputMode="numeric"
-        onFocus={() => setOnFocus(true)}
-        onBlur={() => setOnFocus(false)}
+      <SharerCalculator
+        isChecked={isChecked}
+        sharer={sharer}
+        handleInputBlur={handleInputBlur}
+        handleInputFocus={handleInputFocus}
+        handleInputChange={handleInputChange}
+        expenseData={expenseData}
+        users={users}
+        setIsNotEqual={setIsNotEqual}
+        currentSharer={currentSharer}
       />
-      <div
-        id="bar"
-        className={clsx(
-          'bg-grey-keyBoard absolute top-full w-full -translate-y-full transform p-6 text-center',
-          { hidden: !onFocus, block: onFocus },
-        )}
-        style={{ top: barTop }}
-      >
-        <div className="text-black">小陳負擔$3,000中的$</div>
-        <div className="text-sm text-neutrals-60">還剩下$3,000還沒被分帳</div>
-      </div>
     </>
   );
-};
+}

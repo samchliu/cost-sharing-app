@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   picture: string;
 }
@@ -10,13 +10,13 @@ export interface LoginUser extends User {
 }
 
 export interface GroupUser extends User {
-  adoptable: boolean;
+  adoptable?: boolean;
 }
 
 export interface Group {
   id?: string;
   name: string;
-  picture: GroupPicture;
+  picture: string;
   users?: GroupUser[];
 }
 
@@ -24,23 +24,6 @@ export interface ExtendedGroup extends Group {
   creatorId?: string;
   expenses?: ExtendedExpense[];
 }
-
-export type GroupPicture =
-  | 'groupIcon01'
-  | 'groupIcon02'
-  | 'groupIcon03'
-  | 'groupIcon04'
-  | 'groupIcon05'
-  | 'groupIcon06'
-  | 'groupIcon07'
-  | 'groupIcon08'
-  | 'groupIcon09'
-  | 'groupIcon10'
-  | 'groupIcon11'
-  | 'groupIcon12'
-  | 'groupIcon13'
-  | 'groupIcon14'
-  | 'groupIcon15';
 
 export interface Debt {
   [expenseName: string]: number;
@@ -69,11 +52,16 @@ export interface Expense {
 }
 
 export interface ExtendedExpense extends Expense {
-  id: string;
+  id?: string;
+  groupId?: string;
   expenseDebt?: string;
   creatorId?: string;
   createAt?: string;
   updateAt?: string;
+  historys?: {
+    editedAt: string;
+    editorId: string;
+  }[];
 }
 
 export interface Sharer {

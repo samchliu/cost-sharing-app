@@ -1,10 +1,8 @@
 'use client';
 //import from next & react
-import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 //import data
-import { useUser } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext, useUser } from '@/app/_components/frontendData/fetchData/Providers';
 import { Group } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
@@ -13,17 +11,22 @@ import {
   GroupSave,
   GroupUsersSetting,
 } from '@/app/ui/group/editAndAdd/GroupSettingDetails';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
-  const data = useUser(loginUserId);
+  const { loginUserId } = useAllContext();
+  const data = useUser(loginUserId || '');
   const [currentGroup, setCurrentGroup] = useState<Group>({
     name: '未命名群組',
-    picture: 'groupIcon01',
+    picture: '/images/icons/groupIcon01.svg',
     users: [],
   });
+  const formRef = useRef<HTMLFormElement>(null);
+  const [nameExist, setNameExist] = useState(false);
+  const [hasNameLength, setHasNameLength] = useState<boolean>(true);
 
   return (
-    <form method="post" action={`/groups`}>
+    <form ref={formRef} method="post" action={`/groups`}>
       <div className="relative flex flex-col">
         <TopGroupSettingBar
           isAddPage={true}
@@ -34,18 +37,30 @@ export default function Page() {
           leftCancelLink=""
           rightCancelLink={`/groups`}
         />
-        <GroupNameSetting
-          groupData={currentGroup}
-          setCurrentGroup={setCurrentGroup}
-          isAddPage={true}
-        />
-        <GroupUsersSetting
-          groupData={currentGroup}
-          setCurrentGroup={setCurrentGroup}
-          isAddPage={true}
-          loginUserData={data}
-        />
-        <GroupSave groupData={currentGroup} />
+        <FadeIn direction="left">
+          <GroupNameSetting
+            loginUserData={data}
+            groupData={currentGroup}
+            setCurrentGroup={setCurrentGroup}
+            isAddPage={true}
+            nameExist={nameExist}
+            setNameExist={setNameExist}
+            hasNameLength={hasNameLength}
+            setHasNameLength={setHasNameLength}
+          />
+          <GroupUsersSetting
+            groupData={currentGroup}
+            setCurrentGroup={setCurrentGroup}
+            isAddPage={true}
+            loginUserData={data}
+          />
+          <GroupSave
+            groupData={currentGroup}
+            formRef={formRef}
+            nameExist={nameExist}
+            hasNameLength={hasNameLength}
+          />
+        </FadeIn>
       </div>
     </form>
   );

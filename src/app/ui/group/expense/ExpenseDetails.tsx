@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Fragment } from 'react';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedExpense, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { expenseIconMap } from '@/app/ui/shareComponents/Icons';
@@ -18,35 +18,28 @@ interface ExpenseDetailExtendProps extends ExpenseDetailProps {
   users: GroupUser[];
 }
 
-export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProps) {
-  const { category, amount, name, creatorId, createAt, updateAt, payerId, sharers } = expenseData;
-  let creatorIdUser = users.filter((user) => user.id === creatorId)[0];
+export function ExpenseDetailOne({ expenseData }: ExpenseDetailProps) {
+  const { category, amount, name, date } = expenseData;
 
   const Icon = expenseIconMap[category];
   let nf = new Intl.NumberFormat('en-US');
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
-        <div className="flex w-full justify-between pl-2 pr-3">
-          <div className="flex gap-5">
-            <div className="z-0 flex h-[72px] w-[72px] items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
-              <div className="scale-[1.4]">{Icon ? <Icon strokeWidth={1.6} /> : null}</div>
-            </div>
-            <div className="flex flex-col justify-between">
-              <div className="text-xl leading-8">{name}</div>
-              <div className="text-xs text-grey-500">
-                <div className="leading-3">
-                  {createAt && format(createAt, 'yyyy/MM/dd')} {creatorIdUser?.name}新增
-                </div>
-                <div className="leading-6">
-                  {updateAt && format(updateAt, 'yyyy/MM/dd')} 最後更新
-                </div>
+      {expenseData ? (
+        <div className="flex w-full justify-between gap-4 pl-2 pr-3">
+          <div className="z-0 flex h-[72px] w-[72px] grow-0 items-center justify-center rounded-lg border-[5px] border-white bg-highlight-60">
+            <div className="scale-[1.4]">{Icon ? <Icon strokeWidth={1.6} /> : null}</div>
+          </div>
+          <div className="flex grow justify-between pt-4">
+            <div className="h-fit">
+              <div className="w-48 truncate text-xl leading-6">{name}</div>
+              <div className="text-sm leading-4 text-grey-500">
+                {date && format(date, 'yyyy/MM/dd')}
               </div>
             </div>
+            <div className="h-fit text-xl leading-6">${nf.format(amount)}</div>
           </div>
-          <div className="text-xl leading-8">${nf.format(amount)}</div>
         </div>
       ) : (
         <div></div>
@@ -56,6 +49,7 @@ export function ExpenseDetailOne({ expenseData, users }: ExpenseDetailExtendProp
 }
 
 export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProps) {
+  const { loginUserId } = useAllContext();
   const { amount, payerId, sharers } = expenseData;
 
   let payerData = users.filter((user) => user.id === payerId)[0];
@@ -63,8 +57,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+      {expenseData ? (
         <div className="mt-7 w-full px-3">
           <div className="flex gap-4">
             {payerData ? (
@@ -74,14 +67,17 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
                 width={64}
                 height={64}
                 alt="sharer image"
+                priority
               />
             ) : null}
             <div className="flex grow items-center justify-between">
-              <div className="text-base">
-                {loginUserId === payerId ? '你' : payerData?.name}
-                先付了
+              <div className="flex text-base">
+                <div className="max-w-[92px] truncate">
+                  {loginUserId === payerId ? '你' : payerData?.name}
+                </div>
+                <div>&nbsp;先付了</div>
               </div>
-              <div>${nf.format(amount)}</div>
+              <div className="text-highlight-35">${nf.format(amount)}</div>
             </div>
           </div>
 
@@ -90,7 +86,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
               <Fragment key={idx}>
                 {sharer.id !== payerId ? (
                   <>
-                    <SharerExpenseDetail expenseData={expenseData} sharer={sharer} users={users} />
+                    <SharerExpenseDetail sharer={sharer} users={users} />
                   </>
                 ) : null}
               </Fragment>
@@ -107,12 +103,11 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
 }
 
 export function ExpenseDetailThree({ expenseData }: ExpenseDetailProps) {
-  const { payerId, sharers, note } = expenseData;
+  const { note } = expenseData;
 
   return (
     <>
-      {expenseData &&
-      (payerId === loginUserId || sharers?.some((sharer) => sharer.id === loginUserId)) ? (
+      {expenseData ? (
         <div className="mx-1 w-full">
           <div className="text-sm">備註</div>
           <div className="mt-2 min-h-[101px] rounded-lg bg-white p-3 text-base">{note}</div>

@@ -3,8 +3,11 @@
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 //import data
-import { useGroup } from '@/app/_components/frontendData/fetchData/Providers';
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import {
+  useGroup,
+  useAllContext,
+  useUser,
+} from '@/app/_components/frontendData/fetchData/Providers';
 import { ExtendedGroup } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { TopGroupSettingBar } from '@/app/ui/shareComponents/TopBars';
@@ -14,11 +17,16 @@ import {
   GroupUsersSetting,
 } from '@/app/ui/group/editAndAdd/GroupSettingDetails';
 import { BackArrowIcon } from '@/app/ui/shareComponents/Icons';
+import { FadeIn } from '@/app/ui/shareComponents/FadeIn';
 
 export default function Page() {
+  const { loginUserId } = useAllContext();
   const { groupid } = useParams<{ groupid: string }>();
+  const loginUserData = useUser(loginUserId || '');
   const group = useGroup(groupid);
   const [currentGroup, setCurrentGroup] = useState<ExtendedGroup>(group);
+  const [groupNameExist, setGroupNameExist] = useState(false);
+  const [hasNameLength, setHasNameLength] = useState<boolean>(true);
 
   useEffect(() => {
     if (group) {
@@ -42,25 +50,25 @@ export default function Page() {
           rightCancelLink=""
         />
         {isUserInGroup && (
-          <>
+          <FadeIn direction="left">
             <GroupNameSetting
+              loginUserData={loginUserData}
               groupData={currentGroup}
               setCurrentGroup={setCurrentGroup}
               isAddPage={false}
+              nameExist={groupNameExist}
+              setNameExist={setGroupNameExist}
+              hasNameLength={hasNameLength}
+              setHasNameLength={setHasNameLength}
             />
             <GroupUsersSetting
               groupData={currentGroup}
               setCurrentGroup={setCurrentGroup}
               isAddPage={false}
-              loginUserData={{
-                id: '',
-                name: '',
-                picture: '',
-                adoptable: false,
-              }}
+              loginUserData={null}
             />
             <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
-          </>
+          </FadeIn>
         )}
       </div>
     </form>

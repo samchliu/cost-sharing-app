@@ -1,39 +1,24 @@
 //import from next
 import Image from 'next/image';
 //import ui
-import groupIcon01 from '../../../../public/icons/groupIcon01.svg';
-import groupIcon02 from '../../../../public/icons/groupIcon02.svg';
-import groupIcon03 from '../../../../public/icons/groupIcon03.svg';
-import groupIcon04 from '../../../../public/icons/groupIcon04.svg';
-import groupIcon05 from '../../../../public/icons/groupIcon05.svg';
-import groupIcon06 from '../../../../public/icons/groupIcon06.svg';
-import groupIcon07 from '../../../../public/icons/groupIcon07.svg';
-import groupIcon08 from '../../../../public/icons/groupIcon08.svg';
-import groupIcon09 from '../../../../public/icons/groupIcon09.svg';
-import groupIcon10 from '../../../../public/icons/groupIcon10.svg';
-import groupIcon11 from '../../../../public/icons/groupIcon11.svg';
-import groupIcon12 from '../../../../public/icons/groupIcon12.svg';
-import groupIcon13 from '../../../../public/icons/groupIcon13.svg';
-import groupIcon14 from '../../../../public/icons/groupIcon14.svg';
-import groupIcon15 from '../../../../public/icons/groupIcon15.svg';
-import checkIcon from '../../../../public/icons/check.svg';
-import closeIcon from '../../../../public/icons/close.svg';
-import addGroupIcon from '../../../../public/icons/addGroup.svg';
-import addUserIcon from '../../../../public/icons/addUser.svg';
-import trashcanIcon from '../../../../public/icons/trashcan.svg';
-import dollarIcon from '../../../../public/icons/dollar.svg';
-import dollarTwoIcon from '../../../../public/icons/dollarTwo.svg';
-import notePencilIcon from '../../../../public/icons/notePencil.svg';
-import backspaceIcon from '../../../../public/icons/backspace.svg';
-import shareLinkIcon from '../../../../public/icons/shareLink.svg';
-import copyLinkIcon from '../../../../public/icons/copyLink.svg';
-import homeIcon from '../../../../public/icons/home.svg';
-import editIcon from '../../../../public/icons/edit.svg';
-import editTwoIcon from '../../../../public/icons/editTwo.svg';
-import greaterThanIcon from '../../../../public/icons/greaterThan.svg';
-import cameraIcon from '../../../../public/icons/camera.svg';
-import leaveIcon from '../../../../public/icons/leave.svg';
-import backArrowIcon from '../../../../public/icons/backArrow.svg';
+import checkIcon from '../../../../public/images/icons/check.svg';
+import closeIcon from '../../../../public/images/icons/close.svg';
+import addGroupIcon from '../../../../public/images/icons/addGroup.svg';
+import addUserIcon from '../../../../public/images/icons/addUser.svg';
+import trashcanIcon from '../../../../public/images/icons/trashcan.svg';
+import dollarIcon from '../../../../public/images/icons/dollar.svg';
+import dollarTwoIcon from '../../../../public/images/icons/dollarTwo.svg';
+import notePencilIcon from '../../../../public/images/icons/notePencil.svg';
+import backspaceIcon from '../../../../public/images/icons/backspace.svg';
+import shareLinkIcon from '../../../../public/images/icons/shareLink.svg';
+import copyLinkIcon from '../../../../public/images/icons/copyLink.svg';
+import homeIcon from '../../../../public/images/icons/home.svg';
+import editIcon from '../../../../public/images/icons/edit.svg';
+import editTwoIcon from '../../../../public/images/icons/editTwo.svg';
+import greaterThanIcon from '../../../../public/images/icons/greaterThan.svg';
+import cameraIcon from '../../../../public/images/icons/camera.svg';
+import leaveIcon from '../../../../public/images/icons/leave.svg';
+import backArrowIcon from '../../../../public/images/icons/backArrow.svg';
 
 function FoodIcon({ strokeWidth }: { strokeWidth: number }) {
   return (
@@ -223,7 +208,7 @@ function CopyLinkIcon() {
 }
 
 function HomeIcon() {
-  return <Image src={homeIcon} alt="" />;
+  return <Image src={homeIcon} alt="" priority />;
 }
 
 function EditIcon() {
@@ -264,7 +249,9 @@ function LeaveIcon() {
 }
 
 function BackArrowIcon() {
-  return <Image src={backArrowIcon} alt="" />;
+  return (
+    <Image className="h-6 w-[8px]" width={20} height={20} src={backArrowIcon} alt="" priority />
+  );
 }
 
 const expenseIconMap = {
@@ -277,27 +264,8 @@ const expenseIconMap = {
   other: OtherIcon,
 };
 
-const groupIconMap = {
-  groupIcon01: groupIcon01,
-  groupIcon02: groupIcon02,
-  groupIcon03: groupIcon03,
-  groupIcon04: groupIcon04,
-  groupIcon05: groupIcon05,
-  groupIcon06: groupIcon06,
-  groupIcon07: groupIcon07,
-  groupIcon08: groupIcon08,
-  groupIcon09: groupIcon09,
-  groupIcon10: groupIcon10,
-  groupIcon11: groupIcon11,
-  groupIcon12: groupIcon12,
-  groupIcon13: groupIcon13,
-  groupIcon14: groupIcon14,
-  groupIcon15: groupIcon15,
-};
-
 export {
   expenseIconMap,
-  groupIconMap,
   CheckIcon,
   CloseIcon,
   AddGroupIcon,

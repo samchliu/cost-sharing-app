@@ -1,3 +1,7 @@
+//import react
+import { useState } from 'react';
+//import ui
+import { FullPageLoading } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
 
@@ -22,15 +26,23 @@ export default function DeleteModal({
   hintWord,
   idx,
 }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSaveLoading = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setIsLoading(true);
+    handleSave(e);
+  };
+
   return (
     <>
+      {isLoading && <FullPageLoading />}
       <dialog
         role="dialog"
         ref={dialogRef}
         id={dialogId}
         aria-modal
         className={clsx(
-          'z-20 m-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
+          'm-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
           {
             'top-[40%] z-50 transform opacity-100  backdrop:bg-highlight-50/80': isShow,
             'top-[45%] -z-50 transform opacity-0 backdrop:bg-highlight-50/20': !isShow,
@@ -53,7 +65,7 @@ export default function DeleteModal({
             <div
               id={idx}
               className="flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-60 text-neutrals-90"
-              onClick={handleSave}
+              onClick={handleSaveLoading}
             >
               確定
             </div>

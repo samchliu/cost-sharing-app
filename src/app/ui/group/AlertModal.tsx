@@ -1,40 +1,45 @@
-//import next & react
-import { useEffect, useId, useRef } from 'react';
+//import ui
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
 //import other
-import Link from 'next/link';
+import clsx from 'clsx';
+
 
 interface Props {
-    url: string;
-    hintWord: string;
-    buttonHintWord: string;
+  hasTwoButton: boolean;
+  isChangePage: boolean;
+  dialogRef: React.Ref<HTMLDialogElement>;
+  dialogId: string;
+  isShow: boolean;
+  headerId: string;
+  url: string;
+  handleClose: (e: React.SyntheticEvent) => void;
+  handleSave: (e: React.SyntheticEvent) => void;
+  hintWord: string | React.ReactNode;
+  buttonHintWord: string;
+  SecondbuttonHintWord: string;
 }
 
 export default function AlertModal({
+  hasTwoButton,
+  isChangePage,
+  dialogRef,
+  dialogId,
+  isShow,
+  headerId,
   url,
+  handleClose,
+  handleSave,
   hintWord,
   buttonHintWord,
-}:  Props) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const dialogId = useId();
-  const headerId = useId();
-
-  useEffect(() => {
-
-    const dialog = dialogRef.current;
-
-    document.body.style.overflow = 'hidden';
-
-    if (dialog) {
-        dialog.showModal();
+  SecondbuttonHintWord,
+}: Props) {
+  const handleDialogClick = (e: React.SyntheticEvent) => {
+    if (isChangePage) {
+      return;
     }
 
-    return () => {
-        if (dialog) {
-              dialogRef.current?.close();
-              document.body.style.overflow = '';
-        }
-    };
-}, [])
+    handleClose(e);
+  };
 
   return (
     <>
@@ -43,25 +48,96 @@ export default function AlertModal({
         ref={dialogRef}
         id={dialogId}
         aria-modal
-        className="top-[40%] z-50 opacity-100 backdrop:bg-highlight-50/80 m-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white transition-all duration-300 focus:!border-none focus:outline-none drop-shadow-xl"
+        className={clsx(
+          'm-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
+          {
+            'top-[40%] z-50 transform opacity-100 backdrop:bg-highlight-50/80': isShow,
+            'top-[45%] -z-50 transform opacity-0 backdrop:bg-highlight-50/20': !isShow,
+          }
+        )}
         aria-labelledby={headerId}
-        onClick={()=>{}}
+        onClick={(e) => handleDialogClick(e)}
       >
         <div onClick={(e: React.SyntheticEvent) => e.stopPropagation()}>
-          <div className="flex h-20 items-center justify-center px-6 mt-3 mb-4">
+          <div className="mx-auto mb-3 mt-3 flex h-20 w-[80%] items-center justify-center text-center">
             <div className="text-normal">{hintWord}</div>
           </div>
-          <div className="mx-4 mb-3 flex items-center justify-center">
-            <Link
-              className="flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-60 text-neutrals-90 focus:outline-0 focus:border-none focus:ring-0"
-              href={url}
-              scroll={false}
-            >
-             {buttonHintWord}
-            </Link>
-          </div>
+          {hasTwoButton ? (
+            <TwoButton
+              leftButtonHintWord={buttonHintWord}
+              rightButtonHintWord={SecondbuttonHintWord}
+              leftFunction={handleSave}
+              rightFunction={handleClose}
+            />
+          ) : (
+            <OneButton buttonHintWord={buttonHintWord} url={url} />
+          )}
         </div>
       </dialog>
+    </>
+  );
+}
+
+function OneButton({ buttonHintWord, url }: { buttonHintWord: string; url: string }) {
+  return (
+    <>
+      <div className="mx-4 mb-3 flex items-center justify-center">
+        <LoadingButton
+          url={url}
+          className={clsx(
+            'flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-60 text-neutrals-90 focus:border-none focus:outline-0 focus:ring-0',
+            {
+              'text-xs': buttonHintWord.length > 4,
+              'text-sm': buttonHintWord.length < 5,
+            }
+          )}
+        >
+          {buttonHintWord}
+        </LoadingButton>
+      </div>
+    </>
+  );
+}
+
+function TwoButton({
+  leftButtonHintWord,
+  rightButtonHintWord,
+  leftFunction,
+  rightFunction,
+}: {
+  leftButtonHintWord: string;
+  rightButtonHintWord: string;
+  leftFunction: (e: React.SyntheticEvent) => void;
+  rightFunction: (e: React.SyntheticEvent) => void;
+}) {
+  return (
+    <>
+      <div className="mx-4 mb-3 flex items-center justify-between gap-3">
+        <div
+          className={clsx(
+            'flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-30 text-white focus:border-none focus:outline-0 focus:ring-0',
+            {
+              'text-xs': leftButtonHintWord.length > 4,
+              'text-sm': leftButtonHintWord.length < 5,
+            }
+          )}
+          onClick={leftFunction}
+        >
+          {leftButtonHintWord}
+        </div>
+        <div
+          className={clsx(
+            'flex h-8 w-24 items-center justify-center rounded-lg bg-highlight-60 text-neutrals-90 focus:border-none focus:outline-0 focus:ring-0',
+            {
+              'text-xs': rightButtonHintWord.length > 4,
+              'text-sm': rightButtonHintWord.length < 5,
+            }
+          )}
+          onClick={rightFunction}
+        >
+          {rightButtonHintWord}
+        </div>
+      </div>
     </>
   );
 }

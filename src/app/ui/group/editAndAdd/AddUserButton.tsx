@@ -2,26 +2,30 @@
 //import from next & react
 import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
+//import data
+import { ExtendedGroup, LoginUser } from '@/app/_components/frontendData/sharedFunction/types';
+import { addGroupUser } from '@/app/_components/frontendData/fetchData/API';
 //import ui
 import { AddUserIcon } from '@/app/ui/shareComponents/Icons';
 import NameModal from '@/app/ui/shareComponents/NameModal';
 
+interface Props {
+  isAddPage: boolean;
+  groupData: ExtendedGroup;
+  setCurrentGroup: React.Dispatch<React.SetStateAction<ExtendedGroup>>;
+  loginUserData: LoginUser | null;
+}
+
 export default function AddUserButton({
+  isAddPage,
   groupData,
   setCurrentGroup,
-}: {
-  groupData: any;
-  setCurrentGroup: any;
-}) {
-  const {
-    users,
-  }: {
-    users: any;
-  } = groupData;
-
+  loginUserData,
+}: Props) {
   const [currentGroupUserName, setCurrentGroupUserName] = useState('');
-  const [lastSavedGroup, setLastSavedGroup] = useState<any>(groupData);
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const [nameExist, setNameExist] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -35,32 +39,70 @@ export default function AddUserButton({
     router.refresh();
   };
 
-  const handleChange = (e: any) => {
-    console.log(e.target.value);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    groupData: ExtendedGroup,
+    loginUserData: LoginUser | null
+  ) => {
+    const userExists =
+      groupData.users?.some((user) => user.name === e.target.value) ||
+      loginUserData?.name === e.target.value;
+
+    if (userExists) {
+      setNameExist(true);
+    } else {
+      setNameExist(false);
+    }
+
     setCurrentGroupUserName(e.target.value);
   };
 
   const handleClose = () => {
-    setCurrentGroup(lastSavedGroup);
+    setCurrentGroupUserName('');
     setIsShow(false);
+    setNameExist(false);
     router.refresh();
   };
 
-  const handleSave = () => {
-    let newGroup = {
-      ...groupData,
-      users: [
-        ...users,
-        {
-          name: currentGroupUserName,
-          picture: '',
-        },
-      ],
-    };
-    setCurrentGroup(newGroup);
-    setLastSavedGroup(newGroup);
+  const handleSave = async (
+    targetUserName: string,
+    groupData: ExtendedGroup,
+    loginUserData: LoginUser | null
+  ) => {
     setIsShow(false);
-    setCurrentGroupUserName('');
+    const userExists =
+      groupData.users?.some((user) => user.name === targetUserName) ||
+      loginUserData?.name === targetUserName;
+    if (userExists) {
+      return;
+    } else {
+      let newGroupData = {
+        ...groupData,
+        users: [
+          ...(groupData.users as []),
+          {
+            name: currentGroupUserName,
+            picture: '/images/icons/newUserBG.svg',
+          },
+        ],
+      };
+      setCurrentGroup(newGroupData);
+
+      if (!isAddPage) {
+        try {
+          let newGroupUserData = {
+            name: currentGroupUserName,
+            picture: '/images/icons/newUserBG.svg',
+          };
+          await addGroupUser({ ...newGroupUserData, groupId: groupData.id || '' });
+        } catch (error) {
+          console.error('API 呼叫失敗:', error);
+        }
+      }
+
+      setIsShow(false);
+      setCurrentGroupUserName('');
+    }
   };
 
   return (
@@ -75,12 +117,13 @@ export default function AddUserButton({
       </div>
       <NameModal
         isShow={isShow}
-        handleChange={handleChange}
+        handleChange={(e) => handleChange(e, groupData, loginUserData || null)}
         handleClose={handleClose}
-        handleSave={handleSave}
+        handleSave={() => handleSave(currentGroupUserName, groupData, loginUserData || null)}
         TopBarName="成員名稱"
         inputRef={inputRef}
         currentValue={currentGroupUserName}
+        nameExist={nameExist}
       />
     </>
   );

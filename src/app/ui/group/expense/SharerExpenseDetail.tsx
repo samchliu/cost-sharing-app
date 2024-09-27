@@ -1,24 +1,21 @@
 //import from next
 import Image from 'next/image';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
-  ExtendedExpense,
   GroupUser,
   Sharer,
 } from '@/app/_components/frontendData/sharedFunction/types';
 
 interface Props {
-  expenseData: ExtendedExpense;
   sharer: Sharer;
   users: GroupUser[];
 }
 
-export default function SharerExpenseDetail({ expenseData, sharer, users }: Props) {
-  const { payerId } = expenseData;
+export default function SharerExpenseDetail({ sharer, users }: Props) {
+  const { loginUserId } = useAllContext();
   const { id, amount } = sharer;
 
-  let payerData = users.filter((user) => user.id === payerId)[0];
   let sharerData = users.filter((user) => user.id === id)[0];
 
   let nf = new Intl.NumberFormat('en-US');
@@ -38,15 +35,17 @@ export default function SharerExpenseDetail({ expenseData, sharer, users }: Prop
               width={32}
               height={32}
               alt="sharer image"
+              priority
             />
           ) : null}
-          <div className="ml-3">
-            {id === loginUserId ? '你' : sharerData?.name}
-            &nbsp;要給&nbsp;
-            {payerId === loginUserId ? '你' : payerData?.name}
+          <div className="ml-3 flex">
+            <div className="max-w-[68px] truncate">
+              {id === loginUserId ? '你' : sharerData?.name}
+            </div>
+            <div>&nbsp;應付</div>
           </div>
         </div>
-        <div>${nf.format(shareAmount)}</div>
+        <div className="text-highlight-30">${nf.format(shareAmount)}</div>
       </div>
     </div>
   );

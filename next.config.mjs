@@ -15,6 +15,12 @@ const nextConfig = {
         port: '',
         pathname: '/images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'fastly.picsum.photos',
+        port: '',
+        pathname: '/id/**',
+      },
     ],
   },
   async headers() {

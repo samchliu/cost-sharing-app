@@ -1,228 +1,406 @@
 'use client';
-//import react
-import { useState, useContext, useEffect, useRef } from 'react';
+//import next and react
+import { useState, useEffect } from 'react';
 //import data
-import { CalcContext } from '@/app/_components/frontendData/sharedFunction/CalcProvider';
-import { ExtendedExpense, Expense } from '@/app/_components/frontendData/sharedFunction/types';
+import {
+  Expense,
+  ExtendedExpense,
+  GroupUser,
+  Sharer,
+} from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
-import { BackspaceIcon, DollarIcon } from '@/app/ui/shareComponents/Icons';
+import {
+  TotalAmountCalculator,
+  SharerAmountCalculator,
+} from '@/app/ui/group/expense/editAndAdd/CalculatorDetail';
 //import other
-import clsx from 'clsx';
+import { evaluate } from 'mathjs';
 
-export const CalculatorAndInput = ({ expenseData }: { expenseData: ExtendedExpense | Expense }) => {
-  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleInputFocus = () => {
-    inputRef.current?.focus();
-    setShowKeyboard(true);
-  };
-
-  const handleInputBlur = () => {
-    inputRef.current?.blur();
-  };
-
-  const handleKeyboardFocus = () => {
-    setShowKeyboard(true);
-  };
-
-  const handleKeyboardBlur = () => {
-    if (inputRef.current && document.activeElement === inputRef.current) {
-      return;
-    }
-    setShowKeyboard(false);
-  };
-
-  return (
-    <div className=" flex w-fit items-end justify-between gap-6">
-      <button
-        type="button"
-        onClick={handleInputFocus}
-        className="flex h-8 w-8 items-center justify-center rounded-md bg-highlight-60"
-      >
-        <DollarIcon />
-      </button>
-      <div className="relative">
-        <Display
-          amount={expenseData.amount}
-          handleKeyboardFocus={handleKeyboardFocus}
-          handleKeyboardBlur={handleKeyboardBlur}
-          inputRef={inputRef}
-        />
-        <Calculator
-          showKeyboard={showKeyboard}
-          handleKeyboardBlur={handleKeyboardBlur}
-          handleInputFocus={handleInputFocus}
-          handleInputBlur={handleInputBlur}
-        />
-      </div>
-    </div>
-  );
-};
-
-function Display({
-  amount,
-  handleKeyboardFocus,
-  handleKeyboardBlur,
-  inputRef,
-}: {
-  amount: number | string;
-  handleKeyboardFocus: () => void;
-  handleKeyboardBlur: () => void;
-  inputRef: React.RefObject<HTMLInputElement>;
-}) {
-  const context = useContext(CalcContext);
-
-  if (!context) {
-    throw new Error('CalcContext must be used within a CalcProvider');
-  }
-
-  const { display, setDisplay, updateDisplay, onFocusDisplay, onBlurDisplay } = context;
-
-  useEffect(() => {
-    if (amount || amount === '') {
-      setDisplay(Number(amount));
-    }
-  }, [amount]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateDisplay(e.target.value);
-  };
-
-  return (
-    <input
-      ref={inputRef}
-      className="z-10 w-48 border-0 border-b border-grey-500 bg-transparent pb-1 pl-0 focus:border-b focus:border-highlight-40 focus:outline-none focus:ring-0"
-      onChange={handleChange}
-      onFocus={() => {
-        handleKeyboardFocus();
-        onFocusDisplay();
-      }}
-      onBlur={() => {
-        setTimeout(() => {
-          handleKeyboardBlur();
-        }, 100);
-        onBlurDisplay();
-      }}
-      type="text"
-      inputMode="none"
-      id="display"
-      value={display}
-    />
-  );
+interface TotalProps {
+  expenseData: ExtendedExpense | Expense;
+  setCurrentExpense: React.Dispatch<React.SetStateAction<ExtendedExpense | Expense>>;
+  setisIncorrectTotalNum: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Calculator = ({
-  showKeyboard,
-  handleKeyboardBlur,
-  handleInputFocus,
-  handleInputBlur,
-}: {
-  showKeyboard: boolean;
-  handleKeyboardBlur: () => void;
+interface SharerProps {
+  isChecked: boolean;
+  sharer: Sharer;
+  handleInputBlur: (newValue: string) => void;
   handleInputFocus: () => void;
-  handleInputBlur: () => void;
-}) => {
-  const keyboardRef = useRef<HTMLDivElement>(null);
-  const context = useContext(CalcContext);
+  handleInputChange: (newValue: string) => void;
+  expenseData: ExtendedExpense | Expense;
+  users: GroupUser[];
+  setIsNotEqual: React.Dispatch<React.SetStateAction<boolean>>;
+  currentSharer: Sharer;
+}
 
-  if (!context) {
-    throw new Error('CalcContext must be used within a CalcProvider');
-  }
+export const TotalCalculator = ({
+  expenseData,
+  setCurrentExpense,
+  setisIncorrectTotalNum,
+}: TotalProps) => {
+  const [display, setDisplay] = useState<string>('');
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
 
-  const { buttonClick, equalClick, clearClick } = context;
+  const updateDisplay = (updateDisplayString: string) => {
+    setDisplay(updateDisplayString);
+  };
+
+  const allowedKeys = [
+    'Backspace',
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '(',
+    ')',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '=',
+    '.',
+    'Enter',
+    'ArrowLeft',
+    'ArrowRight',
+  ];
+
+  const [focusDisplay, setFocusDisplay] = useState(false);
+
+  const onFocusDisplay = () => {
+    setFocusDisplay(true);
+  };
+
+  const onBlurDisplay = () => {
+    setFocusDisplay(false);
+    const displayNumber = Number(display);
+    const isValidNum = !isNaN(displayNumber) && displayNumber > 1;
+
+    function evaluateExpression(expression: string) {
+      let result;
+      try {
+        result = evaluate(expression);
+      } catch (e) {
+        result = expression;
+      }
+      return String(result);
+    }
+
+    const handleInputBlur = (newValue: string) => {
+      let value = newValue.replace(/^0+/, '');
+      if (value === '' || Number(value) < 0) {
+        value = '0';
+      }
+      setCurrentExpense({ ...expenseData, amount: Number(value) });
+    };
+
+    if ((isValidNum && expenseData.amount !== displayNumber) || display === '') {
+      return handleInputBlur(display);
+    } else {
+      const evaluatedDisplay = evaluateExpression(display);
+      return handleInputBlur(evaluatedDisplay);
+    }
+  };
+
+  const buttonClick = (num: string) => {
+    if (num === 'Backspace') {
+      let myString = String(display);
+
+      myString = myString.split('').reverse().slice(1).reverse().join('');
+      updateDisplay(myString);
+    } else {
+      updateDisplay(display + num);
+    }
+  };
+
+  const equalClick = () => {
+    try {
+      if (display.length > 0) {
+        const result = evaluate(display.replaceAll(',', ''));
+
+        const hasDecimal = result % 1 !== 0;
+
+        function hasTwoZeroesAfterDecimal(num: number) {
+          let fixedNumStr = num.toFixed(2);
+          let parts = fixedNumStr.split('.');
+
+          return parts[1] === '00';
+        }
+
+        setDisplay(
+          hasDecimal && !hasTwoZeroesAfterDecimal(result)
+            ? result.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: false,
+              })
+            : result.toLocaleString('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                useGrouping: false,
+              })
+        );
+      }
+    } catch (error) {
+      setDisplay('錯誤，請再試一次');
+      setTimeout(() => {
+        setDisplay('');
+      }, 1500);
+    }
+  };
+
+  const clearClick = () => {
+    setDisplay('');
+  };
+
+  const backspace = () => {
+    setDisplay(display.slice(0, -1));
+  };
+
+  const opKey = (op: string | number) => {
+    setDisplay(display + op);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (allowedKeys.includes(e.key) && showKeyboard) {
+      switch (e.key) {
+        case 'Backspace':
+          !focusDisplay && backspace();
+          break;
+        case '=':
+          e.preventDefault();
+          equalClick();
+          break;
+        case 'Enter':
+          e.preventDefault();
+          equalClick();
+          break;
+        default:
+          !focusDisplay && opKey(e.key);
+          break;
+      }
+    }
+  };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent | TouchEvent): void => {
-      if (keyboardRef.current && !keyboardRef.current.contains(e.target as Node)) {
-        handleKeyboardBlur();
-      }
-    };
+    document.addEventListener('keydown', handleKeyDown);
 
-    const eventType = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
+    if (isNaN(Number(display)) || Number(display) < 1) {
+      setisIncorrectTotalNum(true);
+    } else {
+      setisIncorrectTotalNum(false);
+    }
 
-    document.addEventListener(eventType, handleClickOutside);
-
-    return () => {
-      document.removeEventListener(eventType, handleClickOutside);
-    };
-  }, []);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  });
 
   return (
-    <div
-      ref={keyboardRef}
-      id="calculator"
-      className={clsx(
-        'fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50 transition-all duration-300',
-        {
-          'bottom-0 z-50 transform opacity-100': showKeyboard,
-          'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
-        }
-      )}
-      onClick={handleInputFocus}
-    >
-      <div className="flex items-center justify-center">
-        <CalculatorButton value={'1'} onClick={() => buttonClick('1')} />
-        <CalculatorButton value={'2'} onClick={() => buttonClick('2')} />
-        <CalculatorButton value={'3'} onClick={() => buttonClick('3')} />
-        <CalculatorButton value={'÷'} onClick={() => buttonClick('/')} />
-        <CalculatorButton value={'×'} onClick={() => buttonClick('*')} />
-      </div>
-      <div className="flex items-center justify-center">
-        <CalculatorButton value={'4'} onClick={() => buttonClick('4')} />
-        <CalculatorButton value={'5'} onClick={() => buttonClick('5')} />
-        <CalculatorButton value={'6'} onClick={() => buttonClick('6')} />
-        <CalculatorButton value={'-'} onClick={() => buttonClick('-')} />
-        <CalculatorButton value={'+'} onClick={() => buttonClick('+')} />
-      </div>
-      <div className="flex items-center justify-center">
-        <CalculatorButton value={'7'} onClick={() => buttonClick('7')} />
-        <CalculatorButton value={'8'} onClick={() => buttonClick('8')} />
-        <CalculatorButton value={'9'} onClick={() => buttonClick('9')} />
-        <CalculatorButton value={'='} onClick={() => equalClick()} />
-        <CalculatorButton value={'AC'} onClick={() => clearClick()} />
-      </div>
-      <div className="flex items-center justify-center">
-        <CalculatorButton value={'.'} onClick={() => buttonClick('.')} />
-        <CalculatorButton value={'0'} onClick={() => buttonClick('0')} />
-        <CalculatorButton value={'<-'} onClick={() => buttonClick('Backspace')} />
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            equalClick();
-            handleKeyboardBlur();
-            handleInputBlur();
-          }}
-          className="m-[5px] flex h-14 w-[122px] cursor-pointer items-center justify-center rounded-lg bg-highlight-60"
-        >
-          確認
-        </button>
-      </div>
-    </div>
+    <>
+      <TotalAmountCalculator
+        showKeyboard={showKeyboard}
+        setShowKeyboard={setShowKeyboard}
+        expenseData={expenseData}
+        display={display}
+        setDisplay={setDisplay}
+        updateDisplay={updateDisplay}
+        onFocusDisplay={onFocusDisplay}
+        onBlurDisplay={onBlurDisplay}
+        buttonClick={buttonClick}
+        equalClick={equalClick}
+        clearClick={clearClick}
+      />
+    </>
   );
 };
 
-const CalculatorButton = ({ value, onClick }: { value: string; onClick: () => void }) => {
-  const isNum = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'AC'].includes(value);
+export const SharerCalculator = ({
+  isChecked,
+  sharer,
+  handleInputBlur,
+  handleInputFocus,
+  handleInputChange,
+  expenseData,
+  users,
+  setIsNotEqual,
+  currentSharer,
+}: SharerProps) => {
+  const [display, setDisplay] = useState<string>('');
+  const [showKeyboard, setShowKeyboard] = useState<boolean>(false);
 
-  const isCalculator = ['÷', '×', '-', '+', '='].includes(value);
+  const updateDisplay = (updateDisplayString: string) => {
+    setDisplay(updateDisplayString);
+    handleInputChange(updateDisplayString);
+  };
+
+  const allowedKeys = [
+    'Backspace',
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '(',
+    ')',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '=',
+    '.',
+    'Enter',
+    'ArrowLeft',
+    'ArrowRight',
+  ];
+
+  const [focusDisplay, setFocusDisplay] = useState(false);
+
+  const onFocusDisplay = () => {
+    setFocusDisplay(true);
+    handleInputFocus();
+  };
+
+  const onBlurDisplay = () => {
+    setFocusDisplay(false);
+    const displayNumber = Number(display);
+    const isValidNum = !isNaN(displayNumber) && displayNumber > 1;
+
+    function evaluateExpression(expression: string) {
+      let result;
+      try {
+        result = evaluate(expression);
+      } catch (e) {
+        result = expression;
+      }
+      return String(result);
+    }
+
+    if ((isValidNum && sharer.amount !== displayNumber) || display === '') {
+      return handleInputBlur(display);
+    } else {
+      const evaluatedDisplay = evaluateExpression(display);
+      return handleInputBlur(evaluatedDisplay);
+    }
+  };
+
+  const buttonClick = (num: string) => {
+    if (num === 'Backspace') {
+      let myString = String(display);
+
+      myString = myString.split('').reverse().slice(1).reverse().join('');
+      updateDisplay(myString);
+    } else {
+      updateDisplay(display + num);
+    }
+  };
+
+  const equalClick = () => {
+    try {
+      if (display.length > 0) {
+        const result = evaluate(display.replaceAll(',', ''));
+
+        const hasDecimal = result % 1 !== 0;
+
+        function hasTwoZeroesAfterDecimal(num: number) {
+          let fixedNumStr = num.toFixed(2);
+          let parts = fixedNumStr.split('.');
+
+          return parts[1] === '00';
+        }
+
+        setDisplay(
+          hasDecimal && !hasTwoZeroesAfterDecimal(result)
+            ? result.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: false,
+              })
+            : result.toLocaleString('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                useGrouping: false,
+              })
+        );
+      }
+    } catch (error) {
+      setDisplay('錯誤，請再試一次');
+      setTimeout(() => {
+        setDisplay('');
+      }, 1500);
+    }
+  };
+
+  const clearClick = () => {
+    setDisplay('');
+  };
+
+  const backspace = () => {
+    setDisplay(display.slice(0, -1));
+  };
+
+  const opKey = (op: string | number) => {
+    setDisplay(display + op);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (allowedKeys.includes(e.key) && showKeyboard) {
+      switch (e.key) {
+        case 'Backspace':
+          !focusDisplay && backspace();
+          break;
+        case '=':
+          e.preventDefault();
+          equalClick();
+          break;
+        case 'Enter':
+          e.preventDefault();
+          equalClick();
+          break;
+        default:
+          !focusDisplay && opKey(e.key);
+          break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  });
+
   return (
-    <button
-      type="button"
-      className={clsx('m-[5px] flex h-14 w-14 items-center justify-center rounded-lg font-medium', {
-        'bg-highlight-40': isCalculator,
-        'bg-neutrals-20': isNum || value === '<-',
-      })}
-      onClick={onClick}
-    >
-      {value !== '<-' ? (
-        value
-      ) : (
-        <div className="relative left-[-2px]">
-          <BackspaceIcon />
-        </div>
-      )}
-    </button>
+    <>
+      <SharerAmountCalculator
+        showKeyboard={showKeyboard}
+        setShowKeyboard={setShowKeyboard}
+        isChecked={isChecked}
+        sharer={sharer}
+        expenseData={expenseData}
+        display={display}
+        setDisplay={setDisplay}
+        updateDisplay={updateDisplay}
+        onFocusDisplay={onFocusDisplay}
+        onBlurDisplay={onBlurDisplay}
+        buttonClick={buttonClick}
+        equalClick={equalClick}
+        clearClick={clearClick}
+        users={users}
+        setIsNotEqual={setIsNotEqual}
+        currentSharer={currentSharer}
+      />
+    </>
   );
 };

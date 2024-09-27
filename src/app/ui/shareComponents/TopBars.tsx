@@ -1,7 +1,5 @@
-//import from next
-import Link from 'next/link';
 //import data
-import { loginUserId } from '@/app/_components/frontendData/fetchData/user';
+import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
 import {
   ExtendedGroup,
   ExtendedExpense,
@@ -9,6 +7,8 @@ import {
 } from '@/app/_components/frontendData/sharedFunction/types';
 //import ui
 import { HomeIcon, EditIcon, EditTwoIcon, BackArrowIcon } from '@/app/ui/shareComponents/Icons';
+import { LoadingButton } from '@/app/ui/loading/FullPageLoading';
+//import other
 import clsx from 'clsx';
 
 interface TopGroupBarProps {
@@ -32,7 +32,6 @@ interface TopExpenseBarProps {
 }
 
 interface TopExpenseSettingBarProps {
-  isAddPage: boolean;
   group: ExtendedGroup;
   expenseData: ExtendedExpense | Expense;
   phase: number;
@@ -49,29 +48,31 @@ interface TopBarProps {
   handleRightClick: () => void;
 }
 
+
 export function TopGroupBar({ isBalancePage, groupData }: TopGroupBarProps) {
+  const { loginUserId } = useAllContext();
   const hasGroupData = Boolean(groupData);
   const isUserInGroup = hasGroupData && groupData.users?.some((user) => user.id === loginUserId);
 
   return (
     <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <div className="flex h-6 w-6">
+      <div className="flex h-6 w-6 items-center justify-center">
         {isBalancePage && hasGroupData ? (
-          <Link href={`/group/${groupData.id}`} className="flex">
+          <LoadingButton url={`/group/${groupData.id}`} className="flex">
             <BackArrowIcon />
-          </Link>
+          </LoadingButton>
         ) : hasGroupData ? (
-          <Link href="/groups">
+          <LoadingButton url="/groups" className="">
             <HomeIcon />
-          </Link>
+          </LoadingButton>
         ) : null}
       </div>
-      <h1 className="text-lg">{isUserInGroup ? groupData.name : ''}</h1>
+      <h1 className="max-w-52 truncate text-lg">{isUserInGroup ? groupData.name : ''}</h1>
       <div className="h-6 w-6">
         {!isBalancePage && isUserInGroup && (
-          <Link href={`/group/${groupData.id}/edit`} scroll={false}>
+          <LoadingButton url={`/group/${groupData.id}/edit`} className="">
             <EditIcon />
-          </Link>
+          </LoadingButton>
         )}
       </div>
     </div>
@@ -87,6 +88,8 @@ export function TopGroupSettingBar({
   leftCancelLink,
   rightCancelLink,
 }: TopGroupSettingBarProps) {
+  const { loginUserId } = useAllContext();
+
   const shouldRender =
     groupData && (isAddPage || groupData.users?.some((user) => user.id === loginUserId));
 
@@ -94,17 +97,17 @@ export function TopGroupSettingBar({
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="flex h-6 w-8 items-center justify-center">
         {shouldRender && (
-          <Link href={leftCancelLink} scroll={false}>
+          <LoadingButton url={leftCancelLink} className="">
             <div className="">{leftHintWord}</div>
-          </Link>
+          </LoadingButton>
         )}
       </div>
       <h1 className="text-lg">{shouldRender && middleHintword}</h1>
       <div className="h-6 w-8">
         {shouldRender && (
-          <Link href={rightCancelLink} scroll={false}>
+          <LoadingButton url={rightCancelLink} className="">
             <div className="">{rightHintWord}</div>
-          </Link>
+          </LoadingButton>
         )}
       </div>
     </div>
@@ -115,28 +118,22 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
   const id = groupData ? groupData.id : '';
 
   return (
-    <div className="fixed z-10 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
-      <Link href={`/group/${id}`} className="h-6 w-6">
-        <HomeIcon />
-      </Link>
-      <h1 className="text-lg">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId))
-          ? '費用明細'
-          : ''}
-      </h1>
+    <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
+      <LoadingButton
+        url={`/group/${id}`}
+        className="flex h-6 w-6 items-center justify-center"
+      >
+        <BackArrowIcon />
+      </LoadingButton>
+      <h1 className="text-lg">{expenseData ? '費用明細' : ''}</h1>
       <div className="h-6 w-6">
-        {expenseData &&
-        (expenseData.payerId === loginUserId ||
-          expenseData.sharers?.some((sharer) => sharer.id === loginUserId)) ? (
-          <Link
-            href={`/group/${id}/expense/${expenseData.id}/edit`}
+        {expenseData ? (
+          <LoadingButton
+            url={`/group/${id}/expense/${expenseData.id}/edit`}
             className="h-6 w-6"
-            scroll={false}
           >
             <EditTwoIcon />
-          </Link>
+          </LoadingButton>
         ) : (
           ''
         )}
@@ -146,7 +143,6 @@ export function TopExpenseBar({ groupData, expenseData }: TopExpenseBarProps) {
 }
 
 export function TopExpenseSettingBar({
-  isAddPage,
   group,
   expenseData,
   phase,
@@ -157,35 +153,30 @@ export function TopExpenseSettingBar({
   function handleClick() {
     if (phase === 1) return;
     setPhase(phase - 1);
-    console.log(phase);
   }
 
-  const shouldRender =
-    expenseData &&
-    group &&
-    (isAddPage ||
-      expenseData.payerId === loginUserId ||
-      expenseData.sharers?.some((sharer) => sharer.id === loginUserId));
+  const shouldRender = expenseData && group;
 
   return (
     <div className="fixed z-20 flex w-full items-center justify-between bg-highlight-50 px-5 py-4 text-white">
       <div className="flex h-6 w-12 items-center justify-start">
-        <div
+        <button
+          type="button"
           onClick={handleClick}
           className={clsx('cursor-pointer text-sm', {
             hidden: phase === 1,
           })}
         >
           上一步
-        </div>
+        </button>
       </div>
       <h1 className="text-lg">{shouldRender && hintword}</h1>
       <div className="flex h-6 w-12 items-center justify-end">
         <>
           {shouldRender && (
-            <Link href={cancelLink} scroll={false}>
+            <LoadingButton url={cancelLink} className="">
               <p className="text-sm">取消</p>
-            </Link>
+            </LoadingButton>
           )}
         </>
       </div>
