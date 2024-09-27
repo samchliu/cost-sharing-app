@@ -65,10 +65,60 @@ export async function DELETE(
   { params }: { params: { groupId: string; userId: string } }
 ) {
   try {
-    const { count } = await prisma.groupUser.deleteMany({
-      where: { groupId: params.groupId, userId: params.userId },
+    const user = await prisma.user.findUnique({ where: { id: params.userId } });
+    if (!user) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+
+    const groupUser = await prisma.groupUser.findUnique({ where: { groupId_userId: params } });
+    if (!groupUser) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+
+    const groupCreator = await prisma.group.findMany({
+      where: { id: params.groupId, creatorId: params.userId },
     });
-    if (count === 0) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
+    const expenses = await prisma.expense.findMany({ where: { creatorId: params.userId } });
+    const payers = await prisma.expense.findMany({ where: { payerId: params.userId } });
+    const sharers = await prisma.sharer.findMany({ where: { userId: params.userId } });
+    const historys = await prisma.history.findMany({ where: { editorId: params.userId } });
+
+    if (groupCreator.length + expenses.length + payers.length + sharers.length + historys.length > 0) {
+      const successor = await prisma.user.create({
+        data: {
+          name: user.name,
+          picture: '',
+        },
+      });
+      
+      await Promise.all([
+        prisma.group.update({
+          where: { id: params.groupId, creatorId: params.userId },
+          data: {
+            creatorId: successor.id,
+          },
+        }),
+        prisma.groupUser.update({
+          where: { groupId_userId: params },
+          data: { userId: successor.id },
+        }),
+        prisma.expense.updateMany({
+          where: { groupId: params.groupId, creatorId: params.userId },
+          data: { creatorId: successor.id },
+        }),
+        prisma.expense.updateMany({
+          where: { groupId: params.groupId, payerId: params.userId },
+          data: { payerId: successor.id },
+        }),
+        prisma.sharer.updateMany({
+          where: { expense: { groupId: params.groupId }, userId: params.userId },
+          data: { userId: successor.id },
+        }),
+        prisma.history.updateMany({
+          where: { expense: { groupId: params.groupId }, editorId: params.userId },
+          data: { editorId: successor.id },
+        }),
+      ]);
+    } else {
+      await prisma.groupUser.delete({ where: { groupId_userId: params } });
+      if (!user.lineId) await prisma.user.delete({ where: { id: params.userId } });
+    }
     return new NextResponse(undefined, { status: 204 });
   } catch (error) {
     console.error(error);
