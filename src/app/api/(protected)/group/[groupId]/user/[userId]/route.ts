@@ -83,7 +83,7 @@ export async function DELETE(
       const successor = await prisma.user.create({
         data: {
           name: user.name,
-          picture: user.picture,
+          picture: '',
         },
       });
       
