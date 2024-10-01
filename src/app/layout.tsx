@@ -20,6 +20,18 @@ export const metadata = {
     siteName: 'Cost Sharing App',
     images: [
       {
+        url: '/images/200_200.jpg',
+        width: 200,
+        height: 200,
+        alt: 'A descriptive alt text for the image',
+      },
+      {
+        url: '/images/600_315.jpg',
+        width: 600,
+        height: 315,
+        alt: 'A descriptive alt text for the image',
+      },
+      {
         url: '/images/1200_630.jpg',
         width: 1200,
         height: 630,

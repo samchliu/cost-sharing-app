@@ -36,7 +36,6 @@ export default function Page() {
     payerId: loginUserId || '',
     sharers: [],
   });
-  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (currentExpense.amount !== 0) {
@@ -45,7 +44,7 @@ export default function Page() {
   }, [currentExpense?.amount, isNotZero]);
 
   return (
-    <form ref={formRef} method="post" action={`/group/${groupid}`}>
+    <div>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           group={group}
@@ -88,7 +87,6 @@ export default function Page() {
           <section>
             <NextStepButton
               isAddExpensePage={true}
-              formRef={formRef}
               groupid={groupid}
               expenseData={currentExpense}
               phase={phase}
@@ -99,10 +97,11 @@ export default function Page() {
               isIncorrectTotalNum={isIncorrectTotalNum}
               nameExist={nameExist}
               hasNameLength={hasNameLength}
+              url={`/group/${groupid}`}
             />
           </section>
         </FadeIn>
       </div>
-    </form>
+    </div>
   );
 }

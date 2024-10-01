@@ -107,7 +107,7 @@ export function GroupUserButton({
         {userData?.adoptable === false || userData?.id === loginUserId ? (
           <Image
             className="h-11 w-11 rounded-full bg-neutrals-20"
-            src={userData.picture}
+            src={userData.picture === '' ? '/images/icons/newUserBG.svg' : userData.picture}
             width={32}
             height={32}
             alt="user's image"
@@ -133,16 +133,16 @@ export function GroupUserButton({
           <div onClick={handleToggle} className="flex h-8 w-8 items-center justify-center">
             <TrashcanIcon />
           </div>
-            <DeleteModal
-              dialogRef={dialogRef}
-              dialogId={dialogId}
-              isShow={isShow}
-              headerId={headerId}
-              handleClose={handleClose}
-              handleSave={(e) => handleSave(e, groupData.id || '', userData?.id || '', isAddPage)}
-              hintWord="確定要刪除成員嗎？"
-              idx={idx}
-            />
+          <DeleteModal
+            dialogRef={dialogRef}
+            dialogId={dialogId}
+            isShow={isShow}
+            headerId={headerId}
+            handleClose={handleClose}
+            handleSave={(e) => handleSave(e, groupData.id || '', userData?.id || '', isAddPage)}
+            hintWord="確定要刪除成員嗎？"
+            idx={idx}
+          />
         </>
       ) : null}
     </div>

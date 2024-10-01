@@ -38,24 +38,26 @@ export default function Page() {
   }, [group]);
 
   return (
-    <div
-      className={clsx('flex flex-col', {
-        'items-center': totalAmount === 0,
-      })}
-    >
+    <div>
       <Suspense fallback={<UsersBarSkeleton />}>
         <TopGroupBar groupData={group} isBalancePage={true} />
         <FadeIn direction="top">
-          <BalanceAmount totalAmount={totalAmount} />
-          {totalAmount !== 0 ? (
-            <BalanceDetails
-              groupUsers={groupUsers}
-              ownerDebt={ownerDebt}
-              totalAmount={totalAmount}
-            />
-          ) : (
-            <div className="mt-9">-尚未有費用紀錄-</div>
-          )}
+          <div
+            className={clsx('flex flex-col', {
+              'items-center': totalAmount === 0,
+            })}
+          >
+            <BalanceAmount totalAmount={totalAmount} />
+            {totalAmount !== 0 ? (
+              <BalanceDetails
+                groupUsers={groupUsers}
+                ownerDebt={ownerDebt}
+                totalAmount={totalAmount}
+              />
+            ) : (
+              <div className="mt-9 text-center">-尚未有費用紀錄-</div>
+            )}
+          </div>
         </FadeIn>
       </Suspense>
     </div>

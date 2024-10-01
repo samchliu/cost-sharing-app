@@ -20,6 +20,7 @@ import { FullPageLoading } from '@/app/ui/loading/FullPageLoading';
 //import other
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 interface GroupNameSettingProps {
   loginUserData: LoginUser;
@@ -197,15 +198,16 @@ export function GroupOtherSetting({ groupData, setCurrentGroup }: GroupOtherSett
 
 export function GroupSave({
   groupData,
-  formRef,
   nameExist,
   hasNameLength,
+  url,
 }: {
   groupData: Group;
-  formRef: React.RefObject<HTMLFormElement>;
   nameExist: boolean;
   hasNameLength: boolean;
+  url: string;
 }) {
+  const router = useRouter();
   let groupUsers = groupData.users ? groupData.users : [];
   let groupId = groupData.id ? groupData.id : '';
 
@@ -235,9 +237,7 @@ export function GroupSave({
       setIsLoading(true);
 
       await addGroup(GroupBody);
-      if (formRef.current) {
-        formRef.current.submit();
-      }
+      router.push(url);
     } catch (error) {
       console.error('API 呼叫失敗:', error);
     }

@@ -2,9 +2,9 @@
 import Image from 'next/image';
 //import data
 import { useAllContext } from '@/app/_components/frontendData/fetchData/Providers';
-import { Debt, User, GroupUser } from '@/app/_components/frontendData/sharedFunction/types'; 
+import { Debt, User, GroupUser } from '@/app/_components/frontendData/sharedFunction/types';
 //import other
-import clsx from "clsx";
+import clsx from 'clsx';
 
 interface Prop {
   groupUsers: GroupUser[];
@@ -29,7 +29,7 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
       {user.picture ? (
         <Image
           className="z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full bg-neutrals-30"
-          src={user.picture}
+          src={user.picture === '' ? '/images/icons/newUserBG.svg' : user.picture}
           width={64}
           height={64}
           alt={`${user.name}'s picture`}
