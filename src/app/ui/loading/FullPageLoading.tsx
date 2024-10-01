@@ -1,4 +1,3 @@
-
 'use client';
 //import next or react
 import { useRouter } from 'next/navigation';
@@ -18,18 +17,15 @@ export function LoadingButton({ url, className = '', children }: LoadingButtonPr
 
   const handleClick = () => {
     setTimeout(() => {
-          setIsLoading(true);
-        }, 300);
+      setIsLoading(true);
+    }, 300);
     router.push(url, { scroll: true });
   };
 
   return (
     <>
       {isLoading && <FullPageLoading />}
-      <div
-        onClick={handleClick}
-        className={`${className}`}
-      >
+      <div onClick={handleClick} className={`${className}`}>
         {children}
       </div>
     </>
@@ -54,9 +50,9 @@ export function FullPageLoading() {
   useEffect(() => {
     const interval = setInterval(() => {
       setFlip((prevFlip) => !prevFlip);
-      setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
 
       setTimeout(() => {
+        setColorIndex((prevIndex) => (prevIndex + 1) % colors.length);
         setFrontImageIndex((prevIndex) => (prevIndex + 1) % images.length);
         setBackImageIndex((prevIndex) => (prevIndex + 1) % images.length);
       }, 120);
@@ -86,7 +82,7 @@ export function FullPageLoading() {
             animate={{ rotateX: flip ? 0 : 180 }}
           >
             <motion.div
-              className="backface-hidden absolute h-full w-full"
+              className="absolute h-full w-full backface-hidden"
               style={{
                 backgroundImage: `url(${images[frontImageIndex]})`,
                 backgroundSize: 'contain',
@@ -96,7 +92,7 @@ export function FullPageLoading() {
               animate={{ rotateX: flip ? 180 : 0 }}
             ></motion.div>
             <motion.div
-              className="backface-hidden absolute h-full w-full"
+              className="absolute h-full w-full backface-hidden"
               style={{
                 backgroundImage: `url(${images[backImageIndex]})`,
                 backgroundSize: 'contain',

@@ -19,7 +19,7 @@ export default function ShareButton({
   groupUsers: GroupUser[] | undefined;
 }) {
   const btnRef = useRef<HTMLButtonElement | null>(null);
-  const base = 'https://cost-sharing-app.vercel.app/group/';
+  const base = 'https://cost-sharing-app-git-staging-samchlius-projects.vercel.app';
   const links = base + id;
 
   const [isShow, setIsShow] = useState(false);

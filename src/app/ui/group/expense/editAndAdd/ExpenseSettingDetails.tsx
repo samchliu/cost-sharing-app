@@ -13,6 +13,7 @@ import { NextstepIcon } from '@/app/ui/shareComponents/Icons';
 import { FullPageLoading } from '@/app/ui/loading/FullPageLoading';
 //import other
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 interface GroupInfoBarProps {
   expenseData?: ExtendedExpense | Expense;
@@ -21,7 +22,6 @@ interface GroupInfoBarProps {
 
 interface NextStepButtonProps {
   isAddExpensePage: boolean;
-  formRef: React.RefObject<HTMLFormElement>;
   phase: number;
   setPhase: (phase: number) => void;
   groupid: string;
@@ -32,6 +32,7 @@ interface NextStepButtonProps {
   isIncorrectTotalNum: boolean;
   nameExist: boolean;
   hasNameLength: boolean;
+  url: string;
 }
 
 export function GroupInfoBar({ expenseData, group }: GroupInfoBarProps) {
@@ -63,7 +64,6 @@ export function GroupInfoBar({ expenseData, group }: GroupInfoBarProps) {
 
 export function NextStepButton({
   isAddExpensePage,
-  formRef,
   phase,
   setPhase,
   groupid,
@@ -74,7 +74,9 @@ export function NextStepButton({
   isIncorrectTotalNum,
   nameExist,
   hasNameLength,
+  url,
 }: NextStepButtonProps) {
+  const router = useRouter();
   const expenseId = expenseData && 'id' in expenseData ? expenseData.id : '';
 
   const addedAmount =
@@ -123,9 +125,7 @@ export function NextStepButton({
         await changeExpense({ ...payload, id: expenseid });
       }
 
-      if (formRef.current) {
-        formRef.current.submit();
-      }
+      router.push(url);
     } catch (error) {
       console.error('API 呼叫失敗:', error);
     }

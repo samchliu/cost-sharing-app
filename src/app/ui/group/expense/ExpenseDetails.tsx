@@ -33,7 +33,7 @@ export function ExpenseDetailOne({ expenseData }: ExpenseDetailProps) {
           </div>
           <div className="flex grow justify-between pt-4">
             <div className="h-fit">
-              <div className="w-48 truncate text-xl leading-6">{name}</div>
+              <div className="w-40 truncate text-xl leading-6">{name}</div>
               <div className="text-sm leading-4 text-grey-500">
                 {date && format(date, 'yyyy/MM/dd')}
               </div>
@@ -63,7 +63,7 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
             {payerData ? (
               <Image
                 className="z-10 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-neutrals-30"
-                src={payerData.picture}
+                src={payerData.picture === '' ? '/images/icons/newUserBG.svg' : payerData.picture}
                 width={64}
                 height={64}
                 alt="sharer image"

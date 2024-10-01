@@ -82,7 +82,7 @@ export default function AddUserButton({
           ...(groupData.users as []),
           {
             name: currentGroupUserName,
-            picture: '/images/icons/newUserBG.svg',
+            picture: '',
           },
         ],
       };
@@ -92,7 +92,7 @@ export default function AddUserButton({
         try {
           let newGroupUserData = {
             name: currentGroupUserName,
-            picture: '/images/icons/newUserBG.svg',
+            picture: '',
           };
           await addGroupUser({ ...newGroupUserData, groupId: groupData.id || '' });
         } catch (error) {

@@ -62,7 +62,7 @@ function UserBarImage({ user }: { user: GroupUser }) {
         <li>
           {user.picture ? (
             <Image
-              src={user.picture}
+              src={user.picture === '' ? '/images/icons/newUserBG.svg' : user.picture}
               width={200}
               height={200}
               alt={user.name}

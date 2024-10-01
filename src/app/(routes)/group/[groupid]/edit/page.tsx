@@ -38,7 +38,7 @@ export default function Page() {
   const isUserInGroup = hasGroupData && currentGroup.users?.some((user) => user.id === loginUserId);
 
   return (
-    <form method="post" action={`/group/${groupid}`}>
+    <div>
       <div className="relative flex flex-col">
         <TopGroupSettingBar
           isAddPage={false}
@@ -71,6 +71,6 @@ export default function Page() {
           </FadeIn>
         )}
       </div>
-    </form>
+    </div>
   );
 }
