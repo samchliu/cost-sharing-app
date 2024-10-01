@@ -8,7 +8,7 @@
             "groups": [
                 {
                     "id": "g1",
-                    "name": "5月聚餐abcabcabcabc",
+                    "name": "5月聚餐",
                     "picture": "/images/icons/groupIcon01.svg"
                 },
                 {
@@ -55,6 +55,21 @@
                     "id": "g13",
                     "name": "臺南 823-825",
                     "picture": "/images/icons/groupIcon08.svg"
+                },
+                {
+                    "id": "f33d7bb8-3565-4a40-adf2-6529d2ec3c56",
+                    "name": "未命名群組",
+                    "picture": "/images/icons/groupIcon01.svg"
+                },
+                {
+                    "id": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+                    "name": "高雄OOR/臺南 920-922",
+                    "picture": "/images/icons/groupIcon07.svg"
+                },
+                {
+                    "id": "53eb31a1-ec47-4ff6-b605-50750a4c4ade",
+                    "name": "未命名群組",
+                    "picture": "/images/icons/groupIcon01.svg"
                 }
             ]
         },
@@ -66,7 +81,7 @@
             "groups": [
                 {
                     "id": "g1",
-                    "name": "5月聚餐abcabcabcabc",
+                    "name": "5月聚餐",
                     "picture": "/images/icons/groupIcon01.svg"
                 },
                 {
@@ -113,6 +128,16 @@
                     "id": "g13",
                     "name": "臺南 823-825",
                     "picture": "/images/icons/groupIcon08.svg"
+                },
+                {
+                    "id": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+                    "name": "高雄OOR/臺南 920-922",
+                    "picture": "/images/icons/groupIcon07.svg"
+                },
+                {
+                    "id": "53eb31a1-ec47-4ff6-b605-50750a4c4ade",
+                    "name": "未命名群組",
+                    "picture": "/images/icons/groupIcon01.svg"
                 }
             ]
         },
@@ -124,7 +149,7 @@
             "groups": [
                 {
                     "id": "g1",
-                    "name": "5月聚餐abcabcabcabc",
+                    "name": "5月聚餐",
                     "picture": "/images/icons/groupIcon01.svg"
                 },
                 {
@@ -176,6 +201,16 @@
                     "id": "g13",
                     "name": "臺南 823-825",
                     "picture": "/images/icons/groupIcon08.svg"
+                },
+                {
+                    "id": "cb9b35ec-9d17-4cae-914f-0799903a748c",
+                    "name": "未命名群組",
+                    "picture": "/images/icons/groupIcon04.svg"
+                },
+                {
+                    "id": "9adec5af-10fb-49a9-a4f4-fc80020af688",
+                    "name": "未命名",
+                    "picture": "/images/icons/groupIcon05.svg"
                 }
             ]
         },
@@ -187,7 +222,7 @@
             "groups": [
                 {
                     "id": "g1",
-                    "name": "5月聚餐abcabcabcabc",
+                    "name": "5月聚餐",
                     "picture": "/images/icons/groupIcon01.svg"
                 },
                 {
@@ -224,6 +259,11 @@
                     "id": "g13",
                     "name": "臺南 823-825",
                     "picture": "/images/icons/groupIcon08.svg"
+                },
+                {
+                    "id": "d0278763-49db-4043-ba3f-a6f19dca2f1e",
+                    "name": "成語大補帖",
+                    "picture": "/images/icons/groupIcon14.svg"
                 }
             ]
         },
@@ -257,6 +297,11 @@
                     "id": "g11",
                     "name": "group Other 3",
                     "picture": "/images/icons/groupIcon11.svg"
+                },
+                {
+                    "id": "d0278763-49db-4043-ba3f-a6f19dca2f1e",
+                    "name": "成語大補帖",
+                    "picture": "/images/icons/groupIcon09.svg"
                 }
             ]
         },
@@ -318,6 +363,16 @@
                     "id": "g11",
                     "name": "group Other 3",
                     "picture": "/images/icons/groupIcon11.svg"
+                },
+                {
+                    "id": "g1",
+                    "name": "5月聚餐",
+                    "picture": "/images/icons/groupIcon01.svg"
+                },
+                {
+                    "id": "f33d7bb8-3565-4a40-adf2-6529d2ec3c56",
+                    "name": "未命名群組",
+                    "picture": "/images/icons/groupIcon01.svg"
                 }
             ]
         },
@@ -394,7 +449,7 @@
     "group": [
         {
             "id": "g1",
-            "name": "5月聚餐abcabcabcabc",
+            "name": "5月聚餐",
             "picture": "/images/icons/groupIcon01.svg",
             "creatorId": "u1",
             "expenses": [
@@ -811,10 +866,10 @@
                     "adoptable": true
                 },
                 {
-                    "id": "u22",
-                    "name": "小阿十",
-                    "picture": "/images/icons/newUserBG.svg",
-                    "adoptable": true
+                    "id": "u7",
+                    "name": "g",
+                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
+                    "adoptable": false
                 }
             ]
         },
@@ -1311,7 +1366,43 @@
             "name": "group Travel 3",
             "picture": "/images/icons/groupIcon09.svg",
             "creatorId": "u1",
-            "expenses": [],
+            "expenses": [
+                {
+                    "name": "未命名費用",
+                    "category": "food",
+                    "amount": 2,
+                    "date": "2024-09-04T12:35:38.159Z",
+                    "note": "",
+                    "payerId": "u7",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 0.33
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 0.33
+                        },
+                        {
+                            "id": "u3",
+                            "amount": 0.33
+                        },
+                        {
+                            "id": "u7",
+                            "amount": 0.33
+                        },
+                        {
+                            "id": "u9",
+                            "amount": 0.33
+                        },
+                        {
+                            "id": "u10",
+                            "amount": 0.33
+                        }
+                    ],
+                    "id": "2d5977b0-2210-4f99-a283-992bf88080ce"
+                }
+            ],
             "users": [
                 {
                     "id": "u1",
@@ -1803,6 +1894,537 @@
                     "name": "d",
                     "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
                     "adoptable": false
+                }
+            ]
+        },
+        {
+            "id": "d0278763-49db-4043-ba3f-a6f19dca2f1e",
+            "name": "成語大補帖",
+            "picture": "/images/icons/groupIcon14.svg",
+            "creatorId": "u5",
+            "expenses": [
+                {
+                    "name": "1",
+                    "category": "food",
+                    "amount": 1500,
+                    "date": "2024-08-29T02:21:35.888Z",
+                    "note": "",
+                    "payerId": "598106f8-2cfd-45e2-9ee3-ac3fe05d4592",
+                    "sharers": [
+                        {
+                            "id": "u4",
+                            "amount": 300
+                        },
+                        {
+                            "id": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                            "amount": 300
+                        },
+                        {
+                            "id": "u5",
+                            "amount": 300
+                        },
+                        {
+                            "id": "f8b04ae0-e58f-4f33-bdc2-c9815a9f47ae",
+                            "amount": 600
+                        }
+                    ],
+                    "id": "1fc93412-4b71-411f-8a73-08164f596cd2"
+                },
+                {
+                    "name": "2",
+                    "category": "food",
+                    "amount": 1000,
+                    "date": "2024-08-29T02:22:01.486Z",
+                    "note": "",
+                    "payerId": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                    "sharers": [
+                        {
+                            "id": "u4",
+                            "amount": 200
+                        },
+                        {
+                            "id": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                            "amount": 200
+                        },
+                        {
+                            "id": "u5",
+                            "amount": 200
+                        },
+                        {
+                            "id": "f8b04ae0-e58f-4f33-bdc2-c9815a9f47ae",
+                            "amount": 400
+                        }
+                    ],
+                    "id": "5548424c-2631-4444-b13f-8ee3b1e45906"
+                }
+            ],
+            "users": [
+                {
+                    "id": "u4",
+                    "name": "d",
+                    "picture": "https://images.dog.ceo/breeds/terrier-sealyham/n02095889_1044.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                    "name": "驚為天人",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "u5",
+                    "name": "e",
+                    "picture": "https://cdn2.thecatapi.com/images/cib.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "f8b04ae0-e58f-4f33-bdc2-c9815a9f47ae",
+                    "name": "一石二鳥",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "598106f8-2cfd-45e2-9ee3-ac3fe05d4592",
+                    "name": "打草驚蛇",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                }
+            ]
+        },
+        {
+            "id": "f33d7bb8-3565-4a40-adf2-6529d2ec3c56",
+            "name": "未命名群組",
+            "picture": "/images/icons/groupIcon01.svg",
+            "creatorId": "u7",
+            "expenses": [
+                {
+                    "name": "未命名費用",
+                    "category": "food",
+                    "amount": 60000,
+                    "date": "2024-09-05T11:15:51.209Z",
+                    "note": "",
+                    "payerId": "a18f298f-e59d-4df5-8c43-21f15b7b6fdb",
+                    "sharers": [
+                        {
+                            "id": "ad1fe181-0b0a-4087-8d8d-6440cc43c898",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "u7",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "50106613-572d-47d5-9896-b88c254b863a",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "a18f298f-e59d-4df5-8c43-21f15b7b6fdb",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "27f62856-cd68-4e5b-89e7-fac62c9da598",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "u1",
+                            "amount": 8571.43
+                        },
+                        {
+                            "id": "44bccd0e-2210-4d39-b902-dd40380f8aaa",
+                            "amount": 8571.43
+                        }
+                    ],
+                    "id": "bb8290e3-0842-4751-8a2f-5a42b4fa30f5"
+                }
+            ],
+            "users": [
+                {
+                    "id": "ad1fe181-0b0a-4087-8d8d-6440cc43c898",
+                    "name": "333",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "u7",
+                    "name": "g",
+                    "picture": "https://cdn2.thecatapi.com/images/edb.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "50106613-572d-47d5-9896-b88c254b863a",
+                    "name": "444",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "a18f298f-e59d-4df5-8c43-21f15b7b6fdb",
+                    "name": "原 小明bbbbb",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "27f62856-cd68-4e5b-89e7-fac62c9da598",
+                    "name": "666",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                },
+                {
+                    "id": "u1",
+                    "name": "小陳aaaaaaaaaaaa",
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "44bccd0e-2210-4d39-b902-dd40380f8aaa",
+                    "name": "888",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                }
+            ]
+        },
+        {
+            "id": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "name": "高雄OOR/臺南 920-922",
+            "picture": "/images/icons/groupIcon07.svg",
+            "creatorId": "u2",
+            "expenses": [
+                {
+                    "name": "阿龍意麵",
+                    "category": "food",
+                    "amount": 250,
+                    "date": "2024-09-20T00:00:00.000Z",
+                    "note": "",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 125
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 125
+                        }
+                    ],
+                    "id": "a824b582-f3fe-4336-aaf1-27f7820a71ac"
+                },
+                {
+                    "name": "莉莉水果行",
+                    "category": "food",
+                    "amount": 166,
+                    "date": "2024-09-20T00:00:00.000Z",
+                    "note": "水果拼盤、小玉西瓜汁、鳳梨蘋果汁",
+                    "payerId": "u2",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 83
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 83
+                        }
+                    ],
+                    "id": "c7cc8822-9952-486b-8be6-754bd142045c"
+                },
+                {
+                    "name": "老江紅茶",
+                    "category": "food",
+                    "amount": 182,
+                    "date": "2024-09-21T00:00:00.000Z",
+                    "note": "紅茶鮮奶、蛋餅、吐司兩個",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 91
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 91
+                        }
+                    ],
+                    "id": "6b56fa65-edc5-4731-a2c0-8c9a43aa525e"
+                },
+                {
+                    "name": "水",
+                    "category": "food",
+                    "amount": 58,
+                    "date": "2024-09-21T00:00:00.000Z",
+                    "note": "全家領票時順便買水",
+                    "payerId": "u2",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 29
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 29
+                        }
+                    ],
+                    "id": "10b07c25-8bb1-48a7-824e-da3022841db9"
+                },
+                {
+                    "name": "OOR周邊毛巾",
+                    "category": "entertainment",
+                    "amount": 550,
+                    "date": "2024-09-21T00:00:00.000Z",
+                    "note": "Emily買的 我代墊",
+                    "payerId": "u2",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 550
+                        }
+                    ],
+                    "id": "c6df82c0-40c7-4b2e-90c5-0bce037b258f"
+                },
+                {
+                    "name": "魚皮湯",
+                    "category": "food",
+                    "amount": 125,
+                    "date": "2024-09-22T00:00:00.000Z",
+                    "note": "",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 62.5
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 62.5
+                        }
+                    ],
+                    "id": "e6e1dab4-60fe-4a20-9134-1b466133bfbb"
+                },
+                {
+                    "name": "牛肉湯",
+                    "category": "food",
+                    "amount": 370,
+                    "date": "2024-09-22T00:00:00.000Z",
+                    "note": "牛肉湯、牛肉飯、燙青菜、牛肉炒麵",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 185
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 185
+                        }
+                    ],
+                    "id": "d43b8cc1-8944-40a7-9b38-aa5d27f6eeef"
+                },
+                {
+                    "name": "安平豆花",
+                    "category": "food",
+                    "amount": 40,
+                    "date": "2024-09-22T00:00:00.000Z",
+                    "note": "",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 20
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 20
+                        }
+                    ],
+                    "id": "a1e23a20-9ee8-4273-9898-ac1a1a8771b7"
+                },
+                {
+                    "name": "酸梅汁",
+                    "category": "food",
+                    "amount": 40,
+                    "date": "2024-09-22T00:00:00.000Z",
+                    "note": "",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 20
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 20
+                        }
+                    ],
+                    "id": "5bf07656-9c98-428f-b5fc-5d0dfa59bb38"
+                },
+                {
+                    "name": "咖啡麵包",
+                    "category": "food",
+                    "amount": 40,
+                    "date": "2024-09-22T00:00:00.000Z",
+                    "note": "",
+                    "payerId": "u1",
+                    "sharers": [
+                        {
+                            "id": "u1",
+                            "amount": 20
+                        },
+                        {
+                            "id": "u2",
+                            "amount": 20
+                        }
+                    ],
+                    "id": "e2cad9b3-548e-4791-8140-e6a2f8a5c58c"
+                }
+            ],
+            "users": [
+                {
+                    "id": "u1",
+                    "name": "小陳aaaaaaaaaaaa",
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "u2",
+                    "name": "小明bbbbb",
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "a1a68c01-af9b-4e26-bbc3-677bf6b9c3e9",
+                    "name": "3",
+                    "picture": "/images/icons/newUserBG.svg",
+                    "adoptable": true
+                }
+            ]
+        },
+        {
+            "id": "53eb31a1-ec47-4ff6-b605-50750a4c4ade",
+            "name": "未命名群組",
+            "picture": "/images/icons/groupIcon01.svg",
+            "creatorId": "u1",
+            "expenses": [],
+            "users": [
+                {
+                    "id": "u1",
+                    "name": "小陳aaaaaaaaaaaa",
+                    "picture": "https://cdn2.thecatapi.com/images/a4v.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "u2",
+                    "name": "小明bbbbb",
+                    "picture": "https://images.dog.ceo/breeds/spaniel-welsh/n02102177_803.jpg",
+                    "adoptable": false
+                }
+            ]
+        },
+        {
+            "id": "cb9b35ec-9d17-4cae-914f-0799903a748c",
+            "name": "未命名群組",
+            "picture": "/images/icons/groupIcon04.svg",
+            "creatorId": "u3",
+            "expenses": [
+                {
+                    "name": "未命名費用",
+                    "category": "food",
+                    "amount": 240,
+                    "date": "2024-09-30T03:08:17.016Z",
+                    "note": "",
+                    "payerId": "f7811a9b-a2d7-4f57-aeab-a74f7415ac98",
+                    "sharers": [
+                        {
+                            "id": "u3",
+                            "amount": 80
+                        },
+                        {
+                            "id": "f7811a9b-a2d7-4f57-aeab-a74f7415ac98",
+                            "amount": 80
+                        },
+                        {
+                            "id": "081e4dcd-4a9c-47b1-9c1a-d35dc61b6359",
+                            "amount": 80
+                        }
+                    ],
+                    "id": "5bf71378-5c2e-4e70-b967-5ebd74134099"
+                }
+            ],
+            "users": [
+                {
+                    "id": "u3",
+                    "name": "小美的名字c",
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "f7811a9b-a2d7-4f57-aeab-a74f7415ac98",
+                    "name": "6666",
+                    "picture": "",
+                    "adoptable": true
+                },
+                {
+                    "id": "081e4dcd-4a9c-47b1-9c1a-d35dc61b6359",
+                    "name": "888",
+                    "picture": "",
+                    "adoptable": true
+                }
+            ]
+        },
+        {
+            "id": "9adec5af-10fb-49a9-a4f4-fc80020af688",
+            "name": "未命名",
+            "picture": "/images/icons/groupIcon05.svg",
+            "creatorId": "u3",
+            "expenses": [
+                {
+                    "name": "未命名費用",
+                    "category": "food",
+                    "amount": 222111,
+                    "date": "2024-09-30T03:28:13.030Z",
+                    "note": "",
+                    "payerId": "44c4a958-9e53-4452-a749-944d9686d955",
+                    "sharers": [
+                        {
+                            "id": "u3",
+                            "amount": 111055.5
+                        },
+                        {
+                            "id": "44c4a958-9e53-4452-a749-944d9686d955",
+                            "amount": 111055.5
+                        }
+                    ],
+                    "id": "f6c42030-5a3d-441b-be52-2216f8cbfbe8"
+                },
+                {
+                    "name": "未命名費用444",
+                    "category": "food",
+                    "amount": 222,
+                    "date": "2024-09-30T14:40:15.992Z",
+                    "note": "",
+                    "payerId": "44c4a958-9e53-4452-a749-944d9686d955",
+                    "sharers": [
+                        {
+                            "id": "u3",
+                            "amount": 111
+                        },
+                        {
+                            "id": "44c4a958-9e53-4452-a749-944d9686d955",
+                            "amount": 111
+                        }
+                    ],
+                    "id": "f40d6658-c357-4ed6-bb74-a46c641aac84"
+                }
+            ],
+            "users": [
+                {
+                    "id": "u3",
+                    "name": "小美的名字c",
+                    "picture": "https://cdn2.thecatapi.com/images/O7FnoegHR.jpg",
+                    "adoptable": false
+                },
+                {
+                    "id": "44c4a958-9e53-4452-a749-944d9686d955",
+                    "name": "2222",
+                    "picture": "",
+                    "adoptable": true
                 }
             ]
         }
@@ -3013,6 +3635,659 @@
                 {
                     "editedAt": "2024-08-24T00:00:00.000Z",
                     "editorId": "u2"
+                }
+            ]
+        },
+        {
+            "name": "1",
+            "category": "food",
+            "amount": 1500,
+            "date": "2024-08-29T02:21:35.888Z",
+            "note": "",
+            "payerId": "598106f8-2cfd-45e2-9ee3-ac3fe05d4592",
+            "sharers": [
+                {
+                    "id": "u4",
+                    "amount": 300
+                },
+                {
+                    "id": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                    "amount": 300
+                },
+                {
+                    "id": "u5",
+                    "amount": 300
+                },
+                {
+                    "id": "f8b04ae0-e58f-4f33-bdc2-c9815a9f47ae",
+                    "amount": 600
+                }
+            ],
+            "groupId": "d0278763-49db-4043-ba3f-a6f19dca2f1e",
+            "id": "1fc93412-4b71-411f-8a73-08164f596cd2",
+            "creatorId": "u4",
+            "createAt": "2024-08-29T02:21:35.889Z",
+            "updateAt": "2024-08-29T02:21:35.889Z",
+            "historys": [
+                {
+                    "editedAt": "2024-08-29T02:21:35.889Z",
+                    "editorId": "u4"
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "category": "food",
+            "amount": 1000,
+            "date": "2024-08-29T02:22:01.486Z",
+            "note": "",
+            "payerId": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+            "sharers": [
+                {
+                    "id": "u4",
+                    "amount": 200
+                },
+                {
+                    "id": "79c80f7d-ffba-4d4c-9b3e-35f6ba5bae5d",
+                    "amount": 200
+                },
+                {
+                    "id": "u5",
+                    "amount": 200
+                },
+                {
+                    "id": "f8b04ae0-e58f-4f33-bdc2-c9815a9f47ae",
+                    "amount": 400
+                }
+            ],
+            "groupId": "d0278763-49db-4043-ba3f-a6f19dca2f1e",
+            "id": "5548424c-2631-4444-b13f-8ee3b1e45906",
+            "creatorId": "u4",
+            "createAt": "2024-08-29T02:22:01.486Z",
+            "updateAt": "2024-08-29T02:22:01.486Z",
+            "historys": [
+                {
+                    "editedAt": "2024-08-29T02:22:01.486Z",
+                    "editorId": "u4"
+                }
+            ]
+        },
+        {
+            "id": "2d5977b0-2210-4f99-a283-992bf88080ce",
+            "name": "未命名費用",
+            "category": "food",
+            "amount": 2,
+            "date": "2024-09-04T12:35:38.159Z",
+            "note": "",
+            "payerId": "u7",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 0.33
+                },
+                {
+                    "id": "u2",
+                    "amount": 0.33
+                },
+                {
+                    "id": "u3",
+                    "amount": 0.33
+                },
+                {
+                    "id": "u7",
+                    "amount": 0.33
+                },
+                {
+                    "id": "u9",
+                    "amount": 0.33
+                },
+                {
+                    "id": "u10",
+                    "amount": 0.33
+                }
+            ],
+            "groupId": "g9",
+            "creatorId": "u7",
+            "createAt": "2024-09-04T12:35:38.159Z",
+            "updateAt": "2024-09-04T12:35:38.159Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-04T12:35:38.159Z",
+                    "editorId": "u7"
+                }
+            ]
+        },
+        {
+            "id": "bb8290e3-0842-4751-8a2f-5a42b4fa30f5",
+            "name": "未命名費用",
+            "category": "food",
+            "amount": 60000,
+            "date": "2024-09-05T11:15:51.209Z",
+            "note": "",
+            "payerId": "a18f298f-e59d-4df5-8c43-21f15b7b6fdb",
+            "sharers": [
+                {
+                    "id": "ad1fe181-0b0a-4087-8d8d-6440cc43c898",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "u7",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "50106613-572d-47d5-9896-b88c254b863a",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "a18f298f-e59d-4df5-8c43-21f15b7b6fdb",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "27f62856-cd68-4e5b-89e7-fac62c9da598",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "u1",
+                    "amount": 8571.43
+                },
+                {
+                    "id": "44bccd0e-2210-4d39-b902-dd40380f8aaa",
+                    "amount": 8571.43
+                }
+            ],
+            "groupId": "f33d7bb8-3565-4a40-adf2-6529d2ec3c56",
+            "creatorId": "u7",
+            "createAt": "2024-09-05T11:15:51.209Z",
+            "updateAt": "2024-09-05T11:15:51.209Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-05T11:15:51.209Z",
+                    "editorId": "u7"
+                }
+            ]
+        },
+        {
+            "id": "868d335e-4b99-42a6-a049-75e7404aa3a2",
+            "name": "太陽番茄拉麵",
+            "category": "food",
+            "amount": 510,
+            "date": "2024-09-08T13:21:39.517Z",
+            "note": "",
+            "payerId": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+            "sharers": [
+                {
+                    "id": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+                    "amount": 250
+                },
+                {
+                    "id": "u1",
+                    "amount": 260
+                }
+            ],
+            "groupId": null,
+            "creatorId": "u1",
+            "createAt": "2024-09-08T13:21:39.517Z",
+            "updateAt": "2024-09-08T13:21:39.517Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-08T13:21:39.517Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "c5e695a8-0ddf-43b4-a1da-6d388e6bfbdd",
+            "name": "palladium",
+            "category": "food",
+            "amount": 5313.6,
+            "date": "2024-09-08T13:22:11.581Z",
+            "note": "",
+            "payerId": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+            "sharers": [
+                {
+                    "id": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+                    "amount": 2575.8
+                },
+                {
+                    "id": "u1",
+                    "amount": 2737.8
+                }
+            ],
+            "groupId": null,
+            "creatorId": "u1",
+            "createAt": "2024-09-08T13:22:11.581Z",
+            "updateAt": "2024-09-08T13:22:11.581Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-08T13:22:11.581Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "28941b79-9656-4470-b7f8-355ceacbd659",
+            "name": "安全帽",
+            "category": "food",
+            "amount": 528,
+            "date": "2024-09-08T13:23:24.393Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+                    "amount": 528
+                }
+            ],
+            "groupId": null,
+            "creatorId": "u1",
+            "createAt": "2024-09-08T13:23:24.393Z",
+            "updateAt": "2024-09-08T13:23:24.393Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-08T13:23:24.393Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "2afa31c8-2c18-4b89-8db7-c7c74411ae8a",
+            "name": "食鹽水",
+            "category": "food",
+            "amount": 84,
+            "date": "2024-09-08T13:24:49.896Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "a5975fec-3cbd-4294-8abc-cdc4d575d551",
+                    "amount": 84
+                }
+            ],
+            "groupId": null,
+            "creatorId": "u1",
+            "createAt": "2024-09-08T13:24:49.896Z",
+            "updateAt": "2024-09-08T13:24:49.896Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-08T13:24:49.896Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "a824b582-f3fe-4336-aaf1-27f7820a71ac",
+            "name": "阿龍意麵",
+            "category": "food",
+            "amount": 250,
+            "date": "2024-09-20T00:00:00.000Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 125
+                },
+                {
+                    "id": "u2",
+                    "amount": 125
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:44:46.684Z",
+            "updateAt": "2024-09-25T06:44:46.684Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:44:46.684Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "c7cc8822-9952-486b-8be6-754bd142045c",
+            "name": "莉莉水果行",
+            "category": "food",
+            "amount": 166,
+            "date": "2024-09-20T00:00:00.000Z",
+            "note": "水果拼盤、小玉西瓜汁、鳳梨蘋果汁",
+            "payerId": "u2",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 83
+                },
+                {
+                    "id": "u2",
+                    "amount": 83
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:45:24.920Z",
+            "updateAt": "2024-09-25T06:45:24.920Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:45:24.920Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "6b56fa65-edc5-4731-a2c0-8c9a43aa525e",
+            "name": "老江紅茶",
+            "category": "food",
+            "amount": 182,
+            "date": "2024-09-21T00:00:00.000Z",
+            "note": "紅茶鮮奶、蛋餅、吐司兩個",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 91
+                },
+                {
+                    "id": "u2",
+                    "amount": 91
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:46:21.995Z",
+            "updateAt": "2024-09-25T06:46:21.995Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:46:21.995Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "10b07c25-8bb1-48a7-824e-da3022841db9",
+            "name": "水",
+            "category": "food",
+            "amount": 58,
+            "date": "2024-09-21T00:00:00.000Z",
+            "note": "全家領票時順便買水",
+            "payerId": "u2",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 29
+                },
+                {
+                    "id": "u2",
+                    "amount": 29
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:47:26.631Z",
+            "updateAt": "2024-09-25T06:47:26.631Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:47:26.631Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "name": "OOR周邊毛巾",
+            "category": "entertainment",
+            "amount": 550,
+            "date": "2024-09-21T00:00:00.000Z",
+            "note": "Emily買的 我代墊",
+            "payerId": "u2",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 550
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "id": "c6df82c0-40c7-4b2e-90c5-0bce037b258f",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:48:06.466Z",
+            "updateAt": "2024-09-25T06:48:06.466Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:48:06.466Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e6e1dab4-60fe-4a20-9134-1b466133bfbb",
+            "name": "魚皮湯",
+            "category": "food",
+            "amount": 125,
+            "date": "2024-09-22T00:00:00.000Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 62.5
+                },
+                {
+                    "id": "u2",
+                    "amount": 62.5
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:48:48.535Z",
+            "updateAt": "2024-09-25T06:48:48.535Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:48:48.535Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "d43b8cc1-8944-40a7-9b38-aa5d27f6eeef",
+            "name": "牛肉湯",
+            "category": "food",
+            "amount": 370,
+            "date": "2024-09-22T00:00:00.000Z",
+            "note": "牛肉湯、牛肉飯、燙青菜、牛肉炒麵",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 185
+                },
+                {
+                    "id": "u2",
+                    "amount": 185
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:49:30.351Z",
+            "updateAt": "2024-09-25T06:49:30.351Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:49:30.351Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "a1e23a20-9ee8-4273-9898-ac1a1a8771b7",
+            "name": "安平豆花",
+            "category": "food",
+            "amount": 40,
+            "date": "2024-09-22T00:00:00.000Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 20
+                },
+                {
+                    "id": "u2",
+                    "amount": 20
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:50:15.118Z",
+            "updateAt": "2024-09-25T06:50:15.118Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:50:15.118Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "5bf07656-9c98-428f-b5fc-5d0dfa59bb38",
+            "name": "酸梅汁",
+            "category": "food",
+            "amount": 40,
+            "date": "2024-09-22T00:00:00.000Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 20
+                },
+                {
+                    "id": "u2",
+                    "amount": 20
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:50:40.930Z",
+            "updateAt": "2024-09-25T06:50:40.930Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:50:40.930Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "e2cad9b3-548e-4791-8140-e6a2f8a5c58c",
+            "name": "咖啡麵包",
+            "category": "food",
+            "amount": 40,
+            "date": "2024-09-22T00:00:00.000Z",
+            "note": "",
+            "payerId": "u1",
+            "sharers": [
+                {
+                    "id": "u1",
+                    "amount": 20
+                },
+                {
+                    "id": "u2",
+                    "amount": 20
+                }
+            ],
+            "groupId": "099f484c-c928-4ddc-9af1-8c2fe33031c5",
+            "creatorId": "u1",
+            "createAt": "2024-09-25T06:50:59.878Z",
+            "updateAt": "2024-09-25T06:50:59.878Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-25T06:50:59.878Z",
+                    "editorId": "u1"
+                }
+            ]
+        },
+        {
+            "id": "5bf71378-5c2e-4e70-b967-5ebd74134099",
+            "name": "未命名費用",
+            "category": "food",
+            "amount": 240,
+            "date": "2024-09-30T03:08:17.016Z",
+            "note": "",
+            "payerId": "f7811a9b-a2d7-4f57-aeab-a74f7415ac98",
+            "sharers": [
+                {
+                    "id": "u3",
+                    "amount": 80
+                },
+                {
+                    "id": "f7811a9b-a2d7-4f57-aeab-a74f7415ac98",
+                    "amount": 80
+                },
+                {
+                    "id": "081e4dcd-4a9c-47b1-9c1a-d35dc61b6359",
+                    "amount": 80
+                }
+            ],
+            "groupId": "cb9b35ec-9d17-4cae-914f-0799903a748c",
+            "creatorId": "u3",
+            "createAt": "2024-09-30T03:08:17.016Z",
+            "updateAt": "2024-09-30T03:08:17.016Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-30T03:08:17.016Z",
+                    "editorId": "u3"
+                }
+            ]
+        },
+        {
+            "name": "未命名費用",
+            "category": "food",
+            "amount": 222111,
+            "date": "2024-09-30T03:28:13.030Z",
+            "note": "",
+            "payerId": "44c4a958-9e53-4452-a749-944d9686d955",
+            "sharers": [
+                {
+                    "id": "u3",
+                    "amount": 111055.5
+                },
+                {
+                    "id": "44c4a958-9e53-4452-a749-944d9686d955",
+                    "amount": 111055.5
+                }
+            ],
+            "groupId": "9adec5af-10fb-49a9-a4f4-fc80020af688",
+            "id": "f6c42030-5a3d-441b-be52-2216f8cbfbe8",
+            "creatorId": "u3",
+            "createAt": "2024-09-30T03:28:13.030Z",
+            "updateAt": "2024-09-30T03:28:13.030Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-30T03:28:13.030Z",
+                    "editorId": "u3"
+                }
+            ]
+        },
+        {
+            "id": "f40d6658-c357-4ed6-bb74-a46c641aac84",
+            "name": "未命名費用444",
+            "category": "food",
+            "amount": 222,
+            "date": "2024-09-30T14:40:15.992Z",
+            "note": "",
+            "payerId": "44c4a958-9e53-4452-a749-944d9686d955",
+            "sharers": [
+                {
+                    "id": "u3",
+                    "amount": 111
+                },
+                {
+                    "id": "44c4a958-9e53-4452-a749-944d9686d955",
+                    "amount": 111
+                }
+            ],
+            "groupId": "9adec5af-10fb-49a9-a4f4-fc80020af688",
+            "creatorId": "u3",
+            "createAt": "2024-09-30T14:40:15.992Z",
+            "updateAt": "2024-09-30T14:40:15.992Z",
+            "historys": [
+                {
+                    "editedAt": "2024-09-30T14:40:15.992Z",
+                    "editorId": "u3"
                 }
             ]
         }

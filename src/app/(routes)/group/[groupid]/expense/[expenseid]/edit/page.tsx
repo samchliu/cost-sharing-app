@@ -1,7 +1,7 @@
 'use client';
 //import from next & react
 import { useParams } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 //import data
 import { useGroup, useExpense } from '@/app/_components/frontendData/fetchData/Providers';
 import {
@@ -31,7 +31,6 @@ export default function Page() {
   const group: ExtendedGroup = useGroup(groupid);
   const expense: ExtendedExpense = useExpense(groupid, expenseid);
   const [currentExpense, setCurrentExpense] = useState<ExtendedExpense | Expense>(expense);
-  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (expense) {
@@ -40,7 +39,7 @@ export default function Page() {
   }, [expense]);
 
   return (
-    <form ref={formRef} method="post" action={`/group/${groupid}/expense/${expenseid}`}>
+    <div>
       <div className="relative flex flex-col">
         <TopExpenseSettingBar
           group={group}
@@ -84,7 +83,6 @@ export default function Page() {
             <section>
               <NextStepButton
                 isAddExpensePage={false}
-                formRef={formRef}
                 phase={phase}
                 setPhase={setPhase}
                 groupid={groupid}
@@ -95,6 +93,7 @@ export default function Page() {
                 isIncorrectTotalNum={isIncorrectTotalNum}
                 nameExist={nameExist}
                 hasNameLength={hasNameLength}
+                url={`/group/${groupid}/expense/${expenseid}`}
               />
             </section>
           </FadeIn>
@@ -102,6 +101,6 @@ export default function Page() {
           <></>
         )}
       </div>
-    </form>
+    </div>
   );
 }
