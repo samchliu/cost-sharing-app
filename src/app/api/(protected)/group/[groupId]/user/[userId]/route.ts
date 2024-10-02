@@ -10,6 +10,17 @@ export async function PUT(
     if (!groupUser) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
     const clientId = request.headers.get('client-id')!;
+    const group = await prisma.group.findUnique({ where: { id: params.groupId } });
+    if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
+
+    if (group.creatorId === params.userId) {
+      await prisma.group.update({
+        where: { id: params.groupId },
+        data: {
+          creatorId: clientId,
+        },
+      });
+    }
     await prisma.groupUser.updateMany({
       where: { ...params },
       data: {
