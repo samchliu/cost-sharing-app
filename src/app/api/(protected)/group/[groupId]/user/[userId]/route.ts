@@ -82,6 +82,21 @@ export async function DELETE(
     const groupUser = await prisma.groupUser.findUnique({ where: { groupId_userId: params } });
     if (!groupUser) return NextResponse.json({ error: 'User Not Found' }, { status: 404 });
 
+    const group = await prisma.group.findUnique({ where: { id: params.groupId } });
+    if (!group) return NextResponse.json({ error: 'Group Not Found' }, { status: 404 });
+
+    const groupUsers = await prisma.groupUser.findMany({ where: { groupId: params.groupId } });
+    const users = await prisma.user.findMany({
+      where: { id: { in: groupUsers.map((item) => item.userId) } },
+    });
+    if (users.filter((item) => item.id !== params.userId).every((item) => !item.lineId)) {
+      await prisma.group.delete({ where: { id: params.groupId } });
+      await prisma.user.deleteMany({
+        where: { id: { in: users.filter((item) => !item.lineId).map((item) => item.id) } },
+      });
+      return new NextResponse(undefined, { status: 204 });
+    }
+
     const groupCreator = await prisma.group.findMany({
       where: { id: params.groupId, creatorId: params.userId },
     });
@@ -90,14 +105,17 @@ export async function DELETE(
     const sharers = await prisma.sharer.findMany({ where: { userId: params.userId } });
     const historys = await prisma.history.findMany({ where: { editorId: params.userId } });
 
-    if (groupCreator.length + expenses.length + payers.length + sharers.length + historys.length > 0) {
+    if (
+      groupCreator.length + expenses.length + payers.length + sharers.length + historys.length >
+      0
+    ) {
       const successor = await prisma.user.create({
         data: {
           name: user.name,
           picture: '',
         },
       });
-      
+
       await Promise.all([
         prisma.group.update({
           where: { id: params.groupId, creatorId: params.userId },
