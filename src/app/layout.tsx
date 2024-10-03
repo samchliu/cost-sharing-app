@@ -3,9 +3,9 @@ import { inter, notoSansJP, notoSansTC } from '@/app/ui/fonts';
 import { Providers } from '@/app/_components/frontendData/fetchData/Providers';
 
 export const metadata = {
-  title: 'Cost Sharing App',
-  description: 'A tool for splitting costs',
-  metadataBase: new URL('https://nextjs-dasboard-woad.vercel.app'),
+  title: 'Chill後算帳',
+  description: 'Chill Trips, Easy Splits.',
+  metadataBase: new URL('https://cost-sharing-app.vercel.app'),
   alternates: {
     canonical: '/',
     languages: {
@@ -14,27 +14,27 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: 'Cost Sharing App',
-    description: 'A tool for splitting costs',
-    url: 'https://cost-sharing-app.vercel.app/group/',
-    siteName: 'Cost Sharing App',
+    title: 'Chill後算帳',
+    description: 'Chill Trips, Easy Splits.',
+    url: 'https://cost-sharing-app.vercel.app',
+    siteName: 'Chill後算帳',
     images: [
       {
-        url: '/images/200_200.jpg',
-        width: 200,
-        height: 200,
+        url: '/images/1200x630.jpg',
+        width: 1200,
+        height: 630,
         alt: 'A descriptive alt text for the image',
       },
       {
-        url: '/images/600_315.jpg',
+        url: '/images/600x315.jpg',
         width: 600,
         height: 315,
         alt: 'A descriptive alt text for the image',
       },
       {
-        url: '/images/1200_630.jpg',
-        width: 1200,
-        height: 630,
+        url: '/images/200x200.jpg',
+        width: 200,
+        height: 200,
         alt: 'A descriptive alt text for the image',
       },
     ],
