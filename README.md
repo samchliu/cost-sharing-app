@@ -57,7 +57,9 @@ Ensure you have node.js and npm installed
 ## Acknowledgment
 
 UIUX Designer: Wanyu Chen
+
 Frontend Developer: Ruby Chen
+
 Backend Developer: Sam Liu
 
 ---
