@@ -42,7 +42,7 @@ export function GroupInfoBar({ expenseData, group }: GroupInfoBarProps) {
   return (
     <>
       {expenseData && group ? (
-        <div className="mt-16 flex items-center gap-4 border-b-2 py-4 pl-6">
+        <div className="mt-16 flex items-center gap-4 border-b-2 py-4 pl-6 man-w-[320px] max-w-[800px] mx-auto">
           <p>你和</p>
           <div className="flex items-center justify-center gap-2 rounded-full bg-neutrals-30 py-1 pl-3 pr-4">
             {picture ? (
@@ -54,7 +54,7 @@ export function GroupInfoBar({ expenseData, group }: GroupInfoBarProps) {
                 alt={picture}
               />
             ) : null}
-            <div className="max-w-52 truncate">{name}</div>
+            <div className="md:max-w-52 md:truncate">{name}</div>
           </div>
         </div>
       ) : null}

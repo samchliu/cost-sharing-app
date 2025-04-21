@@ -37,7 +37,7 @@ export function FullPageLoading() {
   const [colorIndex, setColorIndex] = useState(0);
   const [frontImageIndex, setFrontImageIndex] = useState(0);
   const [backImageIndex, setBackImageIndex] = useState(0);
-  const colors = ['#EBFF79', '#16120F', '#FF9500', '#A3EA71', '#FA64B5'];
+  const colors = ['#262525', '#262525', '#262525', '#262525', '#262525'];
   const images = [
     '/images/icons/money.svg',
     '/images/icons/tableware.svg',
@@ -62,7 +62,7 @@ export function FullPageLoading() {
   }, []);
 
   return (
-    <div className="fixed left-0 top-0 z-50 w-screen">
+    <div className="fixed left-0 top-0 z-50 w-full mix-w-[320px] max-w-[800px]mx-auto">
       <motion.div
         className="flex min-h-screen flex-col items-center justify-center"
         style={{
@@ -104,6 +104,7 @@ export function FullPageLoading() {
             ></motion.div>
           </motion.div>
         </motion.div>
+        <div className="text-neutral-500 font-bold text-base mb-24">Loading...</div>
       </motion.div>
     </div>
   );

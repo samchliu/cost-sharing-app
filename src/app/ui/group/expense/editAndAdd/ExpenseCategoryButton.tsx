@@ -193,7 +193,7 @@ const Keyboard = ({
     <div
       onClick={handleInputFocus}
       className={clsx(
-        'fixed left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-start bg-highlight-50 transition-all duration-300',
+        'fixed left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-start items-center bg-highlight-50 transition-all duration-300',
         {
           'bottom-0 z-50 transform opacity-100': showKeyboard,
           'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
@@ -201,7 +201,7 @@ const Keyboard = ({
       )}
     >
       <div className="mb-8 mt-5 text-center text-white">選擇類別</div>
-      <div className="flex flex-wrap items-center justify-start gap-y-3 px-4">
+      <div className="flex flex-wrap items-center justify-start gap-y-3 px-4 min-w-[320px] max-w-[600px] w-full">
         {allCategory.map((category, idx) => {
           const Icon: FC<{ strokeWidth: number }> =
             expenseIconMap[category['category'] as keyof typeof expenseIconMap];

@@ -1,46 +1,48 @@
 import { ExtendedExpense, Group, GroupUser } from '../sharedFunction/types';
+import { authFetch } from './authFetch';
 
 //login
 async function login(accessToken: string) {
-  let body = {
-    accessToken: accessToken,
+  const body = {
+    accessToken,
   };
-
-  const res = await fetch(`/api/auth/login`, {
+  localStorage.setItem('accessToken', accessToken);
+  const res = await authFetch(`/api/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(body),
     cache: 'no-store',
   });
-  if (!res.ok) throw Error;
+
+  if (!res || !res.ok) throw new Error('登入失敗');
 
   const data = await res.json();
-
   return data;
 }
 
 //get user
 async function getUser(id: string) {
-  const res = await fetch(`/api/user/${id}`, {
+  const res = await authFetch(`/api/user/${id}`, {
     method: 'GET',
     cache: 'no-store',
   });
 
-  const data = await res.json();
+  if (!res) return null;
 
+  const data = await res.json();
   return data;
 }
 
 //get group
 async function getGroup(id: string) {
-  const res = await fetch(`/api/group/${id}`, {
+  const res = await authFetch(`/api/group/${id}`, {
     method: 'GET',
     cache: 'no-store',
   });
 
+  if (!res) return null;
   const data = await res.json();
 
   return data;
@@ -48,11 +50,12 @@ async function getGroup(id: string) {
 
 //get expense
 async function getExpense(groupId: string, expenseId: string) {
-  const res = await fetch(`/api/group/${groupId}/expense/${expenseId}`, {
+  const res = await authFetch(`/api/group/${groupId}/expense/${expenseId}`, {
     method: 'GET',
     cache: 'no-store',
   });
-
+  
+  if (!res) return null;
   const data = await res.json();
 
   return data;
@@ -172,7 +175,7 @@ async function changeGroup(payload: Group) {
 }
 
 //Adopt a user in the group
-async function adoptGroupUser(groupId: string, userId:string) {
+async function adoptGroupUser(groupId: string, userId: string) {
   let url = `/api/group/${groupId}/user/${userId}`;
 
   const res = await fetch(url, {

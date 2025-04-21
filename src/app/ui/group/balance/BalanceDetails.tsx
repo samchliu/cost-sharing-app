@@ -38,7 +38,7 @@ export function BalanceDetails({ groupUsers, ownerDebt, totalAmount }: Prop) {
       ) : (
         <div className="z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full bg-neutrals-30" />
       )}
-      <div className="max-w-[70px] truncate text-sm">{user.name}</div>
+      <div className="md:max-w-[70px] text-sm">{user.name}</div>
     </div>
   );
 

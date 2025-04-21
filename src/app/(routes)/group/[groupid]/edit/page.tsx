@@ -51,23 +51,25 @@ export default function Page() {
         />
         {isUserInGroup && (
           <FadeIn direction="left">
-            <GroupNameSetting
-              loginUserData={loginUserData}
-              groupData={currentGroup}
-              setCurrentGroup={setCurrentGroup}
-              isAddPage={false}
-              nameExist={groupNameExist}
-              setNameExist={setGroupNameExist}
-              hasNameLength={hasNameLength}
-              setHasNameLength={setHasNameLength}
-            />
-            <GroupUsersSetting
-              groupData={currentGroup}
-              setCurrentGroup={setCurrentGroup}
-              isAddPage={false}
-              loginUserData={null}
-            />
-            <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
+            <div className=" man-w-[320px] mx-auto max-w-[800px]">
+              <GroupNameSetting
+                loginUserData={loginUserData}
+                groupData={currentGroup}
+                setCurrentGroup={setCurrentGroup}
+                isAddPage={false}
+                nameExist={groupNameExist}
+                setNameExist={setGroupNameExist}
+                hasNameLength={hasNameLength}
+                setHasNameLength={setHasNameLength}
+              />
+              <GroupUsersSetting
+                groupData={currentGroup}
+                setCurrentGroup={setCurrentGroup}
+                isAddPage={false}
+                loginUserData={null}
+              />
+              <GroupOtherSetting groupData={currentGroup} setCurrentGroup={setCurrentGroup} />
+            </div>
           </FadeIn>
         )}
       </div>

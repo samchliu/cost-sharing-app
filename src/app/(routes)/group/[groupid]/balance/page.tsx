@@ -43,7 +43,7 @@ export default function Page() {
         <TopGroupBar groupData={group} isBalancePage={true} />
         <FadeIn direction="top">
           <div
-            className={clsx('flex flex-col', {
+            className={clsx('man-w-[320px] mx-auto flex max-w-[800px] flex-col', {
               'items-center': totalAmount === 0,
             })}
           >

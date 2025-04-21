@@ -62,7 +62,7 @@ export default function NoteButton({ expenseData, setCurrentExpense }: Props) {
         }}
       >
         <div onClick={(e: React.SyntheticEvent) => e.stopPropagation()}>
-          <div className="flex items-center justify-between rounded-t-lg bg-highlight-60 px-7 py-2">
+          <div className="mx-auto flex min-w-[320px] max-w-[600px] items-center justify-between rounded-t-lg  bg-highlight-60 px-7 py-2  md:w-[40vw]">
             <div
               className="w-9 text-sm"
               onClick={() => {
@@ -83,7 +83,7 @@ export default function NoteButton({ expenseData, setCurrentExpense }: Props) {
               const selectionEnd = e.target.value.length;
               e.target.setSelectionRange(selectionEnd, selectionEnd);
             }}
-            className="h-36 w-[89vw] resize-none rounded-b-lg border-none bg-white px-7 py-5 focus:border-none focus:outline-none focus:ring-0"
+            className="h-36 w-[39vw] min-w-[320px] max-w-[600px] resize-none rounded-b-lg border-none bg-white px-7 py-5 focus:border-none  focus:outline-none focus:ring-0 md:w-[40vw]"
             onChange={(e) => handleChange(e.target.value)}
             value={textareaValue}
           />

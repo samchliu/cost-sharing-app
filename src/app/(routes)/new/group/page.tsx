@@ -38,28 +38,30 @@ export default function Page() {
             rightCancelLink={`/groups`}
           />
           <FadeIn direction="left">
-            <GroupNameSetting
-              loginUserData={data}
-              groupData={currentGroup}
-              setCurrentGroup={setCurrentGroup}
-              isAddPage={true}
-              nameExist={nameExist}
-              setNameExist={setNameExist}
-              hasNameLength={hasNameLength}
-              setHasNameLength={setHasNameLength}
-            />
-            <GroupUsersSetting
-              groupData={currentGroup}
-              setCurrentGroup={setCurrentGroup}
-              isAddPage={true}
-              loginUserData={data}
-            />
-            <GroupSave
-              groupData={currentGroup}
-              nameExist={nameExist}
-              hasNameLength={hasNameLength}
-              url="/groups"
-            />
+            <div className="min-w-[320px] mx-auto max-w-[800px]">
+              <GroupNameSetting
+                loginUserData={data}
+                groupData={currentGroup}
+                setCurrentGroup={setCurrentGroup}
+                isAddPage={true}
+                nameExist={nameExist}
+                setNameExist={setNameExist}
+                hasNameLength={hasNameLength}
+                setHasNameLength={setHasNameLength}
+              />
+              <GroupUsersSetting
+                groupData={currentGroup}
+                setCurrentGroup={setCurrentGroup}
+                isAddPage={true}
+                loginUserData={data}
+              />
+              <GroupSave
+                groupData={currentGroup}
+                nameExist={nameExist}
+                hasNameLength={hasNameLength}
+                url="/groups"
+              />
+            </div>
           </FadeIn>
         </div>
       </div>

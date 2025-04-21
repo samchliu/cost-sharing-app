@@ -40,7 +40,7 @@ export default function Page() {
 
   return (
     <div>
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col items-center">
         <TopExpenseSettingBar
           group={group}
           expenseData={expense}

@@ -19,7 +19,7 @@ interface Props {
 export function ExpenseSettingStepTwo({ expenseData, setCurrentExpense, group, phase }: Props) {
   return (
     <div
-      className={clsx('my-6 flex w-full flex-col items-center', {
+      className={clsx('my-6 flex w-full flex-col items-center man-w-[320px] max-w-[800px] mx-auto', {
         hidden: phase !== 2,
       })}
     >
@@ -43,7 +43,7 @@ export function ExpenseSettingStepTwo({ expenseData, setCurrentExpense, group, p
                       <div className="h-12 w-12 rounded-full bg-neutrals-20"></div>
                     )}
 
-                    <div className="w-56 truncate">{user.name}</div>
+                    <div className="md:w-56 md:truncate">{user.name}</div>
                   </div>
                   <input
                     className="relative h-5 w-5 rounded-full border-[1.5px] border-black checked:border-black checked:bg-highlight-60 checked:text-highlight-60 checked:before:absolute checked:before:left-[50%] checked:before:top-[50%] checked:before:block checked:before:h-4 checked:before:w-4 checked:before:translate-x-[-50%] checked:before:translate-y-[-50%] checked:before:rounded-full checked:before:bg-highlight-60 hover:checked:border-black focus:ring-transparent checked:focus:border-black active:bg-highlight-60"

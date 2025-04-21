@@ -31,17 +31,15 @@ export default function SharerExpenseDetail({ sharer, users }: Props) {
           {sharerData ? (
             <Image
               className="bg-grey-200 flex h-[32px] w-[32px] items-center justify-center rounded-full"
-              src={sharerData.picture}
+              src={sharerData.picture === '' ? '/images/icons/newUserBG.svg' : sharerData.picture}
               width={32}
               height={32}
               alt="sharer image"
               priority
             />
           ) : null}
-          <div className="ml-3 flex">
-            <div className="max-w-[68px] truncate">
-              {id === loginUserId ? '你' : sharerData?.name}
-            </div>
+          <div className="ml-3 flex flex-wrap items-center">
+            <div className="md:max-w-[68px] truncate">{id === loginUserId ? '你' : sharerData?.name}</div>
             <div>&nbsp;應付</div>
           </div>
         </div>
