@@ -375,7 +375,7 @@ const TotalCalculatorKeyboard = ({
       ref={keyboardRef}
       id="totalCalculatorKeyboard"
       className={clsx(
-        'fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50 transition-all duration-300',
+        'fixed bottom-0 left-[50%] flex h-[340px] w-screen min-w-[320px] translate-x-[-50%] flex-col justify-center bg-highlight-50  transition-all duration-300',
         {
           'bottom-0 z-50 transform opacity-100': showKeyboard,
           'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,
@@ -473,7 +473,7 @@ const SharerCalculatorKeyboard = ({
       ref={keyboardRef}
       id="sharerCalculatorKeyboard"
       className={clsx(
-        'fixed bottom-0 left-[50%] flex h-[340px] w-screen translate-x-[-50%] flex-col justify-center bg-highlight-50 transition-all duration-300',
+        'fixed bottom-0 left-[50%] flex h-[340px] w-screen min-w-[320px] translate-x-[-50%] flex-col justify-center bg-highlight-50  transition-all duration-300',
         {
           'bottom-0 z-50 transform opacity-100': showKeyboard,
           'bottom-[-20px] -z-50 transform opacity-0': !showKeyboard,

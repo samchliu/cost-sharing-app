@@ -42,7 +42,7 @@ export default function DeleteModal({
         id={dialogId}
         aria-modal
         className={clsx(
-          'm-0 mx-auto w-[60%] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300 focus:!border-none focus:outline-none',
+          'm-0 mx-auto w-[60%] min-w-[320px] max-w-[300px] translate-y-[-50%] rounded-lg bg-white drop-shadow-xl transition-all duration-300  focus:!border-none focus:outline-none ',
           {
             'top-[40%] z-50 transform opacity-100  backdrop:bg-highlight-50/80': isShow,
             'top-[45%] -z-50 transform opacity-0 backdrop:bg-highlight-50/20': !isShow,
@@ -53,7 +53,7 @@ export default function DeleteModal({
       >
         <div onClick={(e: React.SyntheticEvent) => e.stopPropagation()}>
           <div className="mb-4 mt-3 flex h-20 items-center justify-center px-6">
-            <div className="text-normal">{hintWord}</div>
+            <div className="text-normal text-center">{hintWord}</div>
           </div>
           <div className="mx-4 mb-3 flex items-center justify-between gap-3">
             <div

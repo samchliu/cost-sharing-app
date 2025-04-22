@@ -80,6 +80,7 @@ export default function AddGroupNameButton({
         onBlur={() => {}}
         type="text"
         defaultValue={name}
+        maxLength={20}
       />
     </div>
   );

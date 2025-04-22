@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useAllContext } from './_components/frontendData/fetchData/Providers';
 import { KVLoading } from './ui/loading/KVLoading';
+import { FullPageLoading } from './ui/loading/FullPageLoading';
+import { GroupsSkeleton, TopBarSkeleton } from './ui/loading/LoadingSkeletons';
 
 export default function HomePage() {
   const { setLoginUserId } = useAllContext();
@@ -31,7 +33,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="relative z-[2] mt-0 w-screen text-center text-3xl">
+    <main className="relative z-[2] mt-0 w-screen min-w-[320px] text-center text-3xl mx-auto">
       <KVLoading />
     </main>
   );

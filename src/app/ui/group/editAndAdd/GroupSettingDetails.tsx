@@ -83,7 +83,7 @@ export function GroupNameSetting({
               setHasNameLength={setHasNameLength}
             />
           ) : (
-            <p className="w-52 truncate text-xl">{name}</p>
+            <p className="md:w-52 text-xl">{name}</p>
           )}
         </div>
         {isAddPage ? null : (

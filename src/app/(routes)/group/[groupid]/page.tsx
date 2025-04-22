@@ -34,7 +34,7 @@ export default function Page() {
   const isUserAdoptable = group?.users?.some((user) => user.adoptable === true);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex max-w-[800px] flex-col mx-auto">
       <Suspense fallback={<UsersBarSkeleton />}>
         <TopGroupBar isBalancePage={false} groupData={group} />
         {isUserInGroup && (

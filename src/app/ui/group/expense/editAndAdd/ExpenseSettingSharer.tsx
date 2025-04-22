@@ -56,7 +56,7 @@ export default function ExpenseSettingSharer({ user, users, sharer, expenseData,
           ) : (
             <div className="h-12 w-12 rounded-full bg-neutrals-20" />
           )}
-          <div className="w-28 truncate">{user.name}</div>
+          <div className="md:w-28 md:truncate">{user.name}</div>
         </div>
         <div className="flex items-center justify-between gap-7">
           <SharerAmountInput

@@ -123,7 +123,7 @@ export function GroupUserButton({
             priority
           />
         )}
-        <p className="w-56 truncate">{userData?.name}</p>
+        <p className="md:w-56">{userData?.name}</p>
       </div>
       {showAdminLabel ? (
         <div className="relative left-[0.3rem] text-sm text-neutrals-70">管理員</div>

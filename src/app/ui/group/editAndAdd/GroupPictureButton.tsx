@@ -99,7 +99,7 @@ export default function GroupPictureButton({ groupData, setCurrentGroup, isAddPa
       </div>
       <div
         className={clsx(
-          'fixed left-0 m-0 h-fit w-full rounded-lg bg-transparent transition-all duration-200',
+          'fixed left-[50%] m-0 h-[100vw] w-screen min-w-[320px] max-w-[1200px] -translate-x-[50%] bg-neutrals-0 transition-all duration-200',
           {
             'top-0 z-50 opacity-100': isShow,
             'top-5 -z-50 opacity-0': !isShow,
@@ -113,7 +113,7 @@ export default function GroupPictureButton({ groupData, setCurrentGroup, isAddPa
           handleLeftClick={handleClose}
           handleRightClick={handleSave}
         />
-        <div className="relative top-[60px] flex max-h-[calc(100vh-56px)] w-full flex-wrap items-start gap-y-0 overflow-scroll">
+        <div className="relative left-[50%] top-[60px] flex h-screen w-full min-w-[320px] max-w-[600px] -translate-x-[50%] flex-wrap content-start items-center justify-center gap-y-0 bg-neutrals-0 md:overflow-y-scroll">
           {allGroupPicture.map((picture, idx) => {
             return (
               <div

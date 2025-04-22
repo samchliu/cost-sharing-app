@@ -111,12 +111,12 @@ function ExpenseButton({
           {Icon ? <Icon strokeWidth={1} /> : null}
         </div>
         <div className="leading-[20px]">
-          <div className="max-w-[150px] truncate font-normal">{name}</div>
+          <div className="font-normal md:max-w-[150px]">{name}</div>
           <div className="font-base flex text-sm text-grey-500">
-            <div className="max-w-[60px] truncate">
+            <div className="md:max-w-[60px] md:truncate">
               {loginUserId === payerId ? '你' : payerData?.name}
             </div>
-            <div>付了</div>
+            <div>&nbsp;付了</div>
             <div>${nf.format(Number(amount))}</div>
           </div>
         </div>

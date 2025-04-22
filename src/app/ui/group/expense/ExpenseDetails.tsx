@@ -33,7 +33,7 @@ export function ExpenseDetailOne({ expenseData }: ExpenseDetailProps) {
           </div>
           <div className="flex grow justify-between pt-4">
             <div className="h-fit">
-              <div className="w-40 truncate text-xl leading-6">{name}</div>
+              <div className="sm:w-36 text-xl leading-6">{name}</div>
               <div className="text-sm leading-4 text-grey-500">
                 {date && format(date, 'yyyy/MM/dd')}
               </div>
@@ -71,8 +71,8 @@ export function ExpenseDetailTwo({ expenseData, users }: ExpenseDetailExtendProp
               />
             ) : null}
             <div className="flex grow items-center justify-between">
-              <div className="flex text-base">
-                <div className="max-w-[92px] truncate">
+              <div className="flex items-center text-base">
+                <div className="md:max-w-[92px]">
                   {loginUserId === payerId ? '你' : payerData?.name}
                 </div>
                 <div>&nbsp;先付了</div>

@@ -41,7 +41,7 @@ Ensure you have node.js and npm installed
 
    `npm install`
 
-3. After installing, use `npm run dev` to run the development server. 
+3. After installing, use `npm run https` to run the development server. 
    - In case the web app doesn’t come out automatically, please navigate to [http://localhost:3000](http://localhost:3000) manually.
    - To terminate the web app, use `ctrl + c` to terminate
 

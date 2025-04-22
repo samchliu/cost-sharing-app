@@ -40,7 +40,7 @@ export default function NameModal({
       {isLoading && <FullPageLoading />}
       <div
         className={clsx(
-          'fixed left-0 m-0 flex h-fit w-full flex-col items-center justify-center rounded-lg bg-transparent transition-all duration-200',
+          'fixed left-[50%] m-0 mx-auto flex h-fit w-full -translate-x-[50%] flex-col items-center justify-center rounded-lg  bg-transparent transition-all duration-200',
           {
             'top-0 z-50 opacity-100': isShow,
             'top-5 -z-50 opacity-0': !isShow,
@@ -54,7 +54,7 @@ export default function NameModal({
           handleLeftClick={() => {}}
           handleRightClick={handleClose}
         />
-        <div className="relative top-[92px] z-40 mx-auto h-fit w-[80%] border-b border-white">
+        <div className="relative top-[92px] z-40 mx-auto h-fit w-[80%] min-w-[320px] max-w-[800px] border-b border-white">
           <input
             ref={inputRef}
             className="relative w-[80%] border-0 bg-transparent px-0 text-xl text-white focus:border-0 focus:outline-none focus:ring-0"
@@ -68,17 +68,20 @@ export default function NameModal({
           </div>
         </div>
         <div
-          className={clsx('relative top-[105px] z-40 mx-auto w-[80%] text-neutrals-50', {
-            block: nameExist,
-            hidden: !nameExist,
-          })}
+          className={clsx(
+            'relative top-[105px] z-40 mx-auto w-[80%] min-w-[320px]  max-w-[800px] text-neutrals-50',
+            {
+              block: nameExist,
+              hidden: !nameExist,
+            }
+          )}
         >
           該{TopBarName}已存在，請重新輸入
         </div>
         <button
           type="button"
           disabled={currentValue === '' || nameExist}
-          className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
+          className="fixed left-[50%] top-56 z-40 mx-auto w-[80%] min-w-[320px] max-w-[800px] translate-x-[-50%] rounded-full bg-highlight-20 py-3 text-center disabled:bg-neutrals-30 disabled:text-text-onDark-secondary"
           onClick={handleSaveLoading}
         >
           儲存

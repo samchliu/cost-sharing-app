@@ -96,10 +96,10 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
         aria-labelledby={headerId}
         onClick={() => {}}
       >
-        <div className="w-[226px]" onClick={(e: React.SyntheticEvent) => e.stopPropagation()}>
-          <div className="flex items-center justify-center gap-2 rounded-t-lg bg-highlight-60 py-2">
+        <div className="md:w-[226px]" onClick={(e: React.SyntheticEvent) => e.stopPropagation()}>
+          <div className="flex items-center justify-center gap-2 rounded-t-lg bg-highlight-60 py-2 px-4">
             <div className="text-sm">立即加入</div>
-            <div className="text-normal max-w-[120px] truncate">{groupData?.name}</div>
+            <div className="text-normal md:max-w-[120px] md:truncate">{groupData?.name}</div>
           </div>
           <div className="flex flex-col items-center justify-center border-none bg-neutrals-0 py-3">
             <span>請問你是?</span>
@@ -124,7 +124,7 @@ export default function JoinGroupModal({ groupData, setCurrentGroup }: Prop) {
                 />
                 <label
                   htmlFor={user.name}
-                  className={clsx('max-w-[130px] truncate', {
+                  className={clsx('md:max-w-[130px] md:truncate', {
                     'text-neutrals-50': !user.adoptable && user.id !== selectedUserId,
                   })}
                 >
